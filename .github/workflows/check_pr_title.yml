@@ -1,0 +1,23 @@
+
+name: Check Pull Request Title
+on:
+  pull_request:
+    types: ['opened', 'edited', 'reopened', 'synchronize']
+
+jobs:
+  check:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/cache@v2.1.5
+      id: cache
+      with:
+        path: '**/node_modules'
+        key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+    - name: Check PR Name
+      uses: actions/setup-node@v2.1.5
+      with:
+        node-version: 14
+    - run: yarn
+      if: steps.cache.outputs.cache-hit != 'true'
+    - run: echo '${{ github.event.pull_request.title }}' | yarn run commitlint
