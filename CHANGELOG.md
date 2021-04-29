@@ -1,6 +1,19 @@
 ### [1.2.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.2.0...v1.2.1) (2021-04-29)
 
 
+### :package: Chore
+
+* **release:** 1.2.1 [skip ci] ([9002932](https://github.com/DorianMaliszewski/coco-ui/commit/90029321d0351d3cb942ee305af8be9ec4a9c1d9))
+
+
+### :bug: Bug Fixes
+
+* change declaration ([dfaaf3a](https://github.com/DorianMaliszewski/coco-ui/commit/dfaaf3a9b60c1f4910806cd01a457484a534b9b3))
+* typescript config ([3412b36](https://github.com/DorianMaliszewski/coco-ui/commit/3412b3600e295b30fe1fdedcbbfbd61a08c5e295))
+
+### [1.2.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.2.0...v1.2.1) (2021-04-29)
+
+
 ### :bug: Bug Fixes
 
 * change declaration ([dfaaf3a](https://github.com/DorianMaliszewski/coco-ui/commit/dfaaf3a9b60c1f4910806cd01a457484a534b9b3))
