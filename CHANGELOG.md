@@ -1,3 +1,10 @@
+## [1.2.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.1.0...v1.2.0) (2021-04-29)
+
+
+### :gear: Features
+
+* add typescript declaration ([#2](https://github.com/DorianMaliszewski/coco-ui/issues/2)) ([ecfaa5f](https://github.com/DorianMaliszewski/coco-ui/commit/ecfaa5fd8d6cdb24dab910b9b2a36743dfafb844))
+
 ## [1.1.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.0.0...v1.1.0) (2021-04-29)
 
 
