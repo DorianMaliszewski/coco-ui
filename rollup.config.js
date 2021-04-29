@@ -15,7 +15,9 @@ const external = [
 const input = 'src/index.ts'
 
 const plugins = [
-  typescript(),
+  typescript({
+    tsconfig: './tsconfig.json',
+  }),
   postcss(),
   nodeResolve({
     preferBuiltins: true,
