@@ -1,3 +1,10 @@
+### [1.3.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.3.0...v1.3.1) (2021-04-29)
+
+
+### :bug: Bug Fixes
+
+* npm package ([f49bed9](https://github.com/DorianMaliszewski/coco-ui/commit/f49bed997ff2606a66b57e65c170cd982f043042))
+
 ## [1.3.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.2.0...v1.3.0) (2021-04-29)
 
 
