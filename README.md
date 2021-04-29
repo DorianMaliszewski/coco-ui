@@ -68,3 +68,6 @@ Colors that are used :
 - info : In presets : `colors.blue`
 - foreground : In presets : `colors.gray[900]`
 - background : In presets : `white`
+- gray : In presets : `colors.gray`
+- white : In presets : `white`
+- black : In presets : `black`

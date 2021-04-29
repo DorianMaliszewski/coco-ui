@@ -47,3 +47,29 @@ Then replace in your `package.json` :
     },
   }
 ```
+
+### Theme configuration
+
+You can import the default presets in your `tailwind.config.js` file :
+
+```
+// tailwind.config.js
+module.exports = {
+  presets: [
+    require('@coco-ui/core/tailwind-theme')
+  ],
+}
+```
+
+Colors that are used :
+
+- primary : In presets : `colors.purple`
+- success : In presets : `colors.green`
+- error : In presets : `colors.red`
+- warning : In presets : `colors.yellow`
+- info : In presets : `colors.blue`
+- foreground : In presets : `colors.gray[900]`
+- background : In presets : `white`
+- gray : In presets : `colors.gray`
+- white : In presets : `white`
+- black : In presets : `black`
