@@ -1,3 +1,10 @@
+### [1.2.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.2.0...v1.2.1) (2021-04-29)
+
+
+### :bug: Bug Fixes
+
+* change declaration ([dfaaf3a](https://github.com/DorianMaliszewski/coco-ui/commit/dfaaf3a9b60c1f4910806cd01a457484a534b9b3))
+
 ## [1.2.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.1.0...v1.2.0) (2021-04-29)
 
 
