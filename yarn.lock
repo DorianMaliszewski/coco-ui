@@ -1427,6 +1427,16 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@coco-ui/core@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@coco-ui/core/-/core-1.3.1.tgz#8072c7836b6e1e57eb1832a74812c8282c6e89df"
+  integrity sha512-RnycjlU214uk6Ng+eC1lUuWqKDUjzTFvaXoC+BbJ/Fz9LUwTbg87eNYj4JELR1HselrjuklXhVTviQGrhUNYaQ==
+  dependencies:
+    "@heroicons/react" "^1.0.1"
+    react "^17.0.2"
+    react-dom "^17.0.2"
+    typescript "^4.1.2"
+
 "@commitlint/cli@^12.1.1":
   version "12.1.1"
   resolved "https://registry.yarnpkg.com/@commitlint/cli/-/cli-12.1.1.tgz#740370e557a8a17f415052821cdd5276ecb0ab98"
