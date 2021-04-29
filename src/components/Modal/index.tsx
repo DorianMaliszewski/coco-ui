@@ -10,7 +10,7 @@ import {
 
 export interface ModalProps extends React.DialogHTMLAttributes<HTMLDivElement> {
   open?: boolean
-  onClose: () => any
+  onClose: () => void
   children?: React.ReactNode
   closeOnOverlayDoubleClick?: boolean
   size?: ModalSize
@@ -26,7 +26,7 @@ const Modal = ({
   position = 'center',
   closeOnOverlayDoubleClick = true,
   'aria-labelledby': ariaLabelledBy,
-}: ModalProps) => {
+}: ModalProps): JSX.Element => {
   const modalState = useModalTransition({
     defaultOpen: open,
     onOpenDuration: 300,

@@ -12,7 +12,7 @@ const TableRow = ({
   className,
   isEven,
   ...props
-}: TableRowProps) => {
+}: TableRowProps): JSX.Element => {
   let classes = ''
   if (hoverable)
     classes += !isEven
@@ -20,7 +20,9 @@ const TableRow = ({
       : 'hover:bg-gray-200 cursor-pointer'
   return (
     <tr
-      className={`${classes} ${!isEven && 'bg-gray-100'} ${className}`}
+      className={`${classes} ${
+        !isEven ? 'bg-gray-100' : 'bg-background'
+      } ${className}`}
       {...props}
     >
       {children}

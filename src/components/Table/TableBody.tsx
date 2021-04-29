@@ -2,11 +2,14 @@ import React from 'react'
 import TableRow from './TableRow'
 
 type TableBodyProps = {
-  data: any[]
   children: React.ReactNode
   hoverable?: boolean
 }
-const TableBody = ({ data, children, hoverable, ...props }: TableBodyProps) => {
+const TableBody = ({
+  children,
+  hoverable,
+  ...props
+}: TableBodyProps): JSX.Element => {
   const finalRows = React.Children.map(children, (child, index) => {
     if (!React.isValidElement(child)) {
       return child

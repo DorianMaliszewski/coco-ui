@@ -6,8 +6,10 @@ export interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode
 }
 
-const StyledBox = injectClassNames('div')`bg-white shadow rounded`
-const Box = ({ children, className, ...props }: BoxProps) => {
+const StyledBox = injectClassNames(
+  'div'
+)`shadow dark:shadow-dark rounded text-foreground dark:text-background`
+const Box = ({ children, className, ...props }: BoxProps): JSX.Element => {
   return (
     <StyledBox className={className} {...props}>
       {children}

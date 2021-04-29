@@ -5,6 +5,7 @@ import pkg from './package.json'
 import svgr from '@svgr/rollup'
 import url from '@rollup/plugin-url'
 import postcss from 'rollup-plugin-postcss'
+import copy from 'rollup-plugin-copy'
 
 const external = [
   ...Object.keys(pkg.dependencies || {}),
@@ -23,6 +24,15 @@ const plugins = [
   svgr({ memo: true }),
   commonjs({
     include: '**/node_modules/**',
+  }),
+  copy({
+    targets: [
+      {
+        src: './tailwind.config.js',
+        dest: 'dist/',
+        rename: 'tailwind-theme.js',
+      },
+    ],
   }),
 ]
 

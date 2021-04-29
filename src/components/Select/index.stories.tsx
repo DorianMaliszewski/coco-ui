@@ -8,7 +8,7 @@ export default {
 } as Meta
 
 export const Basic: Story<SelectProps> = ({ ...props }) => {
-  const ref = React.useRef<any>()
+  const ref = React.useRef<HTMLInputElement>(null)
   const [value, setValue] = React.useState()
 
   return (

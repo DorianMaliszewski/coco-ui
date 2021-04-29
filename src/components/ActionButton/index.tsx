@@ -2,13 +2,14 @@ import injectClassNames from 'helpers/injectClassNames'
 import React from 'react'
 
 const variants = {
-  primary: 'bg-primary-500 text-white hover:bg-primary-600',
+  primary:
+    'bg-primary-500 text-background hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-300',
   outline:
-    'border border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-white',
-  'no-border': `text-primary-500`,
+    'border border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-background focus:outline-none focus:ring-2 focus:ring-primary-300',
+  'no-border': `text-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-300`,
 }
 export interface ActionButtonProps {
-  children: any
+  children: React.ReactNode
   className?: string
   variant: keyof typeof variants
 }
@@ -19,18 +20,18 @@ const StyledButton = injectClassNames(
 
 const StyledButtonContent = injectClassNames(
   'div'
-)`shadow z-10 bg-white absolute left-0 w-full top-full`
+)`shadow z-10 bg-background absolute left-0 w-full top-full mt-1`
 
 const ActionButton = ({
   children,
   className,
   variant,
   ...props
-}: ActionButtonProps) => {
+}: ActionButtonProps): JSX.Element => {
   const [showActions, setShowActions] = React.useState(false)
   const listRef = React.useRef<HTMLDivElement>(null)
-  const content: any[] = []
-  const actions: any[] = []
+  const content: React.ReactNode[] = []
+  const actions: React.ReactNode[] = []
 
   const handleActionClick = (
     childOnClick: React.MouseEventHandler<HTMLDivElement>
@@ -40,8 +41,8 @@ const ActionButton = ({
   }
 
   React.useEffect(() => {
-    const clickHandler = (event: any) => {
-      if (listRef?.current && listRef.current.contains(event.target)) {
+    const clickHandler = (event: MouseEvent) => {
+      if (listRef?.current && listRef.current.contains(event.target as Node)) {
         event.stopPropagation()
       } else {
         setShowActions(false)
@@ -54,7 +55,11 @@ const ActionButton = ({
   }, [])
 
   React.Children.forEach(children, (child, index) => {
-    if (child.type?.displayName === 'ActionButton.Action') {
+    if (!React.isValidElement(child)) {
+      return child
+    }
+    const elementChild: React.ReactElement = child
+    if (elementChild.type === ActionButton.Action) {
       actions.push(
         React.cloneElement(child, {
           key: child.key || index,
@@ -107,7 +112,7 @@ const Action = (props: IActionProps) => {
 
 Action.displayName = 'ActionButton.Action'
 
-interface IContentProps extends React.HTMLAttributes<any> {
+interface IContentProps {
   children: React.ReactNode
 }
 const Content = (props: IContentProps) => {

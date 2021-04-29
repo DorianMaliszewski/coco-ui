@@ -1,9 +1,9 @@
 import React from 'react'
 
-export interface TextInputProps extends React.InputHTMLAttributes<any> {
+export interface TextInputProps
+  extends React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
   className?: string
   multiline?: boolean
-  parentRef?: any
 }
 
 const baseClassName = `border focus:border-primary-600 p-2 rounded outline-none focus:ring-2 ring-primary-200`
@@ -17,7 +17,6 @@ const TextInput = React.forwardRef<
       className = '',
       multiline,
       placeholder = 'Type here...',
-      parentRef,
       ...props
     }: TextInputProps,
     ref

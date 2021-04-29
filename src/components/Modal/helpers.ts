@@ -1,4 +1,4 @@
-const sizes: any = {
+const sizes: Record<string, string> = {
   xs: 'w-1/6',
   sm: 'w-2/6',
   md: 'w-3/6',
@@ -11,7 +11,7 @@ export type ModalSize = keyof typeof sizes
 export type ModalPosition = 'top' | 'right' | 'bottom' | 'left' | 'center'
 export type ModalState = 'closed' | 'opened' | 'opening' | 'closing'
 
-export const getSize = (size: ModalSize) => sizes[size] ?? ''
+export const getSize = (size: ModalSize): string => sizes[size] ?? ''
 
 const fades = {
   fade: {
@@ -24,7 +24,10 @@ const fades = {
   fadeLeft: { in: '-translate-x-0', out: '-translate-x-20' },
 }
 
-const generateFadeAnimations = (): any => {
+const generateFadeAnimations = (): Record<
+  string,
+  Record<string, Record<string, string>>
+> => {
   return Object.entries(fades).reduce(
     (acc, fadeEntry) => ({
       ...acc,
@@ -92,7 +95,7 @@ const getModalDialodClassNames = (
   state: ModalState,
   size: ModalSize
 ) => {
-  const base = `${sizes[size]} flex align-bottom bg-white rounded-lg text-left overflow-visible shadow-xl transform transition-all sm:my-4 sm:align-middle sm:max-w-full p-2`
+  const base = `${sizes[size]} text-foreground flex align-bottom bg-white rounded-lg text-left overflow-visible shadow-xl transform transition-all sm:my-4 sm:align-middle sm:max-w-full p-2`
   switch (state) {
     case 'closed':
     case 'closing':
@@ -124,7 +127,7 @@ const getModalContainerlClassNames = (position: ModalPosition) => {
 
 const getCloseButtonClassNames = (position: ModalPosition, size: ModalSize) => {
   const base =
-    'absolute bg-white rounded-full w-6 h-6 p-1 flex items-center justify-center'
+    'absolute bg-background rounded-full w-6 h-6 p-1 flex items-center justify-center'
 
   if (size === 'full' || position === 'right') {
     return `${base} top-1 right-2`
@@ -138,8 +141,8 @@ export const getModalClassNames = (
   state: ModalState,
   position: ModalPosition,
   size: ModalSize
-) => {
-  const classNames: any = {}
+): Record<string, string> => {
+  const classNames: Record<string, string> = {}
 
   classNames.container = getContainerClassNames(animation, state)
   classNames.background = getBackgroundClassNames(animation, state)

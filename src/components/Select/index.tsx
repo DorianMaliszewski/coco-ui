@@ -4,15 +4,16 @@ import { ReactComponent as Loader } from './loading.svg'
 import { RenderSelectOptionProps } from './Option'
 import OptionList from './OptionList'
 
+export type SelectOptionType = any
 export interface SelectProps {
   className?: string
   id?: string
   name?: string
-  options: any
+  options: SelectOptionType[]
   placeholder?: string
-  onChange: (result: any[] | any) => any
-  value: any
-  parentRef?: React.RefObject<any>
+  onChange: (result: SelectOptionType | SelectOptionType[]) => void
+  value?: SelectOptionType | SelectOptionType[]
+  parentRef?: React.RefObject<HTMLDivElement>
   disabled?: boolean
   readOnly?: boolean
   tabIndex?: number
@@ -21,9 +22,12 @@ export interface SelectProps {
   isMulti?: boolean
   textKey?: string
   valueKey?: string
-  renderSelected?: (values: any) => React.ReactNode
+  renderSelected?: (
+    values: SelectOptionType[] | SelectOptionType
+  ) => React.ReactNode
   renderOption?: (option: RenderSelectOptionProps) => React.ReactNode
 }
+
 const Select = React.forwardRef(
   (
     {
@@ -45,20 +49,27 @@ const Select = React.forwardRef(
       valueKey = 'value',
       renderSelected = (value) =>
         isMulti
-          ? value.map((value: any) => value[textKey]).join(', ')
-          : value[textKey],
+          ? (value as SelectOptionType[])
+              .map((value: SelectOptionType) => value[textKey])
+              .join(', ')
+          : ((value as SelectOptionType)[textKey] as string),
       renderOption,
     }: SelectProps,
-    ref: React.Ref<HTMLInputElement>
+    ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     const [isOpen, setOpen] = React.useState(false)
     const [search, setSearch] = React.useState('')
+    const inputRef = React.useRef<HTMLInputElement>(null)
     const listRef = React.useRef<HTMLDivElement>(null)
-    const containerRef = React.useRef<HTMLDivElement>(parentRef?.current)
+    const containerRef = React.useRef<HTMLDivElement>(
+      parentRef?.current ?? null
+    )
     const [focused, setFocused] = React.useState(0)
     const inputProps = {
       tabIndex: tabIndex ?? -1,
     }
+
+    React.useImperativeHandle(ref, () => inputRef.current as HTMLInputElement)
 
     const handleKeyDown = (event: React.KeyboardEvent) => {
       if (!isOpen) {
@@ -87,28 +98,29 @@ const Select = React.forwardRef(
       }
     }
 
-    const handleClickForMulti = (option: any) => {
+    const handleClickForMulti = (option: SelectOptionType) => {
       if (!value) {
         onChange([option])
         return
       }
-      const index = value?.findIndex(
-        (v: any) => v[valueKey] === option[valueKey]
+      const typedValue = value as SelectOptionType[]
+      const index = typedValue?.findIndex(
+        (v: SelectOptionType) => v[valueKey] === option[valueKey]
       )
       if (index > -1) {
-        const tmp = [...value]
+        const tmp = [...typedValue]
         tmp.splice(index, 1)
         onChange([...tmp])
       } else {
-        onChange([...value, option])
+        onChange([...typedValue, option])
       }
 
-      ;(ref as React.RefObject<any>)?.current.focus()
+      inputRef.current?.focus()
     }
 
-    const handleClickForSingle = (option: any) => {
+    const handleClickForSingle = (option: SelectOptionType) => {
       onChange(option)
-      setSearch(option[textKey])
+      setSearch(option[textKey] as string)
       setOpen(false)
     }
 
@@ -123,7 +135,7 @@ const Select = React.forwardRef(
           selectElement === event.target
         ) {
           setOpen(true)
-          ;(ref as React.RefObject<any>)?.current.focus()
+          inputRef.current?.focus()
         } else {
           setOpen(false)
         }
@@ -139,7 +151,7 @@ const Select = React.forwardRef(
     React.useEffect(() => {
       if (isOpen) {
         const selected = options.findIndex(
-          (option: any) => option[valueKey] === value
+          (option: SelectOptionType) => option[valueKey] === value
         )
         if (selected > -1) {
           setFocused(selected)
@@ -154,11 +166,11 @@ const Select = React.forwardRef(
         setSearch((currentSearch) => {
           if (!currentSearch) {
             return value
-              ? options.find(
-                  (option: any) =>
+              ? (options.find(
+                  (option: SelectOptionType) =>
                     option[valueKey] === value ||
-                    option[valueKey] === value[valueKey]
-                )?.[textKey]
+                    option[valueKey] === (value as SelectOptionType)[valueKey]
+                )?.[textKey] as string)
               : ''
           }
           return currentSearch
@@ -173,7 +185,7 @@ const Select = React.forwardRef(
           !disabled && !readOnly && !isLoading
             ? 'focus-within:border-primary-600'
             : ''
-        } border-gray-300 rounded p-2 flex items-center ${
+        } bg-background border-gray-300 rounded p-2 flex items-center ${
           disabled ? 'bg-gray-50 cursor-not-allowed pointer-events-none' : ''
         } ${className ?? ''}`}
         aria-disabled={disabled}
@@ -184,27 +196,28 @@ const Select = React.forwardRef(
             <>
               {value && (
                 <div className="flex outline-none mr-1">
-                  {renderSelected(value || [])}
+                  {renderSelected((value as SelectOptionType[]) || [])}
                 </div>
               )}
               <input
                 className={`flex-grow outline-none ${
-                  isLoading && 'pointer-events-none cursor-not-allowed'
+                  isLoading &&
+                  'bg-transparent pointer-events-none cursor-not-allowed'
                 } ${disabled && 'opacity-50'}`}
                 aria-expanded={isOpen}
                 aria-controls={name + '-list'}
                 aria-owns={name + '-list'}
                 aria-activedescendant={
-                  options.find((option: any) => option[valueKey] === value)?.[
-                    valueKey
-                  ]
+                  options.find(
+                    (option: SelectOptionType) => option[valueKey] === value
+                  )?.[valueKey] as string
                 }
                 role="combobox"
                 aria-haspopup="listbox"
                 id={id}
                 placeholder={placeholder || 'Select...'}
                 {...inputProps}
-                ref={ref}
+                ref={inputRef}
                 disabled={disabled}
                 readOnly={readOnly || !isSearchable}
                 onKeyDown={(event) => {
@@ -233,21 +246,23 @@ const Select = React.forwardRef(
           ) : (
             <>
               <input
-                className={`w-full outline-none ${
+                className={`bg-transparent w-full outline-none ${
                   isLoading && 'pointer-events-none cursor-not-allowed'
                 } ${disabled && 'opacity-50'}`}
                 aria-expanded={isOpen}
                 aria-controls={name + '-list'}
                 aria-owns={name + '-list'}
                 aria-activedescendant={
-                  options.find((option: any) => option.value === value)?.value
+                  options.find(
+                    (option: SelectOptionType) => option[valueKey] === value
+                  )?.[valueKey] as string
                 }
                 role="combobox"
                 aria-haspopup="listbox"
                 type="text"
                 id={id}
                 {...inputProps}
-                ref={ref}
+                ref={inputRef}
                 disabled={disabled}
                 readOnly={readOnly || isLoading || !isSearchable}
                 placeholder={placeholder || 'Select...'}
@@ -303,8 +318,8 @@ const Select = React.forwardRef(
             options={
               !isSearchable || !search
                 ? options
-                : options?.filter((option: any) =>
-                    option[textKey]
+                : options?.filter((option: SelectOptionType) =>
+                    (option[textKey] as string)
                       ?.toLowerCase()
                       .replace(/\s+/g, '')
                       .includes(search.toLowerCase().replace(/\s+/g, ''))
@@ -315,7 +330,10 @@ const Select = React.forwardRef(
             textKey={textKey}
             focused={focused}
             renderOption={renderOption}
-            onOptionClick={(option: any, event: React.MouseEvent) => {
+            onOptionClick={(
+              option: SelectOptionType,
+              event: React.MouseEvent
+            ) => {
               event.preventDefault()
               event.stopPropagation()
               isMulti

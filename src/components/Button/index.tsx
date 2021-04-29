@@ -4,12 +4,12 @@ const baseClassName =
   'focus:outline-none hover:shadow my-1 flex p-3 rounded items-center justify-center'
 
 const variants = {
-  primary: `${baseClassName} bg-primary-600 text-white hover:bg-primary-500`,
-  default: `${baseClassName} bg-white text-black`,
-  success: `${baseClassName} bg-green-700 text-white`,
-  error: `${baseClassName} bg-red-700 text-white`,
-  warning: `${baseClassName} bg-yellow-300 text-black`,
-  info: `${baseClassName} bg-blue-700 text-white`,
+  primary: `${baseClassName} bg-primary-600 text-white hover:bg-primary-700 focus:ring focus:ring-offset-1 focus:ring-primary-300`,
+  default: `${baseClassName} bg-white text-foreground shadow focus:ring focus:ring-offset-1 focus:ring-foreground`,
+  success: `${baseClassName} bg-success-600 text-white hover:bg-success-700 focus:ring focus:ring-offset-1 focus:ring-success-300`,
+  error: `${baseClassName} bg-error-600 text-white hover:bg-error-700 focus:ring focus:ring-offset-1 focus:ring-error-300`,
+  warning: `${baseClassName} bg-warning-400 text-white hover:bg-warning-500 focus:ring focus:ring-offset-1 focus:ring-warning-200`,
+  info: `${baseClassName} bg-info-600 text-white hover:bg-info-700 focus:ring focus:ring-offset-1 focus:ring-info-300`,
   transparent: `${baseClassName} bg-transparent`,
   link: `bg-transparent underline font-bold`,
 }
@@ -19,7 +19,7 @@ export interface ButtonProps
   tabIndex: number
   className?: string
   variant: keyof typeof variants
-  onClick?: (event: React.MouseEvent) => any
+  onClick?: (event: React.MouseEvent) => boolean | void
   type?: 'button' | 'submit' | 'reset' | undefined
   children?: React.ReactNode
 }
@@ -29,7 +29,7 @@ const Button = ({
   className,
   variant,
   ...props
-}: ButtonProps) => {
+}: ButtonProps): JSX.Element => {
   return (
     <button
       tabIndex={tabIndex}

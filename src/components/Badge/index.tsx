@@ -8,7 +8,7 @@ const variants = {
 }
 
 export interface BadgeProps {
-  variant?: keyof typeof variants
+  variant: keyof typeof variants
   className?: string
   children?: React.ReactNode
 }
@@ -17,8 +17,13 @@ const StyledBadge = injectClassNames(
   'div'
 )`flex rounded items-center justify-center`
 
-const Badge = ({ variant, children, className, ...props }: BadgeProps) => (
-  <StyledBadge className={`${variants[variant!]} ${className}`} {...props}>
+const Badge = ({
+  variant,
+  children,
+  className,
+  ...props
+}: BadgeProps): JSX.Element => (
+  <StyledBadge className={`${variants[variant]} ${className}`} {...props}>
     {children}
   </StyledBadge>
 )

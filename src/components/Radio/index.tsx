@@ -18,7 +18,7 @@ const Radio = ({
   label,
   labelPosition = 'left',
   className = '',
-}: RadioProps) => {
+}: RadioProps): JSX.Element => {
   return !label ? (
     <div className="cursor-pointer flex items-center m-1">
       <div

@@ -4,8 +4,8 @@ import useDebounce from 'hooks/useDebounce'
 import React from 'react'
 
 type TooltipPosition = 'top' | 'right' | 'bottom' | 'left'
-export interface TooltipProps extends React.InputHTMLAttributes<any> {
-  className?: string
+export interface TooltipProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   text?: string
   render?: React.ReactNode
   children?: React.ReactNode
@@ -14,12 +14,11 @@ export interface TooltipProps extends React.InputHTMLAttributes<any> {
 }
 
 const Tooltip = ({
-  className = '',
   render,
   children,
   toolptipId,
   position = 'top',
-}: TooltipProps) => {
+}: TooltipProps): JSX.Element => {
   const [isOpen, setIsOpen] = React.useState(false)
   const visible = useDebounce(isOpen, 200)
   const id = React.useMemo(() => toolptipId ?? makeUUID(), [toolptipId])

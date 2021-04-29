@@ -1,7 +1,7 @@
 import injectClassNames from 'helpers/injectClassNames'
 import React from 'react'
 
-export const getStringFromAlt = (altStr: any) => {
+export const getStringFromAlt = (altStr: string): string => {
   if (!altStr) return ''
   const array = altStr.split(' ')
   if (array.length > 1) {
@@ -10,7 +10,8 @@ export const getStringFromAlt = (altStr: any) => {
   return array.length ? `${array[0].substr(0, 1)}`.toUpperCase() : ''
 }
 
-export interface AvatarProps extends React.ImgHTMLAttributes<any> {
+export interface AvatarProps
+  extends React.HTMLAttributes<HTMLImageElement | HTMLDivElement> {
   size: number
   src?: string
   className?: string
@@ -25,7 +26,13 @@ const StyledDiv = injectClassNames(
   'div'
 )`rounded-full bg-gray-300 flex justify-center items-center p-4`
 
-const Avatar = ({ size, src, alt, className, ...props }: AvatarProps) => {
+const Avatar = ({
+  size,
+  src,
+  alt,
+  className,
+  ...props
+}: AvatarProps): JSX.Element => {
   return src ? (
     <StyledImg
       src={src}

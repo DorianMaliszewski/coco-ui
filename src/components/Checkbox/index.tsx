@@ -8,7 +8,7 @@ const variants = {
         checked ? 'bg-primary-500' : 'border border-gray-300'
       }`,
     check: (checked: boolean) =>
-      `${checked ? 'fill-current text-white' : 'hidden'}`,
+      `${checked ? 'fill-current text-background' : 'hidden'}`,
   },
 }
 
@@ -38,11 +38,11 @@ const Checkbox = React.forwardRef(
       onChange,
       variant = 'basic',
     }: CheckboxProps,
-    ref: any
+    ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     const inputRef = React.useRef<HTMLInputElement>(null)
 
-    React.useImperativeHandle(ref, () => inputRef.current)
+    React.useImperativeHandle(ref, () => inputRef.current as HTMLInputElement)
 
     return !label ? (
       <label

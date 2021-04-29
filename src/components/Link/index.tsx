@@ -1,13 +1,13 @@
 import React from 'react'
 
-interface ILinkProps {
+export interface LinkProps {
   as?: string
   className: string
   children: React.ReactNode
   to: string
 }
 
-const Link = ({ className, children, ...props }: ILinkProps) => {
+const Link = ({ className, children, ...props }: LinkProps): JSX.Element => {
   return (
     <button
       role="link"
@@ -21,6 +21,6 @@ const Link = ({ className, children, ...props }: ILinkProps) => {
 
 Link.defaultProps = {
   className: '',
-} as Partial<ILinkProps>
+} as Partial<LinkProps>
 
 export default Link

@@ -17,7 +17,7 @@ const GridItem = ({
   rowStart,
   colEnd,
   rowEnd,
-}: GridItemProps) => {
+}: GridItemProps): JSX.Element => {
   let itemClassNames = ''
 
   if (colSpan) {
