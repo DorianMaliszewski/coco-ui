@@ -1,3 +1,10 @@
+### [1.3.2](https://github.com/DorianMaliszewski/coco-ui/compare/v1.3.1...v1.3.2) (2021-04-29)
+
+
+### :bug: Bug Fixes
+
+* test again config ([84532a4](https://github.com/DorianMaliszewski/coco-ui/commit/84532a4ef4cf15fe2691a8e66c0f240bcf1c4265))
+
 ### [1.3.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.3.0...v1.3.1) (2021-04-29)
 
 
