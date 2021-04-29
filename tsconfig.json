@@ -17,12 +17,13 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
     "jsx": "react",
     "baseUrl": "src",
+     "declaration": true,
+     "outDir": "./",
   },
   "include": [
-    "src"
+    "src/**/*"
   ],
   "exclude": [
     "postcss.config.js",
