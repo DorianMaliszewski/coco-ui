@@ -1,21 +1,22 @@
 import { CheckIcon } from '@heroicons/react/solid'
 import React from 'react'
+import { SelectOptionType } from '.'
 
 export interface RenderSelectOptionProps {
-  option: any
+  option: SelectOptionType
   isSelected?: boolean
 }
 
 interface OptionProps {
   isMulti?: boolean
-  value: any
+  value: SelectOptionType | SelectOptionType[]
   valueKey: string
   textKey: string
-  option: any
+  option: SelectOptionType
   focused: number
   index: number
   renderOption?: (option: RenderSelectOptionProps) => React.ReactNode
-  onOptionClick: (option: any, event: React.MouseEvent) => any
+  onOptionClick: (option: SelectOptionType, event: React.MouseEvent) => void
 }
 
 const Option = ({
@@ -35,10 +36,12 @@ const Option = ({
     </>
   ),
   onOptionClick,
-}: OptionProps) => {
+}: OptionProps): JSX.Element => {
   const isSelected = React.useMemo(() => {
     return isMulti
-      ? value?.findIndex((v: any) => v[valueKey] === option[valueKey]) > -1
+      ? (value as SelectOptionType[])?.findIndex(
+          (v: SelectOptionType) => v[valueKey] === option[valueKey]
+        ) > -1
       : option[valueKey] === value
   }, [value, valueKey, option, isMulti])
 

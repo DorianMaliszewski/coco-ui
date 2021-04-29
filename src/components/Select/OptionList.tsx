@@ -1,15 +1,16 @@
 import React from 'react'
+import { SelectOptionType } from '.'
 import Option, { RenderSelectOptionProps } from './Option'
 
 interface OptionListProps {
   focused: number
   isOpen?: boolean
   name: string
-  options: any
-  onOptionClick: (option: any, event: React.MouseEvent) => any
+  options: SelectOptionType[]
+  onOptionClick: (option: SelectOptionType, event: React.MouseEvent) => void
   valueKey: string
   textKey: string
-  value: any
+  value: SelectOptionType | SelectOptionType[]
   isMulti?: boolean
   renderOption?: (optionProps: RenderSelectOptionProps) => React.ReactNode
 }
@@ -41,7 +42,7 @@ const OptionList = React.forwardRef<HTMLDivElement, OptionListProps>(
         id={name + '-list'}
         role="listbox"
       >
-        {options.map((option: any, index: number) => (
+        {options.map((option: SelectOptionType, index: number) => (
           <Option
             renderOption={renderOption}
             focused={focused}

@@ -7,7 +7,7 @@ export default {
   component: Grid,
 } as Meta
 
-const Template: Story<any> = (args) => <Grid {...args} />
+const Template: Story = (args) => <Grid {...args} />
 
 export const Basic = Template.bind({})
 Basic.args = {

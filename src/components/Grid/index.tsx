@@ -18,7 +18,7 @@ const Grid = ({
   autoCols,
   autoRows,
   children,
-}: GridProps) => {
+}: GridProps): JSX.Element => {
   let gridClassNames = 'grid'
 
   if (autoRows) {

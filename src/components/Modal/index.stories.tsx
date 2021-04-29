@@ -8,11 +8,7 @@ export default {
   component: Modal,
 } as Meta
 
-export const Basic: Story<ModalProps> = ({
-  open,
-  onClose,
-  ...props
-}: ModalProps) => {
+export const Basic: Story<ModalProps> = ({ open, ...props }: ModalProps) => {
   const [isOpen, setIsOpen] = React.useState(open)
 
   return (

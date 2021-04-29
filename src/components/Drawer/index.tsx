@@ -45,7 +45,7 @@ const animations = {
 
 export interface DrawerProps {
   open: boolean
-  onClose?: (event: React.MouseEvent) => any
+  onClose?: (event: React.MouseEvent) => void
   position: keyof typeof positions
   children?: React.ReactNode
   hasBackdrop?: boolean
@@ -59,7 +59,7 @@ const Drawer = ({
   hasCloseButton,
   position,
   onClose,
-}: DrawerProps) => {
+}: DrawerProps): JSX.Element => {
   const [isVisible, setIsVisible] = React.useState(open)
   React.useEffect(() => {
     const handler = setTimeout(
@@ -76,23 +76,21 @@ const Drawer = ({
       onDoubleClick={onClose}
       className={
         isVisible
-          ? `z-10 fixed left-O top-0 bg-opacity-20 bg-black w-full h-full`
+          ? `z-10 fixed left-O top-0 bg-opacity-20 bg-foreground w-full h-full`
           : `sr-only`
       }
     >
       <div
         onDoubleClick={(e) => e.stopPropagation()}
-        className={`bg-white fixed ${
-          positions[position!]?.container
+        className={`bg-background fixed ${
+          positions[position]?.container
         } p-2 shadow ${animations.slide(open, position)}`}
       >
         {isVisible ? (
           <>
             {hasCloseButton && (
               <XIcon
-                className={`${
-                  positions[position!]?.closeButton
-                } stroke-current fill-current text-black stroke-0 p-2 w-8 h-8 bg-white shadow-xl overflow-hidden rounded-full`}
+                className={`${positions[position]?.closeButton} stroke-current fill-current text-foreground stroke-0 p-2 w-8 h-8 bg-background shadow-xl overflow-hidden rounded-full`}
                 onClick={onClose}
                 role="button"
               />
@@ -104,17 +102,15 @@ const Drawer = ({
     </div>
   ) : (
     <div
-      className={`z-10 bg-white fixed ${
-        positions[position!]?.container
+      className={`z-10 bg-background fixed ${
+        positions[position]?.container
       } p-2 shadow ${animations.slide(open, position)}`}
     >
       {isVisible ? (
         <>
           {hasCloseButton && (
             <XIcon
-              className={`${
-                positions[position!]?.closeButton
-              } stroke-current fill-current text-black stroke-0 p-2 w-8 h-8 bg-white shadow-xl overflow-hidden rounded-full`}
+              className={`${positions[position]?.closeButton} stroke-current fill-current text-foreground stroke-0 p-2 w-8 h-8 bg-background shadow-xl overflow-hidden rounded-full`}
               onClick={onClose}
               role="button"
             />

@@ -4,5 +4,7 @@ export default create({
   base: 'light',
   brandTitle: 'COCO UI',
   brandUrl: 'https://coco-erp.fr',
-  // brandImage: 'https://coco-erp.fr/assets/img/choque.png',
+
+  colorPrimary: '#8B5CF6',
+  colorSecondary: '#F97316',
 })

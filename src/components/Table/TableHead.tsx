@@ -3,7 +3,7 @@ import React from 'react'
 type TableHeadProps = {
   columns: { name: string }[]
 }
-const TableHead = ({ columns, ...props }: TableHeadProps) => {
+const TableHead = ({ columns, ...props }: TableHeadProps): JSX.Element => {
   return (
     <thead {...props}>
       <tr className="bg-primary-500 text-white uppercase text-sm leading-normal">

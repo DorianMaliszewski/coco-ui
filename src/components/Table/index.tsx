@@ -8,8 +8,13 @@ export interface TableProps {
   className?: string
   hoverable?: boolean
 }
-const Table = ({ children, className, hoverable, ...props }: TableProps) => {
-  const finalChildren = React.Children.map(children, (child, index) => {
+const Table = ({
+  children,
+  className,
+  hoverable,
+  ...props
+}: TableProps): JSX.Element => {
+  const finalChildren = React.Children.map(children, (child) => {
     if (!React.isValidElement(child)) {
       return child
     }
@@ -35,7 +40,7 @@ Table.Head = TableHead
 Table.Body = TableBody
 Table.Row = TableRow
 
-type TableCellProps = React.TdHTMLAttributes<any> & {
+type TableCellProps = React.TdHTMLAttributes<HTMLTableCellElement> & {
   children: React.ReactNode
 }
 const TableCell = ({ children, ...props }: TableCellProps) => (

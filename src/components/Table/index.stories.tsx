@@ -21,7 +21,7 @@ export const Basic: Story<TableProps> = ({ hoverable }: TableProps) => {
       <Table.Head
         columns={[{ name: 'Id' }, { name: 'Name' }, { name: 'Skills' }]}
       />
-      <Table.Body data={fakeData(30)}>
+      <Table.Body>
         {fakeData(30).map((row) => (
           <Table.Row key={row.id}>
             <Table.Cell>{row.id}</Table.Cell>
