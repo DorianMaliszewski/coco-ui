@@ -43,7 +43,7 @@ export default [
     input,
     output: {
       file: pkg.module,
-      format: 'esm',
+      format: 'es',
       sourcemap: true,
     },
     plugins,

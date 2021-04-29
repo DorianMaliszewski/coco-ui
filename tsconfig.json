@@ -20,13 +20,16 @@
     "jsx": "react",
     "baseUrl": "src",
      "declaration": true,
-     "outDir": "./",
+     "declarationDir": "./",
+     "emitDeclarationOnly": true,
+     "outDir": "./dist",
   },
   "include": [
     "src/**/*"
   ],
   "exclude": [
     "postcss.config.js",
-    "tailwind.config.js"
+    "tailwind.config.js",
+    "node_modules"
   ]
 }
