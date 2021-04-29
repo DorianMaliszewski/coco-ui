@@ -3,8 +3,9 @@
   "version": "1.2.0",
   "private": false,
   "license": "MIT",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.esm.js",
+  "types": "dist/index.d.ts",
   "author": {
     "email": "maliszewskid3@gmail.com",
     "name": "Dorian Maliszewski",
@@ -12,7 +13,7 @@
   },
   "homepage": "https://dorianmaliszewski.github.io/coco-ui",
   "files": [
-    "./dist"
+    "./dist/*"
   ],
   "dependencies": {
     "@heroicons/react": "^1.0.1",
