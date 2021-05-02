@@ -1,3 +1,10 @@
+## [1.4.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.3.2...v1.4.0) (2021-05-02)
+
+
+### :gear: Features
+
+* add loader ([bf5646b](https://github.com/DorianMaliszewski/coco-ui/commit/bf5646b465e781725653f11f164d24255bf6718c))
+
 ### [1.3.2](https://github.com/DorianMaliszewski/coco-ui/compare/v1.3.1...v1.3.2) (2021-04-29)
 
 
