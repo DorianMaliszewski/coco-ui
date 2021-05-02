@@ -1,3 +1,10 @@
+### [1.4.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.4.0...v1.4.1) (2021-05-02)
+
+
+### :bug: Bug Fixes
+
+* purge colors ([6f17af3](https://github.com/DorianMaliszewski/coco-ui/commit/6f17af335f0173ce659858939390059ee7638a48))
+
 ## [1.4.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.3.2...v1.4.0) (2021-05-02)
 
 
