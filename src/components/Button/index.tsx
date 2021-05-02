@@ -19,7 +19,7 @@ export interface ButtonProps
   tabIndex: number
   className?: string
   variant: keyof typeof variants
-  onClick?: (event: React.MouseEvent) => boolean | void
+  onClick?: (event: React.MouseEvent) => unknown
   type?: 'button' | 'submit' | 'reset' | undefined
   children?: React.ReactNode
 }

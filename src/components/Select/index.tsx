@@ -1,8 +1,8 @@
 import React from 'react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
-import { ReactComponent as Loader } from './loading.svg'
 import { RenderSelectOptionProps } from './Option'
 import OptionList from './OptionList'
+import Loader from 'components/Loader'
 
 export type SelectOptionType = any
 export interface SelectProps {
@@ -11,7 +11,7 @@ export interface SelectProps {
   name?: string
   options: SelectOptionType[]
   placeholder?: string
-  onChange: (result: SelectOptionType | SelectOptionType[]) => void
+  onChange: (result: SelectOptionType | SelectOptionType[]) => unknown
   value?: SelectOptionType | SelectOptionType[]
   parentRef?: React.RefObject<HTMLDivElement>
   disabled?: boolean
@@ -295,7 +295,7 @@ const Select = React.forwardRef(
             </>
           )}
           {!isLoading && !readOnly && (
-            <span className="flex px-1">
+            <span className="flex mx-1 h-6 w-6 items-center justify-center">
               <ChevronDownIcon
                 width={12}
                 height={12}
@@ -306,7 +306,7 @@ const Select = React.forwardRef(
             </span>
           )}
           {isLoading && (
-            <Loader className="animate-spin mx-1 h-5 w-5 text-primary-400" />
+            <Loader className="mx-1" size="sm" color="primary-800" />
           )}
         </div>
         {!isLoading && (

@@ -1,7 +1,8 @@
 import React from 'react'
 
-export interface TextInputProps
-  extends React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
+type TextInputType = React.InputHTMLAttributes<HTMLInputElement> &
+  React.TextareaHTMLAttributes<HTMLTextAreaElement>
+export interface TextInputProps extends TextInputType {
   className?: string
   multiline?: boolean
 }
