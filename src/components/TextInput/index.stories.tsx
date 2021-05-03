@@ -11,3 +11,7 @@ const Template: Story<TextInputProps> = (args) => <TextInput {...args} />
 
 export const Basic = Template.bind({})
 Basic.args = {}
+export const WithLabel = Template.bind({})
+WithLabel.args = {
+  label: 'My awesome label',
+}

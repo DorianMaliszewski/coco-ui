@@ -11,6 +11,8 @@ export interface SelectProps {
   name?: string
   options: SelectOptionType[]
   placeholder?: string
+  label?: string
+  labelVariant?: 'outside' | 'inside'
   onChange: (result: SelectOptionType | SelectOptionType[]) => unknown
   value?: SelectOptionType | SelectOptionType[]
   parentRef?: React.RefObject<HTMLDivElement>
@@ -40,6 +42,8 @@ const Select = React.forwardRef(
       value,
       parentRef,
       disabled,
+      label,
+      labelVariant = 'outside',
       readOnly,
       tabIndex,
       isLoading,
@@ -146,7 +150,7 @@ const Select = React.forwardRef(
         window.removeEventListener('click', handleSelectClick)
         window.removeEventListener('touchstart', handleSelectClick)
       }
-    }, [containerRef, disabled, readOnly, isOpen, ref])
+    }, [containerRef, disabled, readOnly, isOpen, inputRef])
 
     React.useEffect(() => {
       if (isOpen) {
@@ -178,19 +182,38 @@ const Select = React.forwardRef(
       }
     }, [isMulti, value, options, valueKey, textKey])
 
-    return (
+    const labelRender = {
+      inside: (
+        <label
+          htmlFor={id}
+          className="text-xs text-gray-500 px-2 absolute top-0 left-0"
+        >
+          {label}
+        </label>
+      ),
+      outside: (
+        <label htmlFor={id} className="text-xs text-gray-500 px-2">
+          {label}
+        </label>
+      ),
+    }
+
+    const selectRender = (
       <div
         ref={containerRef}
         className={`relative border ${
           !disabled && !readOnly && !isLoading
             ? 'focus-within:border-primary-600'
             : ''
-        } bg-background border-gray-300 rounded p-2 flex items-center ${
+        } bg-background border-gray-300 rounded p-2 ${
+          label && labelVariant === 'inside' ? 'pt-4' : ''
+        } flex items-center ${
           disabled ? 'bg-gray-50 cursor-not-allowed pointer-events-none' : ''
         } ${className ?? ''}`}
         aria-disabled={disabled}
         onKeyDown={handleKeyDown}
       >
+        {label && labelVariant === 'inside' && labelRender[labelVariant]}
         <div className="w-full flex items-center" aria-readonly={readOnly}>
           {isMulti ? (
             <>
@@ -201,9 +224,10 @@ const Select = React.forwardRef(
               )}
               <input
                 className={`flex-grow outline-none ${
-                  isLoading &&
-                  'bg-transparent pointer-events-none cursor-not-allowed'
-                } ${disabled && 'opacity-50'}`}
+                  isLoading
+                    ? 'bg-transparent pointer-events-none cursor-not-allowed'
+                    : ''
+                } ${disabled ? 'opacity-50' : ''}`}
                 aria-expanded={isOpen}
                 aria-controls={name + '-list'}
                 aria-owns={name + '-list'}
@@ -247,8 +271,8 @@ const Select = React.forwardRef(
             <>
               <input
                 className={`bg-transparent w-full outline-none ${
-                  isLoading && 'pointer-events-none cursor-not-allowed'
-                } ${disabled && 'opacity-50'}`}
+                  isLoading ? 'pointer-events-none cursor-not-allowed' : ''
+                } ${disabled ? 'opacity-50' : ''}`}
                 aria-expanded={isOpen}
                 aria-controls={name + '-list'}
                 aria-owns={name + '-list'}
@@ -343,6 +367,15 @@ const Select = React.forwardRef(
           />
         )}
       </div>
+    )
+
+    return label && labelVariant === 'outside' ? (
+      <div>
+        {labelRender[labelVariant]}
+        {selectRender}
+      </div>
+    ) : (
+      selectRender
     )
   }
 )
