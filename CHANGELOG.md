@@ -1,3 +1,10 @@
+## [1.5.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.4.1...v1.5.0) (2021-05-03)
+
+
+### :gear: Features
+
+* add label on fields ([15252ec](https://github.com/DorianMaliszewski/coco-ui/commit/15252eca9f8830cc5f7080c919defaa093ce484e))
+
 ### [1.4.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.4.0...v1.4.1) (2021-05-02)
 
 
