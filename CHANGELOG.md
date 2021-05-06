@@ -1,3 +1,10 @@
+## [1.6.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.5.0...v1.6.0) (2021-05-06)
+
+
+### :gear: Features
+
+* add switch ([4014f36](https://github.com/DorianMaliszewski/coco-ui/commit/4014f365a14ee721386f674f0369523901ea56cc))
+
 ## [1.5.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.4.1...v1.5.0) (2021-05-03)
 
 
