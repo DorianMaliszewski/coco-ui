@@ -1,3 +1,10 @@
+### [1.6.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.6.0...v1.6.1) (2021-05-07)
+
+
+### :bug: Bug Fixes
+
+* add switch to export ([0847070](https://github.com/DorianMaliszewski/coco-ui/commit/0847070f4b22016b8c8c0faf5579c7a2e37ec193))
+
 ## [1.6.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.5.0...v1.6.0) (2021-05-06)
 
 
