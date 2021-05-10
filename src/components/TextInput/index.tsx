@@ -7,10 +7,11 @@ export interface TextInputProps extends TextInputType {
   multiline?: boolean
   label?: string
   labelVariant?: 'inside' | 'outside'
+  containerClassName?: string
 }
 
-const baseClassName = `border focus:border-primary-600 p-2 rounded outline-none focus:ring-2 ring-primary-200`
-const withLabelClassName = `border focus:border-primary-600 p-2 pt-5 rounded outline-none focus:ring-2 ring-primary-200`
+const baseClassName = `border focus:border-primary-600 p-2 rounded outline-none focus:ring-2 ring-primary-200 text-black`
+const withLabelClassName = `border focus:border-primary-600 p-2 pt-5 rounded outline-none focus:ring-2 ring-primary-200 text-black`
 
 const TextInput = React.forwardRef<
   HTMLInputElement | HTMLTextAreaElement,
@@ -19,6 +20,7 @@ const TextInput = React.forwardRef<
   (
     {
       className = '',
+      containerClassName = '',
       multiline,
       placeholder = 'Type here...',
       label,
@@ -32,32 +34,30 @@ const TextInput = React.forwardRef<
 
     const labelRender = {
       inside: (
-        <div className="relative">
-          <label
-            className="absolute px-2 py-1 text-xs text-gray-500"
-            htmlFor={id}
-          >
+        <div
+          className={`relative text-gray-500 focus-within:text-primary-700 ${containerClassName}`}
+        >
+          <label className="absolute px-2 py-1 text-xs" htmlFor={id}>
             {label}
           </label>
           <InputComponent
             placeholder={placeholder}
-            className={`${withLabelClassName}  ${className}`}
+            className={`${withLabelClassName} ${className}`}
             ref={ref as React.MutableRefObject<any>}
             {...props}
           />
         </div>
       ),
       outside: (
-        <div className="flex flex-col">
-          <label
-            className="px-2 top-1 left-0 text-xs text-gray-500"
-            htmlFor={id}
-          >
+        <div
+          className={`flex flex-col text-gray-500 focus-within:text-primary-700 ${containerClassName}`}
+        >
+          <label className="px-2 top-1 left-0 text-xs" htmlFor={id}>
             {label}
           </label>
           <InputComponent
             placeholder={placeholder}
-            className={`${baseClassName}  ${className}`}
+            className={`${baseClassName} ${className}`}
             ref={ref as React.MutableRefObject<any>}
             {...props}
           />
@@ -65,15 +65,15 @@ const TextInput = React.forwardRef<
       ),
     }
 
-    return (
-      labelRender[labelVariant] ?? (
-        <InputComponent
-          placeholder={placeholder}
-          className={`${baseClassName} ${className}`}
-          ref={ref as React.MutableRefObject<any>}
-          {...props}
-        />
-      )
+    return label && labelRender[labelVariant] ? (
+      labelRender[labelVariant]
+    ) : (
+      <InputComponent
+        placeholder={placeholder}
+        className={`${baseClassName} ${className}`}
+        ref={ref as React.MutableRefObject<any>}
+        {...props}
+      />
     )
   }
 )
