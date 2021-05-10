@@ -1,3 +1,10 @@
+## [1.7.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.6.1...v1.7.0) (2021-05-10)
+
+
+### :gear: Features
+
+* textinput container with label ([542e705](https://github.com/DorianMaliszewski/coco-ui/commit/542e705636355a46b9fdf69803796f5c26858220))
+
 ### [1.6.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.6.0...v1.6.1) (2021-05-07)
 
 
