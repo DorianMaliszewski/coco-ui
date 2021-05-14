@@ -1,3 +1,10 @@
+## [1.8.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.7.0...v1.8.0) (2021-05-14)
+
+
+### :gear: Features
+
+* icons ([3505e75](https://github.com/DorianMaliszewski/coco-ui/commit/3505e752a7dbfeca105cb975416e7acee1945c14))
+
 ## [1.7.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.6.1...v1.7.0) (2021-05-10)
 
 
