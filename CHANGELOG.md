@@ -1,3 +1,10 @@
+### [1.8.2](https://github.com/DorianMaliszewski/coco-ui/compare/v1.8.1...v1.8.2) (2021-05-14)
+
+
+### :bug: Bug Fixes
+
+* accessibility ([1fc9561](https://github.com/DorianMaliszewski/coco-ui/commit/1fc956103ca702a04963540315bb686dcf797a2e))
+
 ### [1.8.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.8.0...v1.8.1) (2021-05-14)
 
 
