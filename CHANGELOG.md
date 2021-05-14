@@ -1,3 +1,10 @@
+### [1.8.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.8.0...v1.8.1) (2021-05-14)
+
+
+### :bug: Bug Fixes
+
+* icon typo ([276f05b](https://github.com/DorianMaliszewski/coco-ui/commit/276f05b9b1f6de715868c2d42f1668574d181447))
+
 ## [1.8.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.7.0...v1.8.0) (2021-05-14)
 
 
