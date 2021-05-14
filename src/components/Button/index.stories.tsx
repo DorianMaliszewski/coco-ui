@@ -12,4 +12,14 @@ const Template: Story<ButtonProps> = (args) => <Button {...args} />
 export const Basic = Template.bind({})
 Basic.args = {
   children: 'Basic',
+  size: 'md',
+}
+
+export const Icon = Template.bind({})
+Icon.args = {
+  children: 'Icon',
+  icon: 'plus',
+  iconPosition: 'left',
+  size: 'md',
+  iconSize: 24,
 }

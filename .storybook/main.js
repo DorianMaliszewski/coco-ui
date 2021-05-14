@@ -8,7 +8,18 @@ module.exports = {
     '@storybook/addon-actions',
     '@storybook/addon-a11y',
   ],
-  webpackFinal: async (config, { configType }) => {
+  typescript: {
+    check: false,
+    checkOptions: {},
+    reactDocgen: 'react-docgen-typescript',
+    reactDocgenTypescriptOptions: {
+      shouldRemoveUndefinedFromOptional: true,
+      shouldExtractLiteralValuesFromEnum: true,
+      propFilter: (prop) =>
+        prop.parent ? !/node_modules/.test(prop.parent.fileName) : true,
+    },
+  },
+  webpackFinal: async (config) => {
     // Add SVGR Loader
     // ========================================================
     const assetRule = config.module.rules.find(({ test }) => test?.test('.svg'))

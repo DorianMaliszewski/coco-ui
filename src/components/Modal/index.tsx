@@ -67,7 +67,7 @@ const Modal = ({
             className={classes.closeButton}
             onClick={modalState.close}
           />
-          <div>{children}</div>
+          {children}
         </div>
       </div>
     </div>
