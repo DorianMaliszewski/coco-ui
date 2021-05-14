@@ -13,7 +13,9 @@ export const Basic: Story<ModalProps> = ({ open, ...props }: ModalProps) => {
 
   return (
     <>
-      <Button onClick={() => setIsOpen(true)}>Open modal</Button>
+      <Button size="md" onClick={() => setIsOpen(true)}>
+        Open modal
+      </Button>
       <Modal {...props} open={isOpen} onClose={() => setIsOpen(false)} />
     </>
   )

@@ -76,7 +76,7 @@ const Drawer = ({
       onDoubleClick={onClose}
       className={
         isVisible
-          ? `z-10 fixed left-O top-0 bg-opacity-20 bg-foreground w-full h-full`
+          ? `z-10 fixed left-0 top-0 bg-opacity-20 bg-foreground w-full h-full`
           : `sr-only`
       }
     >

@@ -26,6 +26,7 @@ const Modal = ({
   position = 'center',
   closeOnOverlayDoubleClick = true,
   'aria-labelledby': ariaLabelledBy,
+  'aria-label': ariaLabel,
 }: ModalProps): JSX.Element => {
   const modalState = useModalTransition({
     defaultOpen: open,
@@ -50,6 +51,7 @@ const Modal = ({
       className={`${classes.container}`}
       aria-labelledby={ariaLabelledBy}
       role="dialog"
+      aria-label={ariaLabel ?? 'modal'}
       aria-modal="true"
     >
       <div

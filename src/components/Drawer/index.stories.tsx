@@ -17,7 +17,9 @@ export const Basic: Story<DrawerProps> = ({
 
   return (
     <>
-      <Button onClick={() => setIsOpen(true)}>Open drawer</Button>
+      <Button size="md" onClick={() => setIsOpen(true)}>
+        Open drawer
+      </Button>
       <Drawer {...props} open={isOpen} onClose={() => setIsOpen(false)} />
     </>
   )
@@ -25,7 +27,8 @@ export const Basic: Story<DrawerProps> = ({
 
 Basic.args = {
   children: 'Basic',
-  open: true,
+  open: false,
+  hasBackdrop: true,
 }
 
 export const Position: Story<DrawerProps> = () => {
@@ -33,11 +36,20 @@ export const Position: Story<DrawerProps> = () => {
 
   return (
     <>
-      <Button onClick={() => setState('top')}>Open top drawer</Button>
-      <Button onClick={() => setState('right')}>Open right drawer</Button>
-      <Button onClick={() => setState('bottom')}>Open bottom drawer</Button>
-      <Button onClick={() => setState('left')}>Open left drawer</Button>
+      <Button size="md" className="mx-1" onClick={() => setState('top')}>
+        Open top drawer
+      </Button>
+      <Button size="md" className="mx-1" onClick={() => setState('right')}>
+        Open right drawer
+      </Button>
+      <Button size="md" className="mx-1" onClick={() => setState('bottom')}>
+        Open bottom drawer
+      </Button>
+      <Button size="md" className="mx-1" onClick={() => setState('left')}>
+        Open left drawer
+      </Button>
       <Drawer
+        hasBackdrop
         position="top"
         open={state === 'top'}
         onClose={() => setState('')}
@@ -45,6 +57,7 @@ export const Position: Story<DrawerProps> = () => {
         {state}
       </Drawer>
       <Drawer
+        hasBackdrop
         position="right"
         open={state === 'right'}
         onClose={() => setState('')}
@@ -52,6 +65,7 @@ export const Position: Story<DrawerProps> = () => {
         {state}
       </Drawer>
       <Drawer
+        hasBackdrop
         position="bottom"
         open={state === 'bottom'}
         onClose={() => setState('')}
@@ -59,6 +73,7 @@ export const Position: Story<DrawerProps> = () => {
         {state}
       </Drawer>
       <Drawer
+        hasBackdrop
         position="left"
         open={state === 'left'}
         onClose={() => setState('')}

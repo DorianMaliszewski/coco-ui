@@ -39,6 +39,7 @@ const OptionList = React.forwardRef<HTMLDivElement, OptionListProps>(
             : 'sr-only'
         }`}
         ref={ref}
+        aria-label={`${name} listbox`}
         id={name + '-list'}
         role="listbox"
       >

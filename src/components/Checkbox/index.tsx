@@ -59,8 +59,7 @@ const Checkbox = React.forwardRef(
           checked={checked}
           defaultChecked={defaultChecked}
           value={value}
-          aria-labelledby={ariaLabelledBy}
-          aria-label={ariaLabel}
+          aria-label={ariaLabel ?? `${name}-checkbox`}
           onChange={onChange}
         />
       </label>
