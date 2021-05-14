@@ -2,9 +2,9 @@ import injectClassNames from 'helpers/injectClassNames'
 import React from 'react'
 
 const variants = {
-  basic: `bg-primary-500 text-white`,
-  outline: `border border-primary-500 text-primary-500`,
-  'no-border': `text-primary-500`,
+  basic: `bg-primary-600 text-white`,
+  outline: `border border-primary-600 text-primary-600`,
+  'no-border': `text-primary-600`,
 }
 
 export interface BadgeProps {

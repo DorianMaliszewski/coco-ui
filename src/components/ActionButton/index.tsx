@@ -3,10 +3,10 @@ import React from 'react'
 
 const variants = {
   primary:
-    'bg-primary-500 text-background hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-300',
+    'bg-primary-600 text-background hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-300',
   outline:
-    'border border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-background focus:outline-none focus:ring-2 focus:ring-primary-300',
-  'no-border': `text-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-300`,
+    'border border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-background focus:outline-none focus:ring-2 focus:ring-primary-300',
+  'no-border': `text-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-300`,
 }
 export interface ActionButtonProps {
   children: React.ReactNode
