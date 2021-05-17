@@ -382,10 +382,10 @@ const Select = React.forwardRef(
     )
 
     return label && labelVariant === 'outside' ? (
-      <>
+      <div>
         {labelRender[labelVariant]}
         {selectRender}
-      </>
+      </div>
     ) : (
       selectRender
     )
