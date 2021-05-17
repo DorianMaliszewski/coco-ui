@@ -1,6 +1,6 @@
 import React from 'react'
 
-export interface GridItemProps {
+export interface GridItemProps extends React.HTMLAttributes<HTMLDivElement> {
   colSpan?: number | string
   rowSpan?: number | string
   colStart?: number | string
@@ -17,6 +17,8 @@ const GridItem = ({
   rowStart,
   colEnd,
   rowEnd,
+  className,
+  ...props
 }: GridItemProps): JSX.Element => {
   let itemClassNames = ''
 
@@ -39,7 +41,11 @@ const GridItem = ({
     itemClassNames += ` row-end-${rowEnd}`
   }
 
-  return <div className={itemClassNames}>{children}</div>
+  return (
+    <div className={`${itemClassNames} ${className ?? ''}`.trim()} {...props}>
+      {children}
+    </div>
+  )
 }
 
 export default GridItem

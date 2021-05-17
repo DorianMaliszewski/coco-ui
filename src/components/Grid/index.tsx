@@ -1,11 +1,11 @@
 import React from 'react'
 import GridItem from './GridItem'
 
-export interface GridProps {
+export interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
   autoCols?: string
   autoRows?: string
-  cols?: number | string
-  rows?: number | string
+  cols?: number | 'none'
+  rows?: number | 'none'
   flow?: string
   gap?: string | number
   children?: React.ReactNode
@@ -18,6 +18,8 @@ const Grid = ({
   autoCols,
   autoRows,
   children,
+  className,
+  ...props
 }: GridProps): JSX.Element => {
   let gridClassNames = 'grid'
 
@@ -44,7 +46,11 @@ const Grid = ({
     gridClassNames += ` gap-${gap}`
   }
 
-  return <div className={gridClassNames}>{children}</div>
+  return (
+    <div className={`${gridClassNames} ${className}`.trim()} {...props}>
+      {children}
+    </div>
+  )
 }
 
 Grid.Item = GridItem
