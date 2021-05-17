@@ -1,3 +1,10 @@
+## [1.9.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.8.2...v1.9.0) (2021-05-17)
+
+
+### :gear: Features
+
+* enhance table and others ([9c7f1b5](https://github.com/DorianMaliszewski/coco-ui/commit/9c7f1b53e7f43cd61841f5702871059b8a718c3c))
+
 ### [1.8.2](https://github.com/DorianMaliszewski/coco-ui/compare/v1.8.1...v1.8.2) (2021-05-14)
 
 
