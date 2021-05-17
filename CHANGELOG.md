@@ -1,3 +1,10 @@
+### [1.9.2](https://github.com/DorianMaliszewski/coco-ui/compare/v1.9.1...v1.9.2) (2021-05-17)
+
+
+### :bug: Bug Fixes
+
+* grid props and story ([c98d088](https://github.com/DorianMaliszewski/coco-ui/commit/c98d088e95d5b998cb18b1eb2c88425c3cccc59a))
+
 ### [1.9.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.9.0...v1.9.1) (2021-05-17)
 
 
