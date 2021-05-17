@@ -3,7 +3,6 @@ import React, { AriaAttributes } from 'react'
 const SwitchButton = ({
   className,
   children,
-  size,
   checked,
   ...props
 }: SwitchProps) => (
@@ -13,7 +12,12 @@ const SwitchButton = ({
     }${className ?? ''}`}
   >
     {children}
-    <input type="checkbox" className="opacity-5 sr-only" {...props} />
+    <input
+      type="checkbox"
+      className="opacity-5 sr-only"
+      {...props}
+      size={undefined}
+    />
   </label>
 )
 
@@ -57,11 +61,12 @@ const SwitchDefault = ({
   id,
   size,
   onChange,
+  labelPosition,
   ...props
 }: Partial<SwitchProps>) => {
   const { label, ball, ballRight } = defaultSizes[size ?? 'md']
 
-  return (
+  return labelPosition === 'inside' || !labelPosition ? (
     <label
       htmlFor={id}
       className={`block cursor-pointer h-${label} flex items-center relative rounded-full px-2 hover:shadow ${
@@ -90,6 +95,38 @@ const SwitchDefault = ({
         className="opacity-5 sr-only"
         {...props}
       />
+    </label>
+  ) : (
+    <label htmlFor={id} className="flex">
+      {labelPosition === 'left' && <span className="mr-1">{children}</span>}
+      <div
+        className={`block cursor-pointer w-${
+          ball * 3
+        } h-${label} flex items-center relative rounded-full px-2 hover:shadow ${
+          checked
+            ? 'border border-primary-500 bg-primary-700 text-white'
+            : 'border border-gray-500 bg-gray-500 text-white'
+        } ${className}`}
+      >
+        <div
+          className={`absolute h-${ball} top-1/2 flex left-1 right-${ballRight} duration-300 transition-all transform -translate-y-1/2 ${
+            checked ? 'translate-x-full' : ''
+          }`}
+        >
+          <div
+            className={`h-${ball} w-${ball} rounded-full bg-white border border-gray-500`}
+          />
+        </div>
+        <input
+          onChange={onChange}
+          id={id}
+          checked={checked}
+          type="checkbox"
+          className="opacity-5 sr-only"
+          {...props}
+        />
+      </div>
+      {labelPosition === 'right' && <span className="ml-1">{children}</span>}
     </label>
   )
 }
@@ -131,6 +168,7 @@ const variants = {
 }
 
 type SwitchSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'
+type LabelPosition = 'left' | 'right' | 'inside'
 
 export interface SwitchProps extends AriaAttributes {
   id?: string
@@ -142,6 +180,7 @@ export interface SwitchProps extends AriaAttributes {
   checked?: boolean
   defaultChecked?: boolean
   size?: SwitchSize
+  labelPosition?: LabelPosition
   onChildren?: React.ReactNode
   offChildren?: React.ReactNode
 }

@@ -14,6 +14,7 @@ export interface SelectProps {
   label?: string
   labelVariant?: 'outside' | 'inside'
   onChange: (result: SelectOptionType | SelectOptionType[]) => unknown
+  onSearchChange: (string: string) => any
   value?: SelectOptionType | SelectOptionType[]
   parentRef?: React.RefObject<HTMLDivElement>
   disabled?: boolean
@@ -22,8 +23,10 @@ export interface SelectProps {
   isLoading?: boolean
   isSearchable?: boolean
   isMulti?: boolean
+  isMultiLine?: boolean
   textKey?: string
   valueKey?: string
+  inputProps?: any
   renderSelected?: (
     values: SelectOptionType[] | SelectOptionType
   ) => React.ReactNode
@@ -39,6 +42,7 @@ const Select = React.forwardRef(
       options = [],
       placeholder,
       onChange,
+      onSearchChange,
       value,
       parentRef,
       disabled,
@@ -49,6 +53,8 @@ const Select = React.forwardRef(
       isLoading,
       isSearchable,
       isMulti,
+      isMultiLine,
+      inputProps: additionalInputProps,
       textKey = 'label',
       valueKey = 'value',
       renderSelected = (value) =>
@@ -61,9 +67,10 @@ const Select = React.forwardRef(
     }: SelectProps,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
+    const InputComponent = isMultiLine ? 'textarea' : 'input'
     const [isOpen, setOpen] = React.useState(false)
     const [search, setSearch] = React.useState('')
-    const inputRef = React.useRef<HTMLInputElement>(null)
+    const inputRef = React.useRef<any>(null)
     const listRef = React.useRef<HTMLDivElement>(null)
     const containerRef = React.useRef<HTMLDivElement>(
       parentRef?.current ?? null
@@ -71,6 +78,7 @@ const Select = React.forwardRef(
     const [focused, setFocused] = React.useState(0)
     const inputProps = {
       tabIndex: tabIndex ?? -1,
+      ...additionalInputProps,
     }
 
     React.useImperativeHandle(ref, () => inputRef.current as HTMLInputElement)
@@ -209,7 +217,7 @@ const Select = React.forwardRef(
           label && labelVariant === 'inside' ? 'pt-4' : ''
         } flex items-center ${
           disabled ? 'bg-gray-50 cursor-not-allowed pointer-events-none' : ''
-        } ${className ?? ''}`}
+        } ${className ?? ''}`.replace(/ +(?= )/g, ' ')}
         aria-disabled={disabled}
         onKeyDown={handleKeyDown}
       >
@@ -227,7 +235,7 @@ const Select = React.forwardRef(
                   isLoading
                     ? 'bg-transparent pointer-events-none cursor-not-allowed'
                     : ''
-                } ${disabled ? 'opacity-50' : ''}`}
+                } ${disabled ? 'opacity-50' : ''}`.replace(/ +(?= )/g, ' ')}
                 aria-expanded={isOpen}
                 aria-controls={name + '-list'}
                 aria-owns={name + '-list'}
@@ -264,15 +272,18 @@ const Select = React.forwardRef(
                   if (!readOnly && !disabled) setOpen(true)
                 }}
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => {
+                  setSearch(e.target.value)
+                  onSearchChange?.(e.target.value)
+                }}
               />
             </>
           ) : (
             <>
-              <input
+              <InputComponent
                 className={`bg-transparent w-full outline-none ${
                   isLoading ? 'pointer-events-none cursor-not-allowed' : ''
-                } ${disabled ? 'opacity-50' : ''}`}
+                } ${disabled ? 'opacity-50' : ''}`.replace(/ +(?= )/g, ' ')}
                 aria-expanded={isOpen}
                 aria-controls={name + '-list'}
                 aria-owns={name + '-list'}
@@ -290,15 +301,16 @@ const Select = React.forwardRef(
                 disabled={disabled}
                 readOnly={readOnly || isLoading || !isSearchable}
                 placeholder={placeholder || 'Select...'}
-                onChange={(e) => {
+                onChange={(e: React.ChangeEvent) => {
                   if (isSearchable) {
-                    setSearch(e.target.value)
+                    onSearchChange?.((e.target as any).value)
+                    setSearch((e.target as any).value)
                   }
                 }}
                 onFocus={() => {
                   if (!readOnly && !disabled) setOpen(true)
                 }}
-                onKeyDown={(event) => {
+                onKeyDown={(event: React.KeyboardEvent) => {
                   switch (event.key) {
                     case 'ArrowDown':
                       if (!isOpen && !disabled && !readOnly) {
@@ -370,10 +382,10 @@ const Select = React.forwardRef(
     )
 
     return label && labelVariant === 'outside' ? (
-      <div>
+      <>
         {labelRender[labelVariant]}
         {selectRender}
-      </div>
+      </>
     ) : (
       selectRender
     )

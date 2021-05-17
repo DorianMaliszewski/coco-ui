@@ -1,20 +1,38 @@
 import React from 'react'
 
 type TableHeadProps = {
-  columns: { name: string }[]
+  columns?: { name: string }[]
+  children?: React.ReactNode
 }
-const TableHead = ({ columns, ...props }: TableHeadProps): JSX.Element => {
-  return (
-    <thead {...props}>
-      <tr className="bg-primary-600 text-white uppercase text-sm leading-normal">
-        {columns.map((column, index) => (
-          <th className={`py-3 px-6 ${index === 0 ? 'pl-5' : ''}`} key={index}>
-            {column.name}
-          </th>
-        ))}
-      </tr>
-    </thead>
-  )
+const TableHead = ({
+  columns,
+  children,
+  ...props
+}: TableHeadProps): JSX.Element => {
+  if (columns)
+    return (
+      <thead {...props}>
+        <tr className="bg-primary-600 text-white uppercase text-sm leading-normal">
+          {columns.map((column, index) => (
+            <th className={`py-3 px-6`} key={index}>
+              {column.name}
+            </th>
+          ))}
+        </tr>
+      </thead>
+    )
+
+  const finalRows = React.Children.map(children, (child) => {
+    if (!React.isValidElement(child)) {
+      return child
+    }
+    const elementChild: React.ReactElement = child
+    return React.cloneElement(elementChild, {
+      ...child.props,
+      className: 'bg-primary-600 text-white uppercase text-sm leading-normal',
+    })
+  })
+  return <thead {...props}>{finalRows}</thead>
 }
 
 export default TableHead

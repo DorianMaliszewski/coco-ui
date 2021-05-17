@@ -33,6 +33,14 @@ Basic.args = {
   value: 'on',
 }
 
+export const Position = Template.bind({})
+Position.args = {
+  children: 'My awesome switch',
+  id: 'test',
+  value: 'on',
+  labelPosition: 'left',
+}
+
 export const Buttons = Template.bind({})
 Buttons.args = {
   children: 'My awesome switch',

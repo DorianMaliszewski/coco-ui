@@ -1,17 +1,20 @@
 import React from 'react'
 import TableBody from './TableBody'
 import TableHead from './TableHead'
+import TableHeadCell from './TableHeadCell'
 import TableRow from './TableRow'
 
 export interface TableProps {
   children: React.ReactNode
   className?: string
   hoverable?: boolean
+  data?: any[]
 }
 const Table = ({
   children,
   className,
   hoverable,
+  data,
   ...props
 }: TableProps): JSX.Element => {
   const finalChildren = React.Children.map(children, (child) => {
@@ -22,6 +25,7 @@ const Table = ({
     if (elementChild.type === TableBody) {
       return React.cloneElement(elementChild, {
         hoverable: elementChild.props.hoverable ?? hoverable,
+        data,
       })
     }
     return child
@@ -37,6 +41,7 @@ const Table = ({
 }
 
 Table.Head = TableHead
+Table.HeadCell = TableHeadCell
 Table.Body = TableBody
 Table.Row = TableRow
 

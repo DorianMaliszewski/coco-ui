@@ -5,6 +5,7 @@ export type TableRowProps = {
   className?: string
   children: React.ReactNode
   isEven?: boolean
+  onClick?: () => any
 }
 const TableRow = ({
   children,
@@ -18,11 +19,12 @@ const TableRow = ({
     classes += !isEven
       ? 'hover:bg-gray-200 cursor-pointer'
       : 'hover:bg-gray-200 cursor-pointer'
+
   return (
     <tr
       className={`${classes} ${
-        !isEven ? 'bg-gray-100' : 'bg-background'
-      } ${className}`}
+        isEven === undefined ? '' : !isEven ? 'bg-gray-100' : 'bg-background'
+      } ${className}`.trim()}
       {...props}
     >
       {children}
