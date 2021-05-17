@@ -1,3 +1,10 @@
+### [1.9.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.9.0...v1.9.1) (2021-05-17)
+
+
+### :bug: Bug Fixes
+
+* label position on select ([843f244](https://github.com/DorianMaliszewski/coco-ui/commit/843f244aed0ba89b5910de17fc7d7502992c7cd0))
+
 ## [1.9.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.8.2...v1.9.0) (2021-05-17)
 
 
