@@ -13,8 +13,8 @@ export interface SelectProps {
   placeholder?: string
   label?: string
   labelVariant?: 'outside' | 'inside'
-  onChange: (result: SelectOptionType | SelectOptionType[]) => unknown
-  onSearchChange: (string: string) => any
+  onChange?: (result: SelectOptionType | SelectOptionType[]) => unknown
+  onSearchChange?: (string: string) => any
   value?: SelectOptionType | SelectOptionType[]
   parentRef?: React.RefObject<HTMLDivElement>
   disabled?: boolean
@@ -112,7 +112,7 @@ const Select = React.forwardRef(
 
     const handleClickForMulti = (option: SelectOptionType) => {
       if (!value) {
-        onChange([option])
+        onChange?.([option])
         return
       }
       const typedValue = value as SelectOptionType[]
@@ -122,16 +122,16 @@ const Select = React.forwardRef(
       if (index > -1) {
         const tmp = [...typedValue]
         tmp.splice(index, 1)
-        onChange([...tmp])
+        onChange?.([...tmp])
       } else {
-        onChange([...typedValue, option])
+        onChange?.([...typedValue, option])
       }
 
       inputRef.current?.focus()
     }
 
     const handleClickForSingle = (option: SelectOptionType) => {
-      onChange(option)
+      onChange?.(option)
       setSearch(option[textKey] as string)
       setOpen(false)
     }
