@@ -42,6 +42,15 @@ export const useTableState = ({
     })
   }
 
+  React.useEffect(() => {
+    setState({
+      ...state,
+      data: state.sort?.field
+        ? sortData(data, state.sort.field, state.sort?.order)
+        : data,
+    })
+  }, [data])
+
   return {
     ...state,
     onSort,

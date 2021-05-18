@@ -19,10 +19,10 @@
     "isolatedModules": true,
     "jsx": "react",
     "baseUrl": "src",
-     "declaration": true,
-     "declarationDir": "./",
-     "emitDeclarationOnly": true,
-     "outDir": "./dist",
+    "declaration": true,
+    "declarationDir": "./",
+    "emitDeclarationOnly": true,
+    "outDir": "./dist",
   },
   "include": [
     "src/**/*"

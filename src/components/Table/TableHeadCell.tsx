@@ -38,7 +38,9 @@ const TableHeadCell = ({
         if (sortable) {
           onSort?.(
             sortable,
-            isCurrentSort && sort?.order === 'asc' ? 'desc' : 'asc'
+            isCurrentSort && (!sort?.order || sort?.order === 'asc')
+              ? 'desc'
+              : 'asc'
           )
         }
         onClick?.(event)
@@ -54,7 +56,9 @@ const TableHeadCell = ({
                 size={16}
                 className="ml-1"
                 name={
-                  sort?.order === 'asc' ? 'sort-ascending' : 'sort-descending'
+                  !sort?.order || sort?.order === 'asc'
+                    ? 'sort-ascending'
+                    : 'sort-descending'
                 }
               />
             ) : null}

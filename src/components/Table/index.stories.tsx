@@ -8,13 +8,15 @@ export default {
   component: Table,
 } as Meta
 
-const fakeData = (length: number) => {
+const fakeDataGenerator = (length: number) => {
   return Array.from({ length }, (_, i) => i).map((index) => ({
-    id: index,
-    name: 'Developer ' + index,
-    skill: index % 2 === 0 ? 'None' : 'Eat pizza',
+    id: index + 1,
+    name: 'Developer ' + (index + 1),
+    skill: Math.random() > 0.5 ? 'None' : 'Eat pizza',
   }))
 }
+
+const fakeData = fakeDataGenerator(10)
 
 export const Basic: Story<TableProps> = ({ hoverable }: TableProps) => {
   return (
@@ -23,7 +25,7 @@ export const Basic: Story<TableProps> = ({ hoverable }: TableProps) => {
         columns={[{ name: 'Id' }, { name: 'Name' }, { name: 'Skill' }]}
       />
       <Table.Body>
-        {fakeData(30).map((row) => (
+        {fakeData.map((row) => (
           <Table.Row key={row.id}>
             <Table.Cell>{row.id}</Table.Cell>
             <Table.Cell>{row.name}</Table.Cell>
@@ -50,7 +52,7 @@ export const Composition: Story<TableProps> = ({ hoverable }: TableProps) => {
         </Table.Row>
       </Table.Head>
       <Table.Body>
-        {fakeData(30).map((row) => (
+        {fakeData.map((row) => (
           <Table.Row key={row.id}>
             <Table.Cell>{row.id}</Table.Cell>
             <Table.Cell>{row.name}</Table.Cell>
@@ -67,7 +69,10 @@ Composition.args = {
 }
 
 export const Sortable: Story<TableProps> = ({ hoverable }: TableProps) => {
-  const { data, sort, onSort } = useTableState({ data: fakeData(30) })
+  const { data, sort, onSort } = useTableState({
+    data: fakeData,
+    initialSort: { field: 'id', order: 'asc' },
+  })
   return (
     <Table data={data} hoverable={hoverable}>
       <Table.Head>
