@@ -1,3 +1,10 @@
+### [1.9.4](https://github.com/DorianMaliszewski/coco-ui/compare/v1.9.3...v1.9.4) (2021-05-18)
+
+
+### :bug: Bug Fixes
+
+* select props type ([6204323](https://github.com/DorianMaliszewski/coco-ui/commit/6204323037150ce8487510ee30db15196b164627))
+
 ### [1.9.3](https://github.com/DorianMaliszewski/coco-ui/compare/v1.9.2...v1.9.3) (2021-05-18)
 
 
