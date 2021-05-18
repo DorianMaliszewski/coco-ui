@@ -1,3 +1,10 @@
+### [1.9.3](https://github.com/DorianMaliszewski/coco-ui/compare/v1.9.2...v1.9.3) (2021-05-18)
+
+
+### :bug: Bug Fixes
+
+* handle data change ([fe99927](https://github.com/DorianMaliszewski/coco-ui/commit/fe999279f46a77ba08a2a54c49865b1f4b0483c4))
+
 ### [1.9.2](https://github.com/DorianMaliszewski/coco-ui/compare/v1.9.1...v1.9.2) (2021-05-17)
 
 
