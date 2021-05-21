@@ -1,3 +1,10 @@
+## [1.10.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.9.5...v1.10.0) (2021-05-21)
+
+
+### :gear: Features
+
+* add toaster ([d2c2e52](https://github.com/DorianMaliszewski/coco-ui/commit/d2c2e52b57a595026a9787c674b57e3ef202257e))
+
 ### [1.9.5](https://github.com/DorianMaliszewski/coco-ui/compare/v1.9.4...v1.9.5) (2021-05-21)
 
 
