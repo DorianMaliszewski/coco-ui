@@ -1,3 +1,10 @@
+### [1.9.5](https://github.com/DorianMaliszewski/coco-ui/compare/v1.9.4...v1.9.5) (2021-05-21)
+
+
+### :bug: Bug Fixes
+
+* select options width and id prop in textinput ([7467ab2](https://github.com/DorianMaliszewski/coco-ui/commit/7467ab259abe6e903fedd226762e658280915de6))
+
 ### [1.9.4](https://github.com/DorianMaliszewski/coco-ui/compare/v1.9.3...v1.9.4) (2021-05-18)
 
 
