@@ -5,7 +5,7 @@ type TextInputType = React.InputHTMLAttributes<HTMLInputElement> &
 export interface TextInputProps extends TextInputType {
   className?: string
   multiline?: boolean
-  label?: string
+  label?: string | React.ReactNode
   labelVariant?: 'inside' | 'outside'
   containerClassName?: string
 }
@@ -41,6 +41,7 @@ const TextInput = React.forwardRef<
             {label}
           </label>
           <InputComponent
+            id={id}
             placeholder={placeholder}
             className={`${withLabelClassName} ${className}`}
             ref={ref as React.MutableRefObject<any>}
@@ -56,6 +57,7 @@ const TextInput = React.forwardRef<
             {label}
           </label>
           <InputComponent
+            id={id}
             placeholder={placeholder}
             className={`${baseClassName} ${className}`}
             ref={ref as React.MutableRefObject<any>}

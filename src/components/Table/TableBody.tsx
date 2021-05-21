@@ -1,5 +1,4 @@
 import React from 'react'
-import TableRow from './TableRow'
 
 type RowRenderFn = (renderProps: { row: any }) => React.ReactNode
 type TableBodyProps = {

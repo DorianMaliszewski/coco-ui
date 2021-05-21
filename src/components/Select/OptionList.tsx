@@ -35,7 +35,7 @@ const OptionList = React.forwardRef<HTMLDivElement, OptionListProps>(
       <div
         className={`z-10 absolute top-full left-0 ${
           isOpen
-            ? 'border shadow bg-white mt-1 max-h-40 w-full overflow-y-scroll'
+            ? 'border shadow bg-white mt-1 max-h-40 w-max min-w-full overflow-y-scroll'
             : 'sr-only'
         }`}
         ref={ref}
