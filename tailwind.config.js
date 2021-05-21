@@ -59,50 +59,5 @@ module.exports = {
       boxShadow: ['dark'],
     },
   },
-  plugins: [
-    plugin(function ({ addComponents, theme }) {
-      const loader = {
-        '.lds-ring': {
-          display: 'inline-block',
-          position: 'relative',
-        },
-        '.lds-ring div': {
-          boxSizing: 'border-box',
-          display: 'block',
-          position: 'absolute',
-          borderRadius: '50%',
-          animation: 'lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite',
-          borderColor: `${theme(
-            'colors.primary.600'
-          )} transparent transparent transparent`,
-        },
-
-        '.lds-ring div': {
-          border: `2px solid ${theme('colors.primary.600')}`,
-          borderColor: `${theme(
-            'colors.primary.600'
-          )} transparent transparent transparent`,
-        },
-
-        '.lds-ring div:nth-child(1)': {
-          animationDelay: '-0.45s',
-        },
-
-        '.lds-ring div:nth-child(2)': {
-          animationDelay: '-0.3s',
-        },
-
-        '.lds-ring div:nth-child(3)': {
-          animationDelay: '-0.15s',
-        },
-
-        '@keyframes lds-ring': {
-          '0%': { transform: 'rotate(0deg)' },
-          '100%': { transform: 'rotate(360deg)' },
-        },
-      }
-
-      addComponents(loader)
-    }),
-  ],
+  plugins: [],
 }
