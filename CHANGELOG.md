@@ -1,3 +1,10 @@
+### [1.11.3](https://github.com/DorianMaliszewski/coco-ui/compare/v1.11.2...v1.11.3) (2021-05-23)
+
+
+### :bug: Bug Fixes
+
+* disabled textarray ([11560f7](https://github.com/DorianMaliszewski/coco-ui/commit/11560f72c9a75fa32f1596dc06cfd58949959e0b))
+
 ### [1.11.2](https://github.com/DorianMaliszewski/coco-ui/compare/v1.11.1...v1.11.2) (2021-05-23)
 
 
