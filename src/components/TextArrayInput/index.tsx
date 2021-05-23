@@ -11,11 +11,11 @@ export type TextArrayInputProps = AriaAttributes & {
   onKeyDown?: React.KeyboardEventHandler
   onKeyPress?: React.KeyboardEventHandler
   onKeyUp?: React.KeyboardEventHandler
-  value: string[]
+  value?: string[]
   className?: string
   placeholder?: string
-  ref: React.Ref<HTMLInputElement>
-  renderSelected: (props: RenderSelectedProps) => React.ReactNode
+  ref?: React.Ref<HTMLInputElement>
+  renderSelected?: (props: RenderSelectedProps) => React.ReactNode
   disabled?: boolean
 }
 
@@ -77,7 +77,7 @@ const TextArrayInput = ({
   }
 
   React.useEffect(() => {
-    setArray(value)
+    value && setArray(value)
   }, [value])
   return (
     <div
