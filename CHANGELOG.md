@@ -1,3 +1,10 @@
+## [1.11.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.10.0...v1.11.0) (2021-05-23)
+
+
+### :gear: Features
+
+* textarrayinput ([f02780d](https://github.com/DorianMaliszewski/coco-ui/commit/f02780deda92b6d9738963216cccff4356098756))
+
 ## [1.10.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.9.5...v1.10.0) (2021-05-21)
 
 
