@@ -1,3 +1,10 @@
+### [1.11.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.11.0...v1.11.1) (2021-05-23)
+
+
+### :bug: Bug Fixes
+
+* table head cell classes ([bdc90d0](https://github.com/DorianMaliszewski/coco-ui/commit/bdc90d02394bf0bcec933d6c001d9517c96ab029))
+
 ## [1.11.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.10.0...v1.11.0) (2021-05-23)
 
 
