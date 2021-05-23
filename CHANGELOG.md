@@ -1,3 +1,10 @@
+### [1.11.4](https://github.com/DorianMaliszewski/coco-ui/compare/v1.11.3...v1.11.4) (2021-05-23)
+
+
+### :bug: Bug Fixes
+
+* prop type ([3bbdc5e](https://github.com/DorianMaliszewski/coco-ui/commit/3bbdc5e1a44e31ba9398b07fd21aa7745c565a4e))
+
 ### [1.11.3](https://github.com/DorianMaliszewski/coco-ui/compare/v1.11.2...v1.11.3) (2021-05-23)
 
 
