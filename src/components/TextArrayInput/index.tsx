@@ -5,7 +5,7 @@ import React, { AriaAttributes } from 'react'
 type RenderSelectedProps = { array: string[]; onDelete: (index: number) => any }
 export type TextArrayInputProps = AriaAttributes & {
   onInputChange?: (event: React.ChangeEvent<any>) => any
-  onChange?: (strings: string[]) => boolean
+  onChange?: (strings: string[]) => any
   onFocus?: React.FocusEventHandler
   onBlur?: React.FocusEventHandler
   onKeyDown?: React.KeyboardEventHandler
@@ -16,6 +16,7 @@ export type TextArrayInputProps = AriaAttributes & {
   placeholder?: string
   ref: React.Ref<HTMLInputElement>
   renderSelected: (props: RenderSelectedProps) => React.ReactNode
+  disabled?: boolean
 }
 
 const defaultRender = ({ array, onDelete }: RenderSelectedProps) =>
@@ -27,6 +28,7 @@ const defaultRender = ({ array, onDelete }: RenderSelectedProps) =>
   ))
 
 const TextArrayInput = ({
+  disabled,
   onInputChange,
   onKeyDown,
   onChange,
@@ -78,7 +80,11 @@ const TextArrayInput = ({
     setArray(value)
   }, [value])
   return (
-    <div className="flex w-full border focus-within:border-primary-600 p-2 rounded outline-none focus-within:ring-2 ring-primary-200 text-black  ">
+    <div
+      className={`flex w-full border focus-within:border-primary-600 p-2 rounded outline-none focus-within:ring-2 ring-primary-200 text-black ${
+        disabled ? 'opacity-50 pointer-event-none' : ''
+      }`}
+    >
       <div className="flex">
         {renderSelected({ array, onDelete: handleDelete })}
       </div>
