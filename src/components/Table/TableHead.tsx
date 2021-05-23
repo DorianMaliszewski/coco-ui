@@ -29,7 +29,9 @@ const TableHead = ({
     const elementChild: React.ReactElement = child
     return React.cloneElement(elementChild, {
       ...child.props,
-      className: 'bg-primary-600 text-white uppercase text-sm leading-normal',
+      className: `bg-primary-600 text-white uppercase text-sm leading-normal ${
+        child.props.className ?? ''
+      }`,
     })
   })
   return <thead {...props}>{finalRows}</thead>
