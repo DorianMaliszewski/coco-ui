@@ -1,3 +1,10 @@
+### [1.11.2](https://github.com/DorianMaliszewski/coco-ui/compare/v1.11.1...v1.11.2) (2021-05-23)
+
+
+### :bug: Bug Fixes
+
+* textarrayinput export ([a7e2f2d](https://github.com/DorianMaliszewski/coco-ui/commit/a7e2f2db913abcd584449e4f1a723aa28ae7b0af))
+
 ### [1.11.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.11.0...v1.11.1) (2021-05-23)
 
 
