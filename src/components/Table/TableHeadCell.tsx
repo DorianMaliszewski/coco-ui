@@ -1,6 +1,5 @@
 import Icon from 'components/Icon'
 import React from 'react'
-import { useTableStateResult } from './useTableState'
 
 type TableHeadCellProps = React.ThHTMLAttributes<HTMLTableHeaderCellElement> & {
   sortable?: string
@@ -10,7 +9,7 @@ type TableHeadCellProps = React.ThHTMLAttributes<HTMLTableHeaderCellElement> & {
 
 const TableHeadCell = ({
   children,
-  className = '',
+  className,
   sortable,
   sort,
   onSort,
@@ -31,8 +30,8 @@ const TableHeadCell = ({
         setIsHover(false)
         onMouseLeave?.(e)
       }}
-      className={`py-3 px-6 ${className} ${
-        sortable ? 'cursor-pointer' : ''
+      className={`${className ?? 'py-3 px-6'} ${
+        sortable ? 'cursor-pointer relative' : ''
       }`.trim()}
       onClick={(event) => {
         if (sortable) {
@@ -48,9 +47,9 @@ const TableHeadCell = ({
       {...props}
     >
       {sortable ? (
-        <div className="relative flex items-center">
-          <span>{children}</span>
-          <div className="absolute right-0">
+        <>
+          {children}
+          <div className="bg-primary-600 rounded-full absolute top-1/2 transform -translate-y-1/2 right-1">
             {isCurrentSort ? (
               <Icon
                 size={16}
@@ -66,7 +65,7 @@ const TableHeadCell = ({
               <Icon size={16} className="ml-1" name="sort-ascending" />
             ) : null}
           </div>
-        </div>
+        </>
       ) : (
         children
       )}

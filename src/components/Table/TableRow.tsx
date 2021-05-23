@@ -24,7 +24,7 @@ const TableRow = ({
     <tr
       className={`${classes} ${
         isEven === undefined ? '' : !isEven ? 'bg-gray-100' : 'bg-background'
-      } ${className}`.trim()}
+      } ${className ?? ''}`.trim()}
       {...props}
     >
       {children}

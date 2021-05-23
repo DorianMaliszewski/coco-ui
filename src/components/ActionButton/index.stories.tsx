@@ -31,6 +31,7 @@ export const Primary: Story<ActionButtonProps> = (args) => {
 
 Primary.args = {
   variant: 'primary',
+  size: 'md',
 }
 export const Outlined: Story<ActionButtonProps> = (args) => {
   return (
@@ -45,6 +46,7 @@ export const Outlined: Story<ActionButtonProps> = (args) => {
 
 Outlined.args = {
   variant: 'outline',
+  size: 'md',
 }
 
 export const NoBorder: Story<ActionButtonProps> = (args) => {
@@ -60,4 +62,46 @@ export const NoBorder: Story<ActionButtonProps> = (args) => {
 
 NoBorder.args = {
   variant: 'no-border',
+  size: 'md',
+}
+
+export const Sizes: Story<ActionButtonProps> = (args) => {
+  return (
+    <>
+      <ActionButton {...args} size="xs">
+        <ActionButton.Content>xs</ActionButton.Content>
+        <ActionButton.Action>Action 1</ActionButton.Action>
+        <ActionButton.Action>Action 2</ActionButton.Action>
+        <ActionButton.Action>Action 3</ActionButton.Action>
+      </ActionButton>
+      <ActionButton {...args} size="sm">
+        <ActionButton.Content>sm</ActionButton.Content>
+        <ActionButton.Action>Action 1</ActionButton.Action>
+        <ActionButton.Action>Action 2</ActionButton.Action>
+        <ActionButton.Action>Action 3</ActionButton.Action>
+      </ActionButton>
+      <ActionButton {...args} size="md">
+        <ActionButton.Content>md</ActionButton.Content>
+        <ActionButton.Action>Action 1</ActionButton.Action>
+        <ActionButton.Action>Action 2</ActionButton.Action>
+        <ActionButton.Action>Action 3</ActionButton.Action>
+      </ActionButton>
+      <ActionButton {...args} size="xl">
+        <ActionButton.Content>xl</ActionButton.Content>
+        <ActionButton.Action>Action 1</ActionButton.Action>
+        <ActionButton.Action>Action 2</ActionButton.Action>
+        <ActionButton.Action>Action 3</ActionButton.Action>
+      </ActionButton>
+      <ActionButton {...args} size="2xl">
+        <ActionButton.Content>2xl</ActionButton.Content>
+        <ActionButton.Action>Action 1</ActionButton.Action>
+        <ActionButton.Action>Action 2</ActionButton.Action>
+        <ActionButton.Action>Action 3</ActionButton.Action>
+      </ActionButton>
+    </>
+  )
+}
+
+Sizes.args = {
+  variant: 'primary',
 }

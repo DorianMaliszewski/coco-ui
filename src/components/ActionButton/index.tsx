@@ -1,6 +1,13 @@
 import injectClassNames from 'helpers/injectClassNames'
 import React from 'react'
 
+const sizes = {
+  xs: 'text-xs p-1',
+  sm: 'text-sm p-1',
+  md: 'p-1',
+  xl: 'text-xl p-1',
+  '2xl': 'text-2xl p-1',
+}
 const variants = {
   primary:
     'bg-primary-600 text-background hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-300',
@@ -12,20 +19,22 @@ export interface ActionButtonProps {
   children: React.ReactNode
   className?: string
   variant: keyof typeof variants
+  size?: keyof typeof sizes
 }
 
 const StyledButton = injectClassNames(
   'button'
-)`flex p-3 rounded items-center justify-center`
+)`flex rounded items-center justify-center`
 
 const StyledButtonContent = injectClassNames(
   'div'
-)`shadow z-10 bg-background absolute left-0 w-full top-full mt-1`
+)`shadow z-10 bg-background absolute left-0 min-w-full w-max mt-1`
 
 const ActionButton = ({
   children,
   className,
-  variant,
+  variant = 'primary',
+  size,
   ...props
 }: ActionButtonProps): JSX.Element => {
   const [showActions, setShowActions] = React.useState(false)
@@ -79,7 +88,9 @@ const ActionButton = ({
     <div ref={listRef} className="relative">
       <StyledButton
         onClick={() => setShowActions(!showActions)}
-        className={`${className ?? ''} ${variants[variant]}`}
+        className={`${className ?? ''} ${variants[variant]} ${
+          size ? sizes[size] ?? '' : ''
+        }`.trim()}
         {...props}
       >
         {content}

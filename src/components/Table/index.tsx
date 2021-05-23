@@ -48,8 +48,8 @@ Table.Row = TableRow
 type TableCellProps = React.TdHTMLAttributes<HTMLTableCellElement> & {
   children: React.ReactNode
 }
-const TableCell = ({ children, ...props }: TableCellProps) => (
-  <td className="py-3 px-6" {...props}>
+const TableCell = ({ children, className, ...props }: TableCellProps) => (
+  <td className={className ?? 'py-3 px-6'} {...props}>
     {children}
   </td>
 )
