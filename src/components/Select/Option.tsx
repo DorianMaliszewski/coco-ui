@@ -28,12 +28,12 @@ const Option = ({
   focused,
   index,
   renderOption = ({ option, isSelected }: RenderSelectOptionProps) => (
-    <>
+    <div className="flex items-center">
+      {option[textKey]}
       {isMulti && isSelected ? (
         <CheckIcon className="fill-current h-4 w-4" />
       ) : null}
-      {option[textKey]}
-    </>
+    </div>
   ),
   onOptionClick,
 }: OptionProps): JSX.Element => {
@@ -47,7 +47,7 @@ const Option = ({
 
   return (
     <div
-      className={`py-1 px-1 flex items-center hover:bg-primary-600 hover:text-white cursor-pointer ${
+      className={`truncate py-1 px-1 hover:bg-primary-600 hover:text-white cursor-pointer ${
         focused === index ? 'bg-primary-600 text-white' : ''
       } ${isSelected && focused !== index ? 'text-primary-600' : ''}`}
       key={option[valueKey]}

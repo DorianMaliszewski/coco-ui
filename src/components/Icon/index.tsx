@@ -232,7 +232,7 @@ export interface IconProps {
   type?: IconType
   className?: string
   viewBox?: string
-  onClick?: () => any
+  onClick?: (event: React.MouseEvent<SVGElement>) => any
   fallback?:
     | boolean
     | React.ReactChild

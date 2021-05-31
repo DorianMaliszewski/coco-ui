@@ -18,6 +18,10 @@ export const Basic: Story<ActionButtonProps> = (args) => {
   )
 }
 
+Basic.args = {
+  size: 'md',
+}
+
 export const Primary: Story<ActionButtonProps> = (args) => {
   return (
     <ActionButton {...args}>

@@ -3,10 +3,51 @@ import { ChevronDownIcon } from '@heroicons/react/solid'
 import { RenderSelectOptionProps } from './Option'
 import OptionList from './OptionList'
 import Loader from 'components/Loader'
+import useClickOutsideHandler from 'hooks/useClickOutsideHandler'
+
+const defaultFilterOptions = ({
+  options,
+  textKey,
+  search,
+}: {
+  options: SelectOptionType[]
+  textKey: string
+  search: string
+}) =>
+  options.filter((option) =>
+    (option[textKey] as string)
+      ?.toLowerCase()
+      .replace(/\s+/g, '')
+      .includes(search.toLowerCase().replace(/\s+/g, ''))
+  )
+
+const getContainerClassName = ({
+  disabled,
+  readOnly,
+  isLoading,
+  label,
+  labelVariant,
+  className,
+}: any) =>
+  `relative border ${
+    !disabled && !readOnly && !isLoading
+      ? 'focus-within:border-primary-600'
+      : ''
+  } bg-background border-gray-300 rounded p-2 ${
+    label && labelVariant === 'inside' ? 'pt-4' : ''
+  } flex items-center ${
+    disabled ? 'bg-gray-50 cursor-not-allowed pointer-events-none' : ''
+  } ${className ?? ''}`.replace(/ +(?= )/g, ' ')
 
 export type SelectOptionType = any
 export interface SelectProps {
   className?: string
+  containerClassName?: string
+  filterOptions?: (args: {
+    options: SelectOptionType[]
+    textKey: string
+    search: string
+  }) => SelectOptionType[]
   id?: string
   name?: string
   options: SelectOptionType[]
@@ -31,12 +72,14 @@ export interface SelectProps {
     values: SelectOptionType[] | SelectOptionType
   ) => React.ReactNode
   renderOption?: (option: RenderSelectOptionProps) => React.ReactNode
+  searchValue?: string
 }
 
 const Select = React.forwardRef(
   (
     {
       className,
+      containerClassName: containerClassNameProp,
       id,
       name = '',
       options = [],
@@ -55,7 +98,9 @@ const Select = React.forwardRef(
       isMulti,
       isMultiLine,
       inputProps: additionalInputProps,
+      searchValue = '',
       textKey = 'label',
+      filterOptions = defaultFilterOptions,
       valueKey = 'value',
       renderSelected = (value) =>
         isMulti
@@ -69,24 +114,37 @@ const Select = React.forwardRef(
   ) => {
     const InputComponent = isMultiLine ? 'textarea' : 'input'
     const [isOpen, setOpen] = React.useState(false)
-    const [search, setSearch] = React.useState('')
+    const [search, setSearch] = React.useState<string | undefined>(searchValue)
     const inputRef = React.useRef<any>(null)
-    const listRef = React.useRef<HTMLDivElement>(null)
-    const containerRef = React.useRef<HTMLDivElement>(
-      parentRef?.current ?? null
-    )
+    const containerRef = React.useRef<HTMLDivElement>(null)
     const [focused, setFocused] = React.useState(0)
+    useClickOutsideHandler(containerRef, () => {
+      setOpen(false)
+      setSearch(undefined)
+    })
     const inputProps = {
       tabIndex: tabIndex ?? -1,
       ...additionalInputProps,
     }
 
     React.useImperativeHandle(ref, () => inputRef.current as HTMLInputElement)
+    React.useImperativeHandle(parentRef, () => containerRef.current as any)
+
+    const handleOpen = (event?: React.MouseEvent<any>) => {
+      if (event) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+      if (!disabled && !readOnly) {
+        setOpen(true)
+      }
+    }
 
     const handleKeyDown = (event: React.KeyboardEvent) => {
-      if (!isOpen) {
+      if (!isOpen && event.key !== 'ArrowDown') {
         return
       }
+
       if (event.key.includes('Arrow') || event.key === 'Enter')
         event.preventDefault()
       switch (event.key) {
@@ -98,7 +156,11 @@ const Select = React.forwardRef(
           setFocused(focused === 0 ? focused : focused - 1)
           break
         case 'ArrowDown':
-          setFocused(options.length <= focused + 1 ? focused : focused + 1)
+          if (!isOpen) {
+            handleOpen()
+          } else {
+            setFocused(options.length <= focused + 1 ? focused : focused + 1)
+          }
           break
         case 'Enter':
           isMulti
@@ -110,6 +172,7 @@ const Select = React.forwardRef(
       }
     }
 
+    // Click an option change the value only
     const handleClickForMulti = (option: SelectOptionType) => {
       if (!value) {
         onChange?.([option])
@@ -119,6 +182,8 @@ const Select = React.forwardRef(
       const index = typedValue?.findIndex(
         (v: SelectOptionType) => v[valueKey] === option[valueKey]
       )
+
+      // Handle if we click on an option which is already in value
       if (index > -1) {
         const tmp = [...typedValue]
         tmp.splice(index, 1)
@@ -126,69 +191,57 @@ const Select = React.forwardRef(
       } else {
         onChange?.([...typedValue, option])
       }
-
-      inputRef.current?.focus()
     }
 
+    // Click an option change search and value then close the options
     const handleClickForSingle = (option: SelectOptionType) => {
       onChange?.(option)
-      setSearch(option[textKey] as string)
+      setSearch(undefined)
+      inputRef.current.focus()
       setOpen(false)
     }
 
+    const handleInputChange = (event: React.ChangeEvent) => {
+      if (isSearchable) {
+        onSearchChange?.((event.target as any).value)
+        setSearch((event.target as any).value)
+      }
+    }
+
+    const finalOptions = React.useMemo(
+      () =>
+        !isSearchable || !search
+          ? options
+          : filterOptions({ options, textKey, search }),
+      [isSearchable, options, textKey, search, filterOptions]
+    )
+
+    const containerClassName = React.useMemo(
+      () =>
+        getContainerClassName({
+          disabled,
+          readOnly,
+          isLoading,
+          label,
+          labelVariant,
+          className,
+        }),
+      [disabled, readOnly, isLoading, label, labelVariant, className]
+    )
+
+    // When value change, change the focus
     React.useEffect(() => {
-      const selectElement = containerRef?.current
-      const handleSelectClick = (event: MouseEvent | TouchEvent) => {
-        if (disabled || readOnly) {
-          return
-        }
-        if (
-          selectElement?.contains(event.target as Node) ||
-          selectElement === event.target
-        ) {
-          setOpen(true)
-          inputRef.current?.focus()
-        } else {
-          setOpen(false)
-        }
-      }
-      window.addEventListener('click', handleSelectClick)
-      window.addEventListener('touchstart', handleSelectClick)
-      return () => {
-        window.removeEventListener('click', handleSelectClick)
-        window.removeEventListener('touchstart', handleSelectClick)
-      }
-    }, [containerRef, disabled, readOnly, isOpen, inputRef])
+      const selected = value
+        ? options.findIndex(
+            (option: SelectOptionType) => option[valueKey] === value[valueKey]
+          )
+        : 0
+      setFocused(selected > -1 ? selected : 0)
+    }, [value, options, valueKey])
 
     React.useEffect(() => {
-      if (isOpen) {
-        const selected = options.findIndex(
-          (option: SelectOptionType) => option[valueKey] === value
-        )
-        if (selected > -1) {
-          setFocused(selected)
-        } else {
-          setFocused(0)
-        }
-      }
-    }, [isOpen, value, options, valueKey])
-
-    React.useEffect(() => {
-      if (!isMulti) {
-        setSearch((currentSearch) => {
-          if (!currentSearch) {
-            return value
-              ? (options.find(
-                  (option: SelectOptionType) =>
-                    option[valueKey] === value ||
-                    option[valueKey] === (value as SelectOptionType)[valueKey]
-                )?.[textKey] as string)
-              : ''
-          }
-          return currentSearch
-        })
-      }
-    }, [isMulti, value, options, valueKey, textKey])
+      setSearch(searchValue)
+    }, [searchValue])
 
     const labelRender = {
       inside: (
@@ -208,21 +261,17 @@ const Select = React.forwardRef(
 
     const selectRender = (
       <div
+        onClick={handleOpen}
         ref={containerRef}
-        className={`relative border ${
-          !disabled && !readOnly && !isLoading
-            ? 'focus-within:border-primary-600'
-            : ''
-        } bg-background border-gray-300 rounded p-2 ${
-          label && labelVariant === 'inside' ? 'pt-4' : ''
-        } flex items-center ${
-          disabled ? 'bg-gray-50 cursor-not-allowed pointer-events-none' : ''
-        } ${className ?? ''}`.replace(/ +(?= )/g, ' ')}
+        className={containerClassName}
         aria-disabled={disabled}
         onKeyDown={handleKeyDown}
       >
         {label && labelVariant === 'inside' && labelRender[labelVariant]}
-        <div className="w-full flex items-center" aria-readonly={readOnly}>
+        <div
+          className={`w-full flex items-center flex-grow`}
+          aria-readonly={readOnly}
+        >
           {isMulti ? (
             <>
               {value && (
@@ -252,30 +301,9 @@ const Select = React.forwardRef(
                 ref={inputRef}
                 disabled={disabled}
                 readOnly={readOnly || !isSearchable}
-                onKeyDown={(event) => {
-                  switch (event.key) {
-                    case 'ArrowDown':
-                      if (!isOpen && !disabled && !readOnly) {
-                        setFocused(focused === 0 ? focused : focused - 1)
-                        setOpen(true)
-                      }
-                      break
-                    case 'Tab':
-                    case 'Escape':
-                      if (isOpen) setOpen(false)
-                      break
-                    default:
-                      break
-                  }
-                }}
-                onFocus={() => {
-                  if (!readOnly && !disabled) setOpen(true)
-                }}
+                onKeyDown={handleKeyDown}
                 value={search}
-                onChange={(e) => {
-                  setSearch(e.target.value)
-                  onSearchChange?.(e.target.value)
-                }}
+                onChange={handleInputChange}
               />
             </>
           ) : (
@@ -301,45 +329,20 @@ const Select = React.forwardRef(
                 disabled={disabled}
                 readOnly={readOnly || isLoading || !isSearchable}
                 placeholder={placeholder || 'Select...'}
-                onChange={(e: React.ChangeEvent) => {
-                  if (isSearchable) {
-                    onSearchChange?.((e.target as any).value)
-                    setSearch((e.target as any).value)
-                  }
-                }}
-                onFocus={() => {
-                  if (!readOnly && !disabled) setOpen(true)
-                }}
-                onKeyDown={(event: React.KeyboardEvent) => {
-                  switch (event.key) {
-                    case 'ArrowDown':
-                      if (!isOpen && !disabled && !readOnly) {
-                        setFocused(focused === 0 ? focused : focused - 1)
-                        setOpen(true)
-                      }
-                      break
-                    case 'Tab':
-                    case 'Escape':
-                      if (isOpen) setOpen(false)
-                      break
-                    default:
-                      break
-                  }
-                }}
-                value={search}
+                onChange={handleInputChange}
+                onKeyDown={handleKeyDown}
+                value={search ?? (value?.[textKey] || '')}
               />
             </>
           )}
           {!isLoading && !readOnly && (
-            <span className="flex mx-1 h-6 w-6 items-center justify-center">
-              <ChevronDownIcon
-                width={12}
-                height={12}
-                className={`fill-current ${
-                  isOpen ? 'text-primary-600' : 'text-gray-400'
-                }`}
-              />
-            </span>
+            <ChevronDownIcon
+              width={12}
+              height={12}
+              className={`fill-current ${
+                isOpen ? 'text-primary-600' : 'text-gray-400'
+              }`}
+            />
           )}
           {isLoading && (
             <Loader className="mx-1" size="sm" color="primary-800" />
@@ -349,18 +352,8 @@ const Select = React.forwardRef(
           <OptionList
             isMulti={isMulti}
             name={name}
-            ref={listRef}
             isOpen={isOpen}
-            options={
-              !isSearchable || !search
-                ? options
-                : options?.filter((option: SelectOptionType) =>
-                    (option[textKey] as string)
-                      ?.toLowerCase()
-                      .replace(/\s+/g, '')
-                      .includes(search.toLowerCase().replace(/\s+/g, ''))
-                  )
-            }
+            options={finalOptions}
             value={value}
             valueKey={valueKey}
             textKey={textKey}
@@ -382,7 +375,7 @@ const Select = React.forwardRef(
     )
 
     return label && labelVariant === 'outside' ? (
-      <div>
+      <div className={`flex flex-col ${containerClassNameProp ?? ''}`}>
         {labelRender[labelVariant]}
         {selectRender}
       </div>

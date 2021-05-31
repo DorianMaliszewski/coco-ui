@@ -10,20 +10,21 @@ export { default as Icon } from './components/Icon'
 export { default as Link } from './components/Link'
 export { default as Loader } from './components/Loader'
 export { default as Modal } from './components/Modal'
+export { default as NumberInput } from './components/NumberInput'
 export { default as Radio } from './components/Radio'
 export { default as Select } from './components/Select'
 export { default as Switch } from './components/Switch'
 export { default as Table } from './components/Table'
 export { default as TextArrayInput } from './components/TextArrayInput'
 export { default as TextInput } from './components/TextInput'
+export {
+  useToast,
+  default as ToastProvider,
+} from './components/Toast/ToastProvider'
 export { default as Tooltip } from './components/Tooltip'
 export { default as TopBar } from './components/TopBar'
 
 // Hooks
 export { default as useTableState } from './components/Table/useTableState'
-
-// Toaster
-export {
-  useToast,
-  default as ToastProvider,
-} from './components/Toast/ToastProvider'
+export { default as useClickOutsideHandler } from './hooks/useClickOutsideHandler'
+export { default as useDebounce } from './hooks/useClickOutsideHandler'
