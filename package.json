@@ -1,6 +1,6 @@
 {
   "name": "@coco-ui/core",
-  "version": "1.11.4",
+  "version": "1.12.0",
   "private": false,
   "license": "MIT",
   "main": "dist/index.js",

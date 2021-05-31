@@ -1,3 +1,10 @@
+## [1.12.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.11.4...v1.12.0) (2021-05-31)
+
+
+### :gear: Features
+
+* number input ([c7997cf](https://github.com/DorianMaliszewski/coco-ui/commit/c7997cf6bf3f9afadbe4ffb9b2b1220d0e4a390d))
+
 ### [1.11.4](https://github.com/DorianMaliszewski/coco-ui/compare/v1.11.3...v1.11.4) (2021-05-23)
 
 
