@@ -98,7 +98,7 @@ const Select = React.forwardRef(
       isMulti,
       isMultiLine,
       inputProps: additionalInputProps,
-      searchValue = '',
+      searchValue,
       textKey = 'label',
       filterOptions = defaultFilterOptions,
       valueKey = 'value',
@@ -314,7 +314,7 @@ const Select = React.forwardRef(
                 } ${disabled ? 'opacity-50' : ''}`.replace(/ +(?= )/g, ' ')}
                 aria-expanded={isOpen}
                 aria-controls={name + '-list'}
-                aria-owns={name + '-list'}
+                aria-autocomplete={name + '-list'}
                 aria-activedescendant={
                   options.find(
                     (option: SelectOptionType) => option[valueKey] === value

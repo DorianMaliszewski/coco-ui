@@ -84,8 +84,8 @@ Multi.args = {
 }
 
 export const Controlled: Story<SelectProps> = ({ ...props }: SelectProps) => {
-  const [search, setSearch] = React.useState('')
-  const [value, setValue] = React.useState()
+  const [search, setSearch] = React.useState<string | undefined>()
+  const [value, setValue] = React.useState<any>({ label: 'Option 1', value: 1 })
 
   const handleReset = () => {
     setValue(undefined)
