@@ -4,6 +4,7 @@ import { RenderSelectOptionProps } from './Option'
 import OptionList from './OptionList'
 import Loader from 'components/Loader'
 import useClickOutsideHandler from 'hooks/useClickOutsideHandler'
+import Label from './Label'
 
 const defaultFilterOptions = ({
   options,
@@ -115,98 +116,27 @@ const Select = React.forwardRef(
     const InputComponent = isMultiLine ? 'textarea' : 'input'
     const [isOpen, setOpen] = React.useState(false)
     const [search, setSearch] = React.useState<string | undefined>(searchValue)
+    const [focused, setFocused] = React.useState<SelectOptionType | undefined>(
+      value || undefined
+    )
+
     const inputRef = React.useRef<any>(null)
     const containerRef = React.useRef<HTMLDivElement>(null)
-    const [focused, setFocused] = React.useState(0)
+    React.useImperativeHandle(ref, () => inputRef.current as HTMLInputElement)
+    React.useImperativeHandle(parentRef, () => containerRef.current as any)
+
     useClickOutsideHandler(containerRef, () => {
       setOpen(false)
       setSearch(undefined)
     })
-    const inputProps = {
-      tabIndex: tabIndex ?? -1,
-      ...additionalInputProps,
-    }
 
-    React.useImperativeHandle(ref, () => inputRef.current as HTMLInputElement)
-    React.useImperativeHandle(parentRef, () => containerRef.current as any)
-
-    const handleOpen = (event?: React.MouseEvent<any>) => {
-      if (event) {
-        event.preventDefault()
-        event.stopPropagation()
-      }
-      if (!disabled && !readOnly) {
-        setOpen(true)
-      }
-    }
-
-    const handleKeyDown = (event: React.KeyboardEvent) => {
-      if (!isOpen && event.key !== 'ArrowDown') {
-        return
-      }
-
-      if (event.key.includes('Arrow') || event.key === 'Enter')
-        event.preventDefault()
-      switch (event.key) {
-        case 'Tab':
-        case 'Escape':
-          setOpen(false)
-          break
-        case 'ArrowUp':
-          setFocused(focused === 0 ? focused : focused - 1)
-          break
-        case 'ArrowDown':
-          if (!isOpen) {
-            handleOpen()
-          } else {
-            setFocused(options.length <= focused + 1 ? focused : focused + 1)
-          }
-          break
-        case 'Enter':
-          isMulti
-            ? handleClickForMulti(options[focused])
-            : handleClickForSingle(options[focused])
-          break
-        default:
-          break
-      }
-    }
-
-    // Click an option change the value only
-    const handleClickForMulti = (option: SelectOptionType) => {
-      if (!value) {
-        onChange?.([option])
-        return
-      }
-      const typedValue = value as SelectOptionType[]
-      const index = typedValue?.findIndex(
-        (v: SelectOptionType) => v[valueKey] === option[valueKey]
-      )
-
-      // Handle if we click on an option which is already in value
-      if (index > -1) {
-        const tmp = [...typedValue]
-        tmp.splice(index, 1)
-        onChange?.([...tmp])
-      } else {
-        onChange?.([...typedValue, option])
-      }
-    }
-
-    // Click an option change search and value then close the options
-    const handleClickForSingle = (option: SelectOptionType) => {
-      onChange?.(option)
-      setSearch(undefined)
-      inputRef.current.focus()
-      setOpen(false)
-    }
-
-    const handleInputChange = (event: React.ChangeEvent) => {
-      if (isSearchable) {
-        onSearchChange?.((event.target as any).value)
-        setSearch((event.target as any).value)
-      }
-    }
+    const inputProps = React.useMemo(
+      () => ({
+        tabIndex: tabIndex ?? -1,
+        ...additionalInputProps,
+      }),
+      [tabIndex, additionalInputProps]
+    )
 
     const finalOptions = React.useMemo(
       () =>
@@ -214,6 +144,122 @@ const Select = React.forwardRef(
           ? options
           : filterOptions({ options, textKey, search }),
       [isSearchable, options, textKey, search, filterOptions]
+    )
+
+    const handleOpen = React.useCallback(
+      (event?: React.MouseEvent<any>) => {
+        if (event) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+        if (!disabled && !readOnly) {
+          setOpen(true)
+        }
+      },
+      [disabled, readOnly]
+    )
+
+    // Click an option change the value only
+    const handleClickForMulti = React.useCallback(
+      (option: SelectOptionType) => {
+        if (!value) {
+          onChange?.([option])
+          return
+        }
+        const typedValue = value as SelectOptionType[]
+        const index = typedValue?.findIndex(
+          (v: SelectOptionType) => v[valueKey] === option[valueKey]
+        )
+
+        // Handle if we click on an option which is already in value
+        if (index > -1) {
+          const tmp = [...typedValue]
+          tmp.splice(index, 1)
+          onChange?.([...tmp])
+        } else {
+          onChange?.([...typedValue, option])
+        }
+      },
+      [onChange, value]
+    )
+
+    // Click an option change search and value then close the options
+    const handleClickForSingle = React.useCallback(
+      (option: SelectOptionType) => {
+        onChange?.(option)
+        setSearch(undefined)
+        inputRef.current.focus()
+        setOpen(false)
+      },
+      [inputRef, onChange]
+    )
+
+    const handleKeyDown = React.useCallback(
+      (event: React.KeyboardEvent) => {
+        if (!isOpen && event.key !== 'ArrowDown') {
+          return
+        }
+
+        if (event.key.includes('Arrow') || event.key === 'Enter')
+          event.preventDefault()
+        switch (event.key) {
+          case 'Tab':
+          case 'Escape':
+            setOpen(false)
+            break
+          case 'ArrowUp':
+            {
+              const index = finalOptions.findIndex(
+                (option) => option === focused
+              )
+              setFocused(
+                (current: SelectOptionType) =>
+                  finalOptions[index - 1] || current
+              )
+            }
+            break
+          case 'ArrowDown':
+            if (!isOpen) {
+              handleOpen()
+            } else {
+              const index = finalOptions.findIndex(
+                (option) => option === focused
+              )
+              console.log('New index', index, finalOptions)
+              setFocused(
+                (current: SelectOptionType) =>
+                  finalOptions[index + 1] || current
+              )
+            }
+            break
+          case 'Enter':
+            isMulti
+              ? handleClickForMulti(focused)
+              : handleClickForSingle(focused)
+            break
+          default:
+            break
+        }
+      },
+      [
+        handleClickForMulti,
+        handleClickForSingle,
+        options,
+        finalOptions,
+        isMulti,
+        isOpen,
+        focused,
+      ]
+    )
+
+    const handleInputChange = React.useCallback(
+      (event: React.ChangeEvent) => {
+        if (isSearchable) {
+          onSearchChange?.((event.target as any).value)
+          setSearch((event.target as any).value)
+        }
+      },
+      [isSearchable, onSearchChange]
     )
 
     const containerClassName = React.useMemo(
@@ -243,21 +289,14 @@ const Select = React.forwardRef(
       setSearch(searchValue)
     }, [searchValue])
 
-    const labelRender = {
-      inside: (
-        <label
-          htmlFor={id}
-          className="text-xs text-gray-500 px-2 absolute top-0 left-0"
-        >
-          {label}
-        </label>
-      ),
-      outside: (
-        <label htmlFor={id} className="text-xs text-gray-500 px-2">
-          {label}
-        </label>
-      ),
-    }
+    // Set focus
+    React.useEffect(() => {
+      console.log('Focused', focused)
+      if (!focused && finalOptions.length) setFocused(finalOptions[0])
+      if (finalOptions?.findIndex((option) => option === focused) < 0) {
+        setFocused(finalOptions[0])
+      }
+    }, [focused, finalOptions])
 
     const selectRender = (
       <div
@@ -267,7 +306,11 @@ const Select = React.forwardRef(
         aria-disabled={disabled}
         onKeyDown={handleKeyDown}
       >
-        {label && labelVariant === 'inside' && labelRender[labelVariant]}
+        {label && labelVariant === 'inside' ? (
+          <Label variant="inside" id={id}>
+            {label}
+          </Label>
+        ) : null}
         <div
           className={`w-full flex items-center flex-grow`}
           aria-readonly={readOnly}
@@ -279,7 +322,7 @@ const Select = React.forwardRef(
                   {renderSelected((value as SelectOptionType[]) || [])}
                 </div>
               )}
-              <input
+              <InputComponent
                 className={`flex-grow outline-none ${
                   isLoading
                     ? 'bg-transparent pointer-events-none cursor-not-allowed'
@@ -307,35 +350,33 @@ const Select = React.forwardRef(
               />
             </>
           ) : (
-            <>
-              <InputComponent
-                className={`bg-transparent w-full outline-none ${
-                  isLoading ? 'pointer-events-none cursor-not-allowed' : ''
-                } ${disabled ? 'opacity-50' : ''}`.replace(/ +(?= )/g, ' ')}
-                aria-expanded={isOpen}
-                aria-controls={name + '-list'}
-                aria-autocomplete={name + '-list'}
-                aria-activedescendant={
-                  options.find(
-                    (option: SelectOptionType) => option[valueKey] === value
-                  )?.[valueKey] as string
-                }
-                role="combobox"
-                aria-haspopup="listbox"
-                type="text"
-                id={id}
-                {...inputProps}
-                ref={inputRef}
-                disabled={disabled}
-                readOnly={readOnly || isLoading || !isSearchable}
-                placeholder={placeholder || 'Select...'}
-                onChange={handleInputChange}
-                onKeyDown={handleKeyDown}
-                value={search ?? (value?.[textKey] || '')}
-              />
-            </>
+            <InputComponent
+              className={`bg-transparent w-full outline-none ${
+                isLoading ? 'pointer-events-none cursor-not-allowed' : ''
+              } ${disabled ? 'opacity-50' : ''}`.replace(/ +(?= )/g, ' ')}
+              aria-expanded={isOpen}
+              aria-controls={name + '-list'}
+              aria-autocomplete={name + '-list'}
+              aria-activedescendant={
+                options.find(
+                  (option: SelectOptionType) => option[valueKey] === value
+                )?.[valueKey] as string
+              }
+              role="combobox"
+              aria-haspopup="listbox"
+              type="text"
+              id={id}
+              {...inputProps}
+              ref={inputRef}
+              disabled={disabled}
+              readOnly={readOnly || isLoading || !isSearchable}
+              placeholder={placeholder || 'Select...'}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+              value={search ?? (value?.[textKey] || '')}
+            />
           )}
-          {!isLoading && !readOnly && (
+          {isLoading || readOnly ? null : (
             <ChevronDownIcon
               width={12}
               height={12}
@@ -348,7 +389,7 @@ const Select = React.forwardRef(
             <Loader className="mx-1" size="sm" color="primary-800" />
           )}
         </div>
-        {!isLoading && (
+        {isLoading ? null : (
           <OptionList
             isMulti={isMulti}
             name={name}
@@ -376,7 +417,9 @@ const Select = React.forwardRef(
 
     return label && labelVariant === 'outside' ? (
       <div className={`flex flex-col ${containerClassNameProp ?? ''}`}>
-        {labelRender[labelVariant]}
+        <Label variant="outside" id={id}>
+          {label}
+        </Label>
         {selectRender}
       </div>
     ) : (

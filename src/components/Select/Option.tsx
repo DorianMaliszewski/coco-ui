@@ -26,7 +26,6 @@ const Option = ({
   textKey,
   option,
   focused,
-  index,
   renderOption = ({ option, isSelected }: RenderSelectOptionProps) => (
     <div className="flex items-center">
       {option[textKey]}
@@ -48,8 +47,8 @@ const Option = ({
   return (
     <div
       className={`truncate py-1 px-1 hover:bg-primary-600 hover:text-white cursor-pointer ${
-        focused === index ? 'bg-primary-600 text-white' : ''
-      } ${isSelected && focused !== index ? 'text-primary-600' : ''}`}
+        focused === option ? 'bg-primary-600 text-white' : ''
+      } ${isSelected && focused !== option ? 'text-primary-600' : ''}`}
       key={option[valueKey]}
       id={option[valueKey]}
       role="option"
