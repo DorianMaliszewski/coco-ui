@@ -1,3 +1,10 @@
+### [1.12.5](https://github.com/DorianMaliszewski/coco-ui/compare/v1.12.4...v1.12.5) (2021-06-11)
+
+
+### :bug: Bug Fixes
+
+* modal rendering ([ecdced1](https://github.com/DorianMaliszewski/coco-ui/commit/ecdced134325cb1a2580782f686ef15fe0792d07))
+
 ### [1.12.4](https://github.com/DorianMaliszewski/coco-ui/compare/v1.12.3...v1.12.4) (2021-06-11)
 
 
