@@ -225,7 +225,6 @@ const Select = React.forwardRef(
               const index = finalOptions.findIndex(
                 (option) => option === focused
               )
-              console.log('New index', index, finalOptions)
               setFocused(
                 (current: SelectOptionType) =>
                   finalOptions[index + 1] || current
@@ -291,7 +290,6 @@ const Select = React.forwardRef(
 
     // Set focus
     React.useEffect(() => {
-      console.log('Focused', focused)
       if (!focused && finalOptions.length) setFocused(finalOptions[0])
       if (finalOptions?.findIndex((option) => option === focused) < 0) {
         setFocused(finalOptions[0])

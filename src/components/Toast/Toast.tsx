@@ -76,7 +76,7 @@ const Toast = ({
   return (
     <div
       onClick={handleClose}
-      className={`mr-4 mt-1 w-72 transition duration-500 transition-transform transform  ${
+      className={`z-20 mr-4 mt-1 w-72 transition duration-500 transition-transform transform  ${
         mounted ? '' : 'translate-x-72'
       } overflow-hidden flex flex-col ${
         (variants as any)[variant]?.toast ?? variants.default.toast

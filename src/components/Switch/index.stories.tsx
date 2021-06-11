@@ -18,7 +18,6 @@ const Template: Story<SwitchProps> = ({
     <Switch
       checked={isChecked}
       onChange={(event) => {
-        console.log('Chnage', event)
         setIsChecked(!isChecked)
       }}
       {...props}
