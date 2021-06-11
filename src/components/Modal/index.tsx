@@ -16,6 +16,7 @@ export interface ModalProps extends React.DialogHTMLAttributes<HTMLDivElement> {
   size?: ModalSize
   position?: ModalPosition
   animation?: ModalAnimation
+  alwaysRender?: boolean
 }
 const Modal = ({
   animation = 'fade',
@@ -27,6 +28,7 @@ const Modal = ({
   closeOnOverlayDoubleClick = true,
   'aria-labelledby': ariaLabelledBy,
   'aria-label': ariaLabel,
+  alwaysRender = false,
 }: ModalProps): JSX.Element => {
   const modalState = useModalTransition({
     defaultOpen: open,
@@ -46,7 +48,7 @@ const Modal = ({
     [modalState.state, position, size, animation]
   )
 
-  return (
+  return open || alwaysRender ? (
     <div
       className={`${classes.container}`}
       aria-labelledby={ariaLabelledBy}
@@ -73,6 +75,8 @@ const Modal = ({
         </div>
       </div>
     </div>
+  ) : (
+    <></>
   )
 }
 
