@@ -1,3 +1,10 @@
+### [1.12.3](https://github.com/DorianMaliszewski/coco-ui/compare/v1.12.2...v1.12.3) (2021-06-11)
+
+
+### :bug: Bug Fixes
+
+* table classes ([62ffeba](https://github.com/DorianMaliszewski/coco-ui/commit/62ffeba0e738d7ef5272b2281ec391133c28fe81))
+
 ### [1.12.2](https://github.com/DorianMaliszewski/coco-ui/compare/v1.12.1...v1.12.2) (2021-06-10)
 
 
