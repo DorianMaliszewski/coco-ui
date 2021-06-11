@@ -1,3 +1,10 @@
+### [1.12.4](https://github.com/DorianMaliszewski/coco-ui/compare/v1.12.3...v1.12.4) (2021-06-11)
+
+
+### :bug: Bug Fixes
+
+* toast zindex ([d172071](https://github.com/DorianMaliszewski/coco-ui/commit/d1720713429d0503f43ec63b08108d549b9018b1))
+
 ### [1.12.3](https://github.com/DorianMaliszewski/coco-ui/compare/v1.12.2...v1.12.3) (2021-06-11)
 
 
