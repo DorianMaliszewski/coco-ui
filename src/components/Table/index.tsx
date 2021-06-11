@@ -31,10 +31,7 @@ const Table = ({
     return child
   })
   return (
-    <table
-      className={'min-w-max w-full table-auto text-left ' + className}
-      {...props}
-    >
+    <table className={className} {...props}>
       {finalChildren}
     </table>
   )
