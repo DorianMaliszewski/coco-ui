@@ -246,19 +246,30 @@ const Icon = ({
   type = 'solid',
   className = '',
   size = 24,
-  fallback = null,
+  fallback = undefined,
   onClick,
 }: IconProps): JSX.Element => {
   if (!name) {
     throw new Error("Can't call Icon component without name props")
   }
 
-  const Icon = React.lazy(
-    () => import(`@heroicons/react/${type}/${icons[name]}Icon`)
+  const Icon = React.useMemo(
+    () =>
+      React.lazy(() => import(`@heroicons/react/${type}/${icons[name]}Icon`)),
+    [type, name, icons]
   )
 
   return (
-    <React.Suspense fallback={fallback}>
+    <React.Suspense
+      fallback={
+        fallback ?? (
+          <div
+            className={`${className ?? ''}`}
+            style={{ height: size, width: size, display: 'inline' }}
+          />
+        )
+      }
+    >
       <Icon
         onClick={onClick}
         height={size}
@@ -271,6 +282,8 @@ const Icon = ({
 
 Icon.defaultProps = {
   type: 'solid',
+  size: 24,
+  fallback: undefined,
 }
 
 export default Icon
