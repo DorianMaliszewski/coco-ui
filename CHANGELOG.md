@@ -1,3 +1,10 @@
+## [1.14.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.13.0...v1.14.0) (2021-09-17)
+
+
+### :gear: Features
+
+* begin use css instead of long classnames ([e332c77](https://github.com/DorianMaliszewski/coco-ui/commit/e332c77189b0dc8074df3453d1e873f3b7435afb))
+
 ## [1.13.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.12.5...v1.13.0) (2021-07-07)
 
 
