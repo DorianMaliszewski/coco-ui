@@ -1,0 +1,29 @@
+.table-cell {
+  @apply py-3 px-6;
+}
+
+.table-head-row {
+  @apply bg-primary-600 text-white uppercase text-sm leading-normal;
+}
+
+.table-head {
+  @apply py-3 px-6;
+}
+
+.table-head-cell {
+  @apply flex items-center;
+}
+
+.table-body-row:nth-child(2n+0) {
+  @apply bg-gray-100;
+}
+
+.table-body-row:nth-child(2n+1) {
+  @apply bg-background;
+}
+.table-body-row:nth-child(2n+0).hoverable {
+  @apply hover:bg-gray-200 cursor-pointer;
+}
+.table-body-row:nth-child(2n+1).hoverable {
+  @apply hover:bg-gray-200 cursor-pointer;
+}

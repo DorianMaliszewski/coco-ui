@@ -18,6 +18,7 @@ const TableBody = ({
         key: index,
         isEven: index % 2 === 0,
         hoverable,
+        className: `table-body-row`,
       })
     )
     return <tbody {...props}>{finalRows}</tbody>
@@ -32,6 +33,7 @@ const TableBody = ({
       isEven: index % 2 === 0,
       hoverable: elementChild.props.hoverable ?? hoverable,
       ...child.props,
+      className: [`table-body-row`, child.props.className].join(' '),
     })
   })
   return <tbody {...props}>{finalRows}</tbody>

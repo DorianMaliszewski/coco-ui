@@ -23,16 +23,18 @@ const TableHeadCell = ({
   return (
     <th
       onMouseEnter={(e) => {
-        setIsHover(true)
         onMouseEnter?.(e)
+        setIsHover(true)
       }}
       onMouseLeave={(e) => {
-        setIsHover(false)
         onMouseLeave?.(e)
+        setIsHover(false)
       }}
-      className={`${className ?? 'py-3 px-6'} ${
-        sortable ? 'cursor-pointer relative' : ''
-      }`.trim()}
+      className={[
+        'table-head',
+        sortable ? 'cursor-pointer relative' : '',
+        className,
+      ].join(' ')}
       onClick={(event) => {
         if (sortable) {
           onSort?.(
@@ -47,25 +49,24 @@ const TableHeadCell = ({
       {...props}
     >
       {sortable ? (
-        <>
-          {children}
-          <div className="bg-primary-600 rounded-full absolute top-1/2 transform -translate-y-1/2 right-1">
-            {isCurrentSort ? (
-              <Icon
-                size={16}
-                className="ml-1"
-                name={
-                  !sort?.order || sort?.order === 'asc'
-                    ? 'sort-ascending'
-                    : 'sort-descending'
-                }
-              />
-            ) : null}
-            {!isCurrentSort && isHover ? (
-              <Icon size={16} className="ml-1" name="sort-ascending" />
-            ) : null}
-          </div>
-        </>
+        <div className="table-head-cell">
+          <span>{children}</span>
+          {isCurrentSort ? (
+            <Icon
+              size={16}
+              className="m-1"
+              name={
+                sort?.order === 'asc' ? 'sort-ascending' : 'sort-descending'
+              }
+            />
+          ) : (
+            <Icon
+              size={16}
+              className={['m-1', !isHover ? 'opacity-0' : undefined].join(' ')}
+              name="sort-ascending"
+            />
+          )}
+        </div>
       ) : (
         children
       )}

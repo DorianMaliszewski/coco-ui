@@ -1,5 +1,5 @@
 import { XIcon } from '@heroicons/react/solid'
-import { Badge } from 'index'
+import Badge from '../Badge'
 import React, { AriaAttributes } from 'react'
 
 type RenderSelectedProps = { array: string[]; onDelete: (index: number) => any }

@@ -1,0 +1,83 @@
+.btn {
+  @apply focus:outline-none hover:shadow flex rounded items-center justify-center;
+}
+
+.btn-primary {
+  @apply btn bg-primary-600 text-white hover:bg-primary-700 focus:ring-2 focus:ring-offset-1 focus:ring-primary-300;
+}
+
+.btn-default {
+  @apply btn bg-white text-foreground border border-foreground focus:ring-2 focus:ring-offset-1 focus:ring-foreground;
+}
+
+.btn-success {
+  @apply btn bg-success-600 text-white hover:bg-success-700 focus:ring-2 focus:ring-offset-1 focus:ring-success-300;
+}
+
+.btn-error  {
+  @apply btn bg-error-600 text-white hover:bg-error-700 focus:ring-2 focus:ring-offset-1 focus:ring-error-300;
+}
+
+.btn-warning {
+  @apply btn bg-warning-500 text-white hover:bg-warning-600 focus:ring-2 focus:ring-offset-1 focus:ring-warning-200;
+}
+
+.btn-info {
+  @apply btn bg-info-600 text-white hover:bg-info-700 focus:ring-2 focus:ring-offset-1 focus:ring-info-300;
+}
+
+.btn-transparent {
+  @apply btn bg-transparent;
+}
+
+.btn-link {
+  @apply bg-transparent underline font-bold;
+}
+
+.btn-primary-outline {
+  @apply btn hover:bg-primary-600 border-primary-600 border text-primary-600 hover:text-white focus:ring-2 focus:ring-offset-1 focus:ring-primary-300;
+}
+
+.btn-default-outline {
+  @apply btn hover:bg-white bg-foreground text-white hover:text-foreground border border-foreground focus:ring-2 focus:ring-offset-1 focus:ring-foreground
+}
+
+.btn-success-outline {
+  @apply btn hover:bg-success-600 hover:text-white text-success-600 border border-success-600 focus:ring-2 focus:ring-offset-1 focus:ring-success-300;
+}
+
+.btn-error-outline {
+  @apply btn hover:bg-error-600 hover:text-white text-error-600 border border-error-600 focus:ring-2 focus:ring-offset-1 focus:ring-error-300;
+}
+
+.btn-warning-outline {
+  @apply btn hover:bg-warning-500 hover:text-white text-warning-500 border border-warning-500 focus:ring-2 focus:ring-offset-1 focus:ring-warning-200;
+}
+
+.btn-info-outline {
+  @apply btn hover:bg-info-600 hover:text-white text-info-600 border border-info-600 focus:ring-2 focus:ring-offset-1 focus:ring-info-300;
+}
+
+
+/*
+ Sizes
+*/
+
+.btn-xs {
+  @apply text-xs py-1 px-2;
+}
+.btn-sm {
+  @apply text-sm py-1 px-2;
+}
+.btn-md {
+  @apply py-1 px-2;
+}
+.btn-lg {
+  @apply text-lg py-1 px-2;
+}
+.btn-xl {
+  @apply text-xl py-1 px-3;
+}
+.btn-2xl {
+  @apply text-2xl py-1 px-3;
+}

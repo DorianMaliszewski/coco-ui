@@ -13,23 +13,13 @@ const TableRow = ({
   className,
   isEven,
   ...props
-}: TableRowProps): JSX.Element => {
-  let classes = ''
-  if (hoverable)
-    classes += !isEven
-      ? 'hover:bg-gray-200 cursor-pointer'
-      : 'hover:bg-gray-200 cursor-pointer'
-
-  return (
-    <tr
-      className={`${classes} ${
-        isEven === undefined ? '' : !isEven ? 'bg-gray-100' : 'bg-background'
-      } ${className ?? ''}`.trim()}
-      {...props}
-    >
-      {children}
-    </tr>
-  )
-}
+}: TableRowProps): JSX.Element => (
+  <tr
+    className={[hoverable ? 'hoverable' : undefined, className].join(' ')}
+    {...props}
+  >
+    {children}
+  </tr>
+)
 
 export default TableRow

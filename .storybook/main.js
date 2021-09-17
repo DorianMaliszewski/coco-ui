@@ -3,11 +3,24 @@ module.exports = {
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
-    '@storybook/addon-postcss',
+    {
+      name: '@storybook/addon-postcss',
+      options: {
+        postcssLoaderOptions: {
+          implementation: require('postcss'),
+        },
+      },
+    },
     '@storybook/react',
     '@storybook/addon-actions',
     '@storybook/addon-a11y',
   ],
+  core: {
+    builder: 'webpack5',
+  },
+  features: {
+    buildStoriesJson: true,
+  },
   typescript: {
     check: false,
     checkOptions: {},
@@ -20,15 +33,6 @@ module.exports = {
     },
   },
   webpackFinal: async (config) => {
-    // Add SVGR Loader
-    // ========================================================
-    const assetRule = config.module.rules.find(({ test }) => test?.test('.svg'))
-
-    const assetLoader = {
-      loader: assetRule.loader,
-      options: assetRule.options || assetRule.query,
-    }
-
     // Merge our rule with existing assetLoader rules
     config.module.rules.unshift({
       test: /\.svg$/,

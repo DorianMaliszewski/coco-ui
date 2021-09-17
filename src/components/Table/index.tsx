@@ -3,6 +3,7 @@ import TableBody from './TableBody'
 import TableHead from './TableHead'
 import TableHeadCell from './TableHeadCell'
 import TableRow from './TableRow'
+import './index.css'
 
 export interface TableProps {
   children: React.ReactNode
@@ -31,7 +32,7 @@ const Table = ({
     return child
   })
   return (
-    <table className={className} {...props}>
+    <table className={className ?? 'table-fixed'} {...props}>
       {finalChildren}
     </table>
   )
@@ -46,7 +47,7 @@ type TableCellProps = React.TdHTMLAttributes<HTMLTableCellElement> & {
   children: React.ReactNode
 }
 const TableCell = ({ children, className, ...props }: TableCellProps) => (
-  <td className={className ?? 'py-3 px-6'} {...props}>
+  <td className={['table-cell', className].join(' ')} {...props}>
     {children}
   </td>
 )

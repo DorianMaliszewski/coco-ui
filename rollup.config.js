@@ -18,7 +18,14 @@ const plugins = [
   typescript({
     tsconfig: './tsconfig.json',
   }),
-  postcss(),
+  postcss({
+    config: {
+      path: './postcss.config.js',
+    },
+    minimize: true,
+    extract: true,
+    extensions: ['.css'],
+  }),
   nodeResolve({
     preferBuiltins: true,
   }),

@@ -2,6 +2,7 @@ const postcssNormalize = require('postcss-normalize')
 
 module.exports = {
   plugins: [
+    require('postcss-import'),
     require('tailwindcss'),
     require('autoprefixer'),
     require('postcss-flexbugs-fixes'),

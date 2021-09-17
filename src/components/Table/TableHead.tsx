@@ -12,9 +12,9 @@ const TableHead = ({
   if (columns)
     return (
       <thead {...props}>
-        <tr className="bg-primary-600 text-white uppercase text-sm leading-normal">
+        <tr className="table-head-row">
           {columns.map((column, index) => (
-            <th className={`py-3 px-6`} key={index}>
+            <th className="table-head" key={index}>
               {column.name}
             </th>
           ))}
@@ -29,9 +29,7 @@ const TableHead = ({
     const elementChild: React.ReactElement = child
     return React.cloneElement(elementChild, {
       ...child.props,
-      className: `bg-primary-600 text-white uppercase text-sm leading-normal ${
-        child.props.className ?? ''
-      }`,
+      className: ['table-head-row', child.props.className].join(' '),
     })
   })
   return <thead {...props}>{finalRows}</thead>

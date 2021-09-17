@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { SVGProps } from 'react'
 
-const icons = {
+export const icons = {
   'academic-cap': 'AcademicCap',
   adjustments: 'Adjustments',
   annotation: 'Annotation',
@@ -226,7 +226,7 @@ export type IconName = keyof typeof icons
 
 type IconType = 'outline' | 'solid'
 
-export interface IconProps {
+export interface IconProps extends SVGProps<SVGElement> {
   name: IconName
   size?: number
   type?: IconType

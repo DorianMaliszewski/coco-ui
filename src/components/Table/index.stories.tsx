@@ -74,7 +74,7 @@ export const Sortable: Story<TableProps> = ({ hoverable }: TableProps) => {
     initialSort: { field: 'id', order: 'asc' },
   })
   return (
-    <Table data={data} hoverable={hoverable}>
+    <Table data={data} hoverable={hoverable} className="w-full">
       <Table.Head>
         <Table.Row>
           <Table.HeadCell onSort={onSort} sort={sort} sortable="id">

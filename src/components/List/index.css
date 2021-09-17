@@ -1,0 +1,15 @@
+.list {
+  @apply grid grid-flow-row;
+}
+
+.list-headers {
+  @apply grid grid-flow-row px-2;
+}
+
+.list-row {
+  @apply grid grid-flow-row p-2;
+}
+
+.list-row-card {
+  @apply list-row shadow dark:shadow-dark rounded p-2;
+}

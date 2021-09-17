@@ -1,5 +1,5 @@
 import Root from '../src/Root'
-import '!style-loader!css-loader!postcss-loader!../src/index.css'
+import '../src/index.css'
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
