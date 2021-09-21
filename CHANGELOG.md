@@ -1,3 +1,10 @@
+### [1.14.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.14.0...v1.14.1) (2021-09-21)
+
+
+### :bug: Bug Fixes
+
+* list export ([cb615ac](https://github.com/DorianMaliszewski/coco-ui/commit/cb615ace4430dfe9b2c688017d24d26e8ffa9c50))
+
 ## [1.14.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.13.0...v1.14.0) (2021-09-17)
 
 
