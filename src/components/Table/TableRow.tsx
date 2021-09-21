@@ -15,7 +15,11 @@ const TableRow = ({
   ...props
 }: TableRowProps): JSX.Element => (
   <tr
-    className={[hoverable ? 'hoverable' : undefined, className].join(' ')}
+    className={[
+      'table-body-row',
+      hoverable ? 'hoverable' : undefined,
+      className,
+    ].join(' ')}
     {...props}
   >
     {children}
