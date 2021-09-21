@@ -23,12 +23,16 @@ const columns = [
 
 const Template: Story<ListProps> = (args) => (
   <List {...args}>
-    {({ line, ListRow, ListCell }) => (
-      <ListRow key={(line as any).name}>
-        <ListCell>{(line as any).id}</ListCell>
-        <ListCell>{(line as any).name}</ListCell>
-        <ListCell>{(line as any).skill}</ListCell>
-      </ListRow>
+    {({ data, ListRow, ListCell }) => (
+      <>
+        {data.map((line) => (
+          <ListRow key={(line as any).name}>
+            <ListCell>{(line as any).id}</ListCell>
+            <ListCell>{(line as any).name}</ListCell>
+            <ListCell>{(line as any).skill}</ListCell>
+          </ListRow>
+        ))}
+      </>
     )}
   </List>
 )

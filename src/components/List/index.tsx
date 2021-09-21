@@ -55,6 +55,7 @@ const ListHeaders = ({
             'flex items-center',
             column.sort ? 'cursor-pointer' : 'cursor-default',
             index === sortState.index ? 'text-primary-600' : 'text-gray-500',
+            column.className,
           ].join(' ')}
           key={column.name}
         >
@@ -88,11 +89,11 @@ const ListHeaders = ({
 }
 
 type ListChildrenRender<T = unknown> = ({
-  line,
+  data,
   ListRow,
   ListCell,
 }: {
-  line: T
+  data: T[]
   ListRow: ListRowType
   ListCell: ListCellType
 }) => JSX.Element
@@ -134,18 +135,16 @@ const List = ({
       {columns ? (
         <ListHeaders sortState={sort} setSort={setSort} columns={columns} />
       ) : null}
-      {sortedData?.map((line) =>
-        children({
-          line,
-          ListRow: (props) =>
-            React.createElement(ListRow, {
-              columns,
-              variant,
-              ...props,
-            }) as JSX.Element,
-          ListCell,
-        })
-      )}
+      {children({
+        data: sortedData || [],
+        ListRow: (props) =>
+          React.createElement(ListRow, {
+            columns,
+            variant,
+            ...props,
+          }) as JSX.Element,
+        ListCell,
+      })}
     </div>
   )
 }
