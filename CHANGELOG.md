@@ -1,3 +1,10 @@
+### [1.14.2](https://github.com/DorianMaliszewski/coco-ui/compare/v1.14.1...v1.14.2) (2021-09-21)
+
+
+### :bug: Bug Fixes
+
+* table row classnames ([4e5a511](https://github.com/DorianMaliszewski/coco-ui/commit/4e5a511a97f7619efc265d26fc1ceaccd154debd))
+
 ### [1.14.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.14.0...v1.14.1) (2021-09-21)
 
 
