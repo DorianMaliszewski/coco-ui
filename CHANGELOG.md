@@ -1,3 +1,10 @@
+### [1.14.3](https://github.com/DorianMaliszewski/coco-ui/compare/v1.14.2...v1.14.3) (2021-09-21)
+
+
+### :bug: Bug Fixes
+
+* list render props ([3b7b7c9](https://github.com/DorianMaliszewski/coco-ui/commit/3b7b7c9a695bd80e7cb3bdd8bd40ac9fc6144461))
+
 ### [1.14.2](https://github.com/DorianMaliszewski/coco-ui/compare/v1.14.1...v1.14.2) (2021-09-21)
 
 
