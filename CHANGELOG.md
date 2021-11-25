@@ -1,3 +1,10 @@
+## [1.15.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.14.3...v1.15.0) (2021-11-25)
+
+
+### :gear: Features
+
+* list, table and select improvment ([d3bc7fd](https://github.com/DorianMaliszewski/coco-ui/commit/d3bc7fd932a2572fdf46147e8696ba9f80e6b2c9))
+
 ### [1.14.3](https://github.com/DorianMaliszewski/coco-ui/compare/v1.14.2...v1.14.3) (2021-09-21)
 
 
