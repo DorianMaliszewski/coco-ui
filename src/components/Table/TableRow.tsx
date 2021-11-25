@@ -1,20 +1,17 @@
 import React from 'react'
 
-export type TableRowProps = {
+export interface TableRowProps
+  extends React.HTMLAttributes<HTMLTableRowElement> {
   hoverable?: boolean
-  className?: string
-  children: React.ReactNode
-  isEven?: boolean
-  onClick?: () => any
+  children?: React.ReactNode
 }
-const TableRow = ({
-  children,
-  hoverable,
-  className,
-  isEven,
-  ...props
-}: TableRowProps): JSX.Element => (
+
+const TableRow = (
+  { children, hoverable, className, ...props }: TableRowProps,
+  ref: React.ForwardedRef<HTMLTableRowElement>
+): JSX.Element => (
   <tr
+    ref={ref}
     className={[
       'table-body-row',
       hoverable ? 'hoverable' : undefined,
@@ -26,4 +23,4 @@ const TableRow = ({
   </tr>
 )
 
-export default TableRow
+export default React.forwardRef(TableRow)

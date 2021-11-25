@@ -74,7 +74,7 @@ export const Sortable: Story<TableProps> = ({ hoverable }: TableProps) => {
     initialSort: { field: 'id', order: 'asc' },
   })
   return (
-    <Table data={data} hoverable={hoverable} className="w-full">
+    <Table data={data} hoverable={hoverable}>
       <Table.Head>
         <Table.Row>
           <Table.HeadCell onSort={onSort} sort={sort} sortable="id">
@@ -89,13 +89,13 @@ export const Sortable: Story<TableProps> = ({ hoverable }: TableProps) => {
         </Table.Row>
       </Table.Head>
       <Table.Body>
-        {({ row }) => (
+        {data.map((row) => (
           <Table.Row key={row.id}>
             <Table.Cell>{row.id}</Table.Cell>
             <Table.Cell>{row.name}</Table.Cell>
             <Table.Cell>{row.skill}</Table.Cell>
           </Table.Row>
-        )}
+        ))}
       </Table.Body>
     </Table>
   )
@@ -115,7 +115,7 @@ export const Example: Story<TableProps> = ({ hoverable }: TableProps) => {
       <Table.Head>
         <Table.Row>
           <Table.HeadCell
-            className="text-center w-20"
+            className="w-20"
             onSort={onSort}
             sort={sort}
             sortable="id"
@@ -141,13 +141,13 @@ export const Example: Story<TableProps> = ({ hoverable }: TableProps) => {
         </Table.Row>
       </Table.Head>
       <Table.Body>
-        {({ row }) => (
+        {data.map((row) => (
           <Table.Row hoverable={hoverable} key={row.id}>
-            <Table.Cell className="p-1 text-center">{row.id}</Table.Cell>
-            <Table.Cell className="p-1">{row.name}</Table.Cell>
-            <Table.Cell className="text-center">{row.skill}</Table.Cell>
+            <Table.Cell>{row.id}</Table.Cell>
+            <Table.Cell>{row.name}</Table.Cell>
+            <Table.Cell>{row.skill}</Table.Cell>
           </Table.Row>
-        )}
+        ))}
       </Table.Body>
     </Table>
   )

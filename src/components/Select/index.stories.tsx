@@ -1,6 +1,6 @@
 import React from 'react'
 import { Story, Meta } from '@storybook/react'
-import Select, { SelectProps } from '.'
+import Select, { SelectProps, ValueType } from '.'
 import Button from 'components/Button'
 
 export default {
@@ -21,7 +21,7 @@ const fakeOptions = [
 
 const Template: Story<SelectProps> = ({ ...props }: SelectProps) => {
   const ref = React.useRef<HTMLInputElement>(null)
-  const [value, setValue] = React.useState()
+  const [value, setValue] = React.useState<ValueType>()
 
   return (
     <Select
@@ -66,16 +66,6 @@ Labeled.args = {
   options: fakeOptions,
 }
 
-export const CustomOption = Template.bind({})
-CustomOption.args = {
-  label: 'Custom Options',
-  options: fakeOptions,
-  // eslint-disable-next-line react/display-name
-  renderOption: ({ option }: any) => (
-    <div className="truncate">Custom option : {option.label}</div>
-  ),
-}
-
 export const Multi = Template.bind({})
 Multi.args = {
   label: 'Multi select',
@@ -85,7 +75,7 @@ Multi.args = {
 
 export const Controlled: Story<SelectProps> = ({ ...props }: SelectProps) => {
   const [search, setSearch] = React.useState<string | undefined>()
-  const [value, setValue] = React.useState<any>({ label: 'Option 1', value: 1 })
+  const [value, setValue] = React.useState<any>(1)
 
   const handleReset = () => {
     setValue(undefined)

@@ -1,12 +1,12 @@
-import React, { PropsWithChildren } from 'react'
+import React from 'react'
 
 type DivProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 >
 
-const ListCell = (props: PropsWithChildren<DivProps>): JSX.Element => (
-  <div {...props} />
+const ListCell = ({ className, ...props }: DivProps): JSX.Element => (
+  <div className={['list-cell', className].join(' ')} {...props} />
 )
 
 export default ListCell

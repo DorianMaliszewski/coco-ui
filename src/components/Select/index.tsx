@@ -1,6 +1,5 @@
 import React from 'react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
-import { RenderSelectOptionProps } from './Option'
 import OptionList from './OptionList'
 import Loader from 'components/Loader'
 import useClickOutsideHandler from 'hooks/useClickOutsideHandler'
@@ -8,18 +7,18 @@ import Label from './Label'
 
 const defaultFilterOptions = ({
   options,
-  textKey,
   search,
 }: {
   options: SelectOptionType[]
-  textKey: string
   search: string
 }) =>
   options.filter((option) =>
-    (option[textKey] as string)
-      ?.toLowerCase()
-      .replace(/\s+/g, '')
-      .includes(search.toLowerCase().replace(/\s+/g, ''))
+    typeof option.label === 'string'
+      ? option.label
+          .toLowerCase()
+          .replace(/\s+/g, '')
+          .includes(search.toLowerCase().replace(/\s+/g, ''))
+      : true
   )
 
 const getContainerClassName = ({
@@ -40,13 +39,17 @@ const getContainerClassName = ({
     disabled ? 'bg-gray-50 cursor-not-allowed pointer-events-none' : ''
   } ${className ?? ''}`.replace(/ +(?= )/g, ' ')
 
-export type SelectOptionType = any
+export type SelectOptionType = {
+  value: string | number
+  label: string
+}
+
+export type ValueType = string | number | Array<string | number> | undefined
 export interface SelectProps {
   className?: string
   containerClassName?: string
   filterOptions?: (args: {
     options: SelectOptionType[]
-    textKey: string
     search: string
   }) => SelectOptionType[]
   id?: string
@@ -55,9 +58,9 @@ export interface SelectProps {
   placeholder?: string
   label?: string
   labelVariant?: 'outside' | 'inside'
-  onChange?: (result: SelectOptionType | SelectOptionType[]) => unknown
+  onChange?: (result: ValueType) => unknown
   onSearchChange?: (string: string) => any
-  value?: SelectOptionType | SelectOptionType[]
+  value: ValueType
   parentRef?: React.RefObject<HTMLDivElement>
   disabled?: boolean
   readOnly?: boolean
@@ -66,13 +69,7 @@ export interface SelectProps {
   isSearchable?: boolean
   isMulti?: boolean
   isMultiLine?: boolean
-  textKey?: string
-  valueKey?: string
   inputProps?: any
-  renderSelected?: (
-    values: SelectOptionType[] | SelectOptionType
-  ) => React.ReactNode
-  renderOption?: (option: RenderSelectOptionProps) => React.ReactNode
   searchValue?: string
 }
 
@@ -87,7 +84,8 @@ const Select = React.forwardRef(
       placeholder,
       onChange,
       onSearchChange,
-      value,
+      isMulti,
+      value = isMulti ? [] : undefined,
       parentRef,
       disabled,
       label,
@@ -96,28 +94,18 @@ const Select = React.forwardRef(
       tabIndex,
       isLoading,
       isSearchable,
-      isMulti,
       isMultiLine,
       inputProps: additionalInputProps,
       searchValue,
-      textKey = 'label',
       filterOptions = defaultFilterOptions,
-      valueKey = 'value',
-      renderSelected = (value) =>
-        isMulti
-          ? (value as SelectOptionType[])
-              .map((value: SelectOptionType) => value[textKey])
-              .join(', ')
-          : ((value as SelectOptionType)[textKey] as string),
-      renderOption,
     }: SelectProps,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     const InputComponent = isMultiLine ? 'textarea' : 'input'
     const [isOpen, setOpen] = React.useState(false)
     const [search, setSearch] = React.useState<string | undefined>(searchValue)
-    const [focused, setFocused] = React.useState<SelectOptionType | undefined>(
-      value || undefined
+    const [focused, setFocused] = React.useState<string | number>(
+      isMulti || !value || Array.isArray(value) ? options[0]?.value : value
     )
 
     const inputRef = React.useRef<any>(null)
@@ -140,10 +128,8 @@ const Select = React.forwardRef(
 
     const finalOptions = React.useMemo(
       () =>
-        !isSearchable || !search
-          ? options
-          : filterOptions({ options, textKey, search }),
-      [isSearchable, options, textKey, search, filterOptions]
+        !isSearchable || !search ? options : filterOptions({ options, search }),
+      [isSearchable, options, search, filterOptions]
     )
 
     const handleOpen = React.useCallback(
@@ -162,22 +148,19 @@ const Select = React.forwardRef(
     // Click an option change the value only
     const handleClickForMulti = React.useCallback(
       (option: SelectOptionType) => {
-        if (!value) {
-          onChange?.([option])
+        if (!value || !Array.isArray(value)) {
+          onChange?.([option.value])
           return
         }
-        const typedValue = value as SelectOptionType[]
-        const index = typedValue?.findIndex(
-          (v: SelectOptionType) => v[valueKey] === option[valueKey]
-        )
+        const index = value.findIndex((v) => v === option.value)
 
         // Handle if we click on an option which is already in value
         if (index > -1) {
-          const tmp = [...typedValue]
+          const tmp = [...value]
           tmp.splice(index, 1)
           onChange?.([...tmp])
         } else {
-          onChange?.([...typedValue, option])
+          onChange?.([...value, option.value])
         }
       },
       [onChange, value]
@@ -186,7 +169,7 @@ const Select = React.forwardRef(
     // Click an option change search and value then close the options
     const handleClickForSingle = React.useCallback(
       (option: SelectOptionType) => {
-        onChange?.(option)
+        onChange?.(option.value)
         setSearch(undefined)
         inputRef.current.focus()
         setOpen(false)
@@ -210,11 +193,11 @@ const Select = React.forwardRef(
           case 'ArrowUp':
             {
               const index = finalOptions.findIndex(
-                (option) => option === focused
+                (option) => option.value === focused
               )
               setFocused(
-                (current: SelectOptionType) =>
-                  finalOptions[index - 1] || current
+                (current: string | number) =>
+                  finalOptions[index - 1]?.value || current
               )
             }
             break
@@ -223,21 +206,25 @@ const Select = React.forwardRef(
               handleOpen()
             } else {
               const index = finalOptions.findIndex(
-                (option) => option === focused
+                (option) => option.value === focused
               )
               setFocused(
-                (current: SelectOptionType) =>
-                  finalOptions[index + 1] || current
+                (current: string | number) =>
+                  finalOptions[index + 1]?.value || current
               )
             }
             break
-          case 'Enter':
-            isMulti
-              ? handleClickForMulti(focused)
-              : handleClickForSingle(focused)
+          case 'Enter': {
+            const optionSelected = options.find(
+              (option) => option.value === focused
+            )
+            if (optionSelected) {
+              isMulti
+                ? handleClickForMulti(optionSelected)
+                : handleClickForSingle(optionSelected)
+            }
             break
-          default:
-            break
+          }
         }
       },
       [
@@ -274,15 +261,35 @@ const Select = React.forwardRef(
       [disabled, readOnly, isLoading, label, labelVariant, className]
     )
 
+    const valueRender = React.useMemo(
+      () =>
+        Array.isArray(value)
+          ? options
+              .filter((option) => value.includes(option.value))
+              .map((option) => option.label)
+              .join(', ')
+          : options.find((option) => value === option.value)?.label,
+      [options, value]
+    )
+
     // When value change, change the focus
     React.useEffect(() => {
-      const selected = value
-        ? options.findIndex(
-            (option: SelectOptionType) => option[valueKey] === value[valueKey]
-          )
-        : 0
-      setFocused(selected > -1 ? selected : 0)
-    }, [value, options, valueKey])
+      setFocused((current) => {
+        if (current) return current
+
+        const selected = value
+          ? options.find((option: SelectOptionType) => {
+              if (Array.isArray(value)) {
+                return option.value === value[value.length - 1]
+              }
+
+              return option.value === value
+            })
+          : options[0]
+
+        return selected?.value ?? options[0]?.value
+      })
+    }, [value, options])
 
     React.useEffect(() => {
       setSearch(searchValue)
@@ -290,9 +297,9 @@ const Select = React.forwardRef(
 
     // Set focus
     React.useEffect(() => {
-      if (!focused && finalOptions.length) setFocused(finalOptions[0])
-      if (finalOptions?.findIndex((option) => option === focused) < 0) {
-        setFocused(finalOptions[0])
+      if (!focused && finalOptions.length > 0) setFocused(finalOptions[0].value)
+      if (finalOptions?.findIndex((option) => option.value === focused) < 0) {
+        setFocused(finalOptions[0]?.value)
       }
     }, [focused, finalOptions])
 
@@ -316,9 +323,7 @@ const Select = React.forwardRef(
           {isMulti ? (
             <>
               {value && (
-                <div className="flex outline-none mr-1">
-                  {renderSelected((value as SelectOptionType[]) || [])}
-                </div>
+                <div className="flex outline-none mr-1">{valueRender}</div>
               )}
               <InputComponent
                 className={`flex-grow outline-none ${
@@ -329,11 +334,6 @@ const Select = React.forwardRef(
                 aria-expanded={isOpen}
                 aria-controls={name + '-list'}
                 aria-owns={name + '-list'}
-                aria-activedescendant={
-                  options.find(
-                    (option: SelectOptionType) => option[valueKey] === value
-                  )?.[valueKey] as string
-                }
                 role="combobox"
                 aria-haspopup="listbox"
                 id={id}
@@ -355,11 +355,7 @@ const Select = React.forwardRef(
               aria-expanded={isOpen}
               aria-controls={name + '-list'}
               aria-autocomplete={name + '-list'}
-              aria-activedescendant={
-                options.find(
-                  (option: SelectOptionType) => option[valueKey] === value
-                )?.[valueKey] as string
-              }
+              aria-activedescendant={value}
               role="combobox"
               aria-haspopup="listbox"
               type="text"
@@ -371,7 +367,10 @@ const Select = React.forwardRef(
               placeholder={placeholder || 'Select...'}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
-              value={search ?? (value?.[textKey] || '')}
+              value={
+                search ??
+                (options.find((option) => option.value === value)?.label || '')
+              }
             />
           )}
           {isLoading || readOnly ? null : (
@@ -394,10 +393,7 @@ const Select = React.forwardRef(
             isOpen={isOpen}
             options={finalOptions}
             value={value}
-            valueKey={valueKey}
-            textKey={textKey}
             focused={focused}
-            renderOption={renderOption}
             onOptionClick={(
               option: SelectOptionType,
               event: React.MouseEvent

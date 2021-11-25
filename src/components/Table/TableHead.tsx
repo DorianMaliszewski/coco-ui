@@ -1,7 +1,7 @@
 import React from 'react'
 
 type TableHeadProps = {
-  columns?: { name: string }[]
+  columns?: { name: string; className?: string }[]
   children?: React.ReactNode
 }
 const TableHead = ({
@@ -13,8 +13,11 @@ const TableHead = ({
     return (
       <thead {...props}>
         <tr className="table-head-row">
-          {columns.map((column, index) => (
-            <th className="table-head" key={index}>
+          {columns.map((column) => (
+            <th
+              className={['table-head', column.className].join(' ')}
+              key={column.name}
+            >
               {column.name}
             </th>
           ))}
@@ -22,17 +25,7 @@ const TableHead = ({
       </thead>
     )
 
-  const finalRows = React.Children.map(children, (child) => {
-    if (!React.isValidElement(child)) {
-      return child
-    }
-    const elementChild: React.ReactElement = child
-    return React.cloneElement(elementChild, {
-      ...child.props,
-      className: ['table-head-row', child.props.className].join(' '),
-    })
-  })
-  return <thead {...props}>{finalRows}</thead>
+  return <thead {...props}>{children}</thead>
 }
 
 export default TableHead

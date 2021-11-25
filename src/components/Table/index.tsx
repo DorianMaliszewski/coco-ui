@@ -17,41 +17,29 @@ const Table = ({
   hoverable,
   data,
   ...props
-}: TableProps): JSX.Element => {
-  const finalChildren = React.Children.map(children, (child) => {
-    if (!React.isValidElement(child)) {
-      return child
-    }
-    const elementChild: React.ReactElement = child
-    if (elementChild.type === TableBody) {
-      return React.cloneElement(elementChild, {
-        hoverable: elementChild.props.hoverable ?? hoverable,
-        data,
-      })
-    }
-    return child
-  })
-  return (
-    <table className={className ?? 'table-fixed'} {...props}>
-      {finalChildren}
-    </table>
-  )
-}
+}: TableProps): JSX.Element => (
+  <table className={['table-container', className].join(' ')} {...props}>
+    {children}
+  </table>
+)
 
 Table.Head = TableHead
 Table.HeadCell = TableHeadCell
 Table.Body = TableBody
 Table.Row = TableRow
 
-type TableCellProps = React.TdHTMLAttributes<HTMLTableCellElement> & {
+interface TableCellProps extends React.HTMLAttributes<HTMLTableCellElement> {
   children: React.ReactNode
 }
-const TableCell = ({ children, className, ...props }: TableCellProps) => (
-  <td className={['table-cell', className].join(' ')} {...props}>
+const TableCell = (
+  { children, className, ...props }: TableCellProps,
+  ref: React.ForwardedRef<HTMLTableCellElement>
+) => (
+  <td ref={ref} className={[className].join(' ')} {...props}>
     {children}
   </td>
 )
 
-Table.Cell = TableCell
+Table.Cell = React.forwardRef(TableCell)
 
 export default Table

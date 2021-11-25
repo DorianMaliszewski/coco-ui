@@ -1,67 +1,77 @@
-import React, { PropsWithChildren } from 'react'
-import { ListColumn, ListVariant } from '.'
+import React, { forwardRef } from 'react'
+import { useListContext } from '.'
 
-type DivProps = React.DetailedHTMLProps<
+type ListRowProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 >
 
-type ListRowProps = DivProps & {
-  columns?: ListColumn[]
-  variant?: ListVariant
-}
-
 const ListRowCard = ({
   className,
   children,
-  columns,
+  innerRef,
   ...props
-}: PropsWithChildren<Omit<ListRowProps, 'variant'>>): JSX.Element => (
-  <div
-    className={[
-      `list-row-card`,
-      `grid-cols-${columns?.length || 1}`,
-      className ?? '',
-    ].join(' ')}
-    {...props}
-  >
-    {children}
-  </div>
-)
+}: Omit<
+  ListRowProps & { innerRef: React.ForwardedRef<HTMLDivElement> },
+  'variant'
+>): JSX.Element => {
+  const { columns } = useListContext()
+
+  return (
+    <div
+      className={[`list-row-card`, className ?? ''].join(' ')}
+      ref={innerRef}
+      {...props}
+    >
+      {children}
+    </div>
+  )
+}
 
 const DefaultListRow = ({
   className,
   children,
-  columns,
+  innerRef,
   ...props
-}: PropsWithChildren<Omit<ListRowProps, 'variant'>>): JSX.Element => (
-  <div
-    className={[
-      `list-row`,
-      `grid-cols-${columns?.length || 1}`,
-      className ?? '',
-    ].join(' ')}
-    {...props}
-  >
-    {children}
-  </div>
+}: Omit<
+  ListRowProps & { innerRef: React.ForwardedRef<HTMLDivElement> },
+  'variant'
+>): JSX.Element => {
+  const { columns } = useListContext()
+  return (
+    <div
+      className={[`list-row`, className ?? ''].join(' ')}
+      ref={innerRef}
+      {...props}
+    >
+      {children}
+    </div>
+  )
+}
+
+const ListRow = forwardRef(
+  (
+    props: ListRowProps,
+    ref: React.ForwardedRef<HTMLDivElement>
+  ): JSX.Element => {
+    const { variant } = useListContext()
+    const innerRef = React.useRef<HTMLDivElement>(null)
+    React.useImperativeHandle(ref, () => innerRef.current as HTMLDivElement)
+
+    const Component = React.useMemo(
+      () =>
+        variant
+          ? {
+              card: ListRowCard,
+            }[variant] ?? DefaultListRow
+          : DefaultListRow,
+      [variant]
+    )
+
+    return React.createElement(Component, { ...props, innerRef })
+  }
 )
 
-const ListRow = ({
-  variant,
-  ...props
-}: PropsWithChildren<ListRowProps>): JSX.Element => {
-  const Component = React.useMemo(
-    () =>
-      variant
-        ? {
-            card: ListRowCard,
-          }[variant] ?? DefaultListRow
-        : DefaultListRow,
-    [variant]
-  )
-
-  return React.createElement(Component, props)
-}
+ListRow.displayName = 'ListRow'
 
 export default ListRow

@@ -1,13 +1,17 @@
 .list {
-  @apply grid grid-flow-row;
+  @apply flex flex-col;
 }
 
 .list-headers {
-  @apply grid grid-flow-row px-2;
+  @apply flex px-2;
 }
 
 .list-row {
-  @apply grid grid-flow-row p-2;
+  @apply flex p-2 my-2;
+}
+
+.list-cell {
+  @apply px-2;
 }
 
 .list-row-card {

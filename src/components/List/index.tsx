@@ -4,14 +4,13 @@ import ListCell from './ListCell'
 import Icon from 'components/Icon'
 import './index.css'
 
-type ListRowType = typeof ListRow
-type ListCellType = typeof ListCell
 type SortOrder = 'asc' | 'desc'
 type ListSort = { index?: number; order: SortOrder }
 
 const variants = {
   card: ({ gap }: { gap: string | number }) => `gap-${gap}`,
 } as const
+export type ListVariant = keyof typeof variants
 
 export type ListColumn<T = unknown> = {
   name: string
@@ -19,7 +18,17 @@ export type ListColumn<T = unknown> = {
   sort?: (itemA: T, itemB: T) => number
 }
 
-export type ListVariant = keyof typeof variants
+type ListContextType = {
+  variant?: ListVariant
+  columns?: ListColumn[]
+}
+
+export const ListContext = React.createContext<ListContextType>(
+  {} as ListContextType
+)
+
+export const useListContext = (): ListContextType =>
+  React.useContext(ListContext)
 
 const ListHeaders = ({
   columns,
@@ -45,14 +54,12 @@ const ListHeaders = ({
   }
 
   return (
-    <div
-      className={[`list-headers grid-cols-${columns?.length || 1}`].join(' ')}
-    >
+    <div className={[`list-headers`].join(' ')}>
       {columns.map((column, index) => (
         <div
           onClick={column.sort ? handleSortClick(index) : undefined}
           className={[
-            'flex items-center',
+            'list-cell flex items-center',
             column.sort ? 'cursor-pointer' : 'cursor-default',
             index === sortState.index ? 'text-primary-600' : 'text-gray-500',
             column.className,
@@ -88,15 +95,7 @@ const ListHeaders = ({
   )
 }
 
-type ListChildrenRender<T = unknown> = ({
-  data,
-  ListRow,
-  ListCell,
-}: {
-  data: T[]
-  ListRow: ListRowType
-  ListCell: ListCellType
-}) => JSX.Element
+type ListChildrenRender<T = unknown> = ({ data }: { data: T[] }) => JSX.Element
 
 export interface ListProps<T = unknown> {
   columns?: ListColumn[]
@@ -126,27 +125,33 @@ const List = ({
     return data
   }, [sort, data, columns])
 
+  const value = React.useMemo(
+    () => ({
+      columns,
+      variant,
+    }),
+    [columns, variant]
+  )
+
   return (
-    <div
-      className={['list', variants[variant]({ gap }), className ?? ''].join(
-        ' '
-      )}
-    >
-      {columns ? (
-        <ListHeaders sortState={sort} setSort={setSort} columns={columns} />
-      ) : null}
-      {children({
-        data: sortedData || [],
-        ListRow: (props) =>
-          React.createElement(ListRow, {
-            columns,
-            variant,
-            ...props,
-          }) as JSX.Element,
-        ListCell,
-      })}
-    </div>
+    <ListContext.Provider value={value}>
+      <div
+        className={['list', variants[variant]({ gap }), className ?? ''].join(
+          ' '
+        )}
+      >
+        {columns ? (
+          <ListHeaders sortState={sort} setSort={setSort} columns={columns} />
+        ) : null}
+        {children({
+          data: sortedData || [],
+        })}
+      </div>
+    </ListContext.Provider>
   )
 }
+
+List.Cell = ListCell
+List.Row = ListRow
 
 export default List
