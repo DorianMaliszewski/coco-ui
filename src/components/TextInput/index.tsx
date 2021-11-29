@@ -1,18 +1,21 @@
 import React from 'react'
 
+type Variants = 'inside' | 'outside'
+
 type TextInputType = React.InputHTMLAttributes<HTMLInputElement> &
   React.TextareaHTMLAttributes<HTMLTextAreaElement>
 export interface TextInputProps extends TextInputType {
   className?: string
   multiline?: boolean
   label?: string | React.ReactNode
-  labelVariant?: 'inside' | 'outside'
+  variant?: Variants
   containerClassName?: string
   autoResizeHeight?: boolean
+  error?: string | boolean
 }
 
-const baseClassName = `border focus:border-primary-600 p-2 rounded outline-none focus:ring-2 ring-primary-200 text-black`
-const withLabelClassName = `border focus:border-primary-600 p-2 pt-5 rounded outline-none focus:ring-2 ring-primary-200 text-black`
+const baseClassName = `text-input`
+const withLabelClassName = `text-input--labeled`
 
 const TextInput = React.forwardRef(
   (
@@ -23,11 +26,13 @@ const TextInput = React.forwardRef(
       multiline,
       placeholder = 'Type here...',
       label,
-      labelVariant = 'outside',
+      variant = 'outside',
       id,
+      error,
       value,
       defaultValue,
       rows,
+      disabled = false,
       onChange,
       ...props
     }: TextInputProps,
@@ -69,17 +74,21 @@ const TextInput = React.forwardRef(
     const labelRender = {
       inside: (
         <div
-          className={`relative text-gray-500 focus-within:text-primary-700 ${containerClassName}`}
+          aria-disabled={disabled}
+          aria-invalid={!!error}
+          className={['text-input-container--inside', containerClassName].join(
+            ' '
+          )}
         >
-          <label className="absolute px-2 py-1 text-xs" htmlFor={id}>
-            {label}
-          </label>
+          <label htmlFor={id}>{label}</label>
           <InputComponent
             id={id}
             placeholder={placeholder}
-            className={`${withLabelClassName} ${
-              autoResizeHeight ? 'resize-x' : ''
-            } ${className}`}
+            className={[
+              'text-input--labeled-inside',
+              autoResizeHeight ? 'resize-x' : '',
+              className,
+            ].join(' ')}
             ref={inputRef}
             value={value}
             defaultValue={defaultValue}
@@ -91,17 +100,21 @@ const TextInput = React.forwardRef(
       ),
       outside: (
         <div
-          className={`flex flex-col text-gray-500 focus-within:text-primary-700 ${containerClassName}`}
+          aria-disabled={disabled}
+          aria-invalid={!!error}
+          className={['text-input-container--outside', containerClassName].join(
+            ' '
+          )}
         >
-          <label className="px-2 top-1 left-0 text-xs" htmlFor={id}>
-            {label}
-          </label>
+          <label htmlFor={id}>{label}</label>
           <InputComponent
             id={id}
             placeholder={placeholder}
-            className={`${baseClassName} ${
-              autoResizeHeight ? 'resize-x' : ''
-            } ${className}`}
+            className={[
+              'text-input--labeled-outside',
+              autoResizeHeight ? 'resize-x' : '',
+              className,
+            ].join(' ')}
             ref={inputRef}
             value={value}
             defaultValue={defaultValue}
@@ -113,14 +126,18 @@ const TextInput = React.forwardRef(
       ),
     }
 
-    return label && labelRender[labelVariant] ? (
-      labelRender[labelVariant]
+    return label && labelRender[variant] ? (
+      labelRender[variant]
     ) : (
       <InputComponent
+        disabled={disabled}
+        aria-invalid={!!error}
         placeholder={placeholder}
-        className={`${baseClassName} ${
-          autoResizeHeight ? 'resize-x' : ''
-        } ${className}`}
+        className={[
+          'text-input--no-label',
+          autoResizeHeight ? 'resize-x' : '',
+          className,
+        ].join(' ')}
         ref={inputRef}
         value={value}
         defaultValue={defaultValue}

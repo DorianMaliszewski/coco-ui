@@ -12,25 +12,15 @@ module.exports = {
       },
     },
     '@storybook/react',
-    '@storybook/addon-actions',
     '@storybook/addon-a11y',
   ],
   core: {
     builder: 'webpack5',
   },
-  features: {
-    buildStoriesJson: true,
-  },
   typescript: {
     check: false,
     checkOptions: {},
     reactDocgen: 'react-docgen-typescript',
-    reactDocgenTypescriptOptions: {
-      shouldRemoveUndefinedFromOptional: true,
-      shouldExtractLiteralValuesFromEnum: true,
-      propFilter: (prop) =>
-        prop.parent ? !/node_modules/.test(prop.parent.fileName) : true,
-    },
   },
   webpackFinal: async (config) => {
     // Merge our rule with existing assetLoader rules

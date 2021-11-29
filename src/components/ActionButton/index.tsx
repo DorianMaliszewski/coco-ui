@@ -1,40 +1,23 @@
-import injectClassNames from 'helpers/injectClassNames'
-import React from 'react'
+import React, { useMemo } from 'react'
 
-const sizes = {
-  xs: 'text-xs p-1',
-  sm: 'text-sm p-1',
-  md: 'p-1',
-  xl: 'text-xl p-1',
-  '2xl': 'text-2xl p-1',
-}
-const variants = {
-  primary:
-    'bg-primary-600 text-background hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-300',
-  outline:
-    'border border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-background focus:outline-none focus:ring-2 focus:ring-primary-300',
-  'no-border': `text-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-300`,
-}
-export interface ActionButtonProps {
+type Sizes = 'xs' | 'sm' | 'md' | 'xl' | '2xl'
+
+type Variants = 'primary' | 'outline' | 'no-border'
+
+export type ActionButtonProps = {
   children: React.ReactNode
   className?: string
-  variant: keyof typeof variants
-  size?: keyof typeof sizes
+  variant: Variants
+  size?: Sizes
+  disabled?: boolean
 }
-
-const StyledButton = injectClassNames(
-  'button'
-)`flex rounded items-center justify-center`
-
-const StyledButtonContent = injectClassNames(
-  'div'
-)`shadow z-10 bg-background absolute left-0 min-w-full w-max mt-1`
 
 const ActionButton = ({
   children,
   className,
+  disabled = false,
   variant = 'primary',
-  size,
+  size = 'md',
   ...props
 }: ActionButtonProps): JSX.Element => {
   const [showActions, setShowActions] = React.useState(false)
@@ -84,20 +67,29 @@ const ActionButton = ({
     }
   })
 
+  const token = useMemo(() => `action-button--${variant}--${size}`, [
+    variant,
+    size,
+  ])
+
   return (
     <div ref={listRef} className="relative">
-      <StyledButton
+      <button
+        disabled={disabled}
         onClick={() => setShowActions(!showActions)}
-        className={`${className ?? ''} ${variants[variant]} ${
-          size ? sizes[size] ?? '' : ''
-        }`.trim()}
+        className={[token, className].join(' ')}
         {...props}
       >
         {content}
-      </StyledButton>
-      <StyledButtonContent className={showActions ? 'block' : 'sr-only'}>
+      </button>
+      <div
+        className={[
+          'action-button-content',
+          showActions ? 'block' : 'sr-only',
+        ].join(' ')}
+      >
         {actions}
-      </StyledButtonContent>
+      </div>
     </div>
   )
 }
@@ -112,10 +104,7 @@ interface IActionProps {
 }
 const Action = (props: IActionProps) => {
   return (
-    <div
-      className="p-2 hover:bg-primary-100 cursor-pointer"
-      onClick={props.onClick}
-    >
+    <div className="action-button-action" onClick={props.onClick}>
       {props.children}
     </div>
   )

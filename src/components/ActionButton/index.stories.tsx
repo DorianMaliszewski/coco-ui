@@ -20,6 +20,7 @@ export const Basic: Story<ActionButtonProps> = (args) => {
 
 Basic.args = {
   size: 'md',
+  disabled: false,
 }
 
 export const Primary: Story<ActionButtonProps> = (args) => {

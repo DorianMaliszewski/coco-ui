@@ -2,7 +2,6 @@ import React from 'react'
 import ListRow from './ListRow'
 import ListCell from './ListCell'
 import Icon from 'components/Icon'
-import './index.css'
 
 type SortOrder = 'asc' | 'desc'
 type ListSort = { index?: number; order: SortOrder }

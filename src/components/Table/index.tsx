@@ -3,7 +3,6 @@ import TableBody from './TableBody'
 import TableHead from './TableHead'
 import TableHeadCell from './TableHeadCell'
 import TableRow from './TableRow'
-import './index.css'
 
 export interface TableProps {
   children: React.ReactNode
