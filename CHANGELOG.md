@@ -1,3 +1,10 @@
+## [1.16.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.15.0...v1.16.0) (2021-11-29)
+
+
+### :gear: Features
+
+* add errors and disabled ([#3](https://github.com/DorianMaliszewski/coco-ui/issues/3)) ([1d4a8f7](https://github.com/DorianMaliszewski/coco-ui/commit/1d4a8f71d17a07922d4a185741e85827f1626987))
+
 ## [1.15.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.14.3...v1.15.0) (2021-11-25)
 
 
