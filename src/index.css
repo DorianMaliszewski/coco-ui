@@ -2,9 +2,14 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@import "./components/ActionButton";
+@import "./components/Avatar";
+@import "./components/Badge";
+@import "./components/Box";
 @import "./components/Button";
 @import "./components/List";
 @import "./components/Table";
+@import "./components/TextInput";
 
 
 

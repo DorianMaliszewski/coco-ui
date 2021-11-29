@@ -37,6 +37,7 @@ const Checkbox = React.forwardRef(
       defaultChecked,
       onChange,
       variant = 'basic',
+      disabled = false,
     }: CheckboxProps,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
@@ -61,6 +62,7 @@ const Checkbox = React.forwardRef(
           value={value}
           aria-label={ariaLabel ?? `${name}-checkbox`}
           onChange={onChange}
+          disabled={disabled}
         />
       </label>
     ) : (
@@ -72,6 +74,7 @@ const Checkbox = React.forwardRef(
         <div className={variants[variant]?.label(!!checked)}>
           <CheckIcon className={variants[variant]?.check(!!checked)} />
           <input
+            disabled={disabled}
             id={id}
             className={`appearance-none`}
             ref={inputRef}

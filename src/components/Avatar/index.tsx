@@ -1,4 +1,3 @@
-import injectClassNames from 'helpers/injectClassNames'
 import React from 'react'
 
 export const getStringFromAlt = (altStr: string): string => {
@@ -18,14 +17,6 @@ export interface AvatarProps
   alt: string
 }
 
-const StyledImg = injectClassNames(
-  'img'
-)`rounded-full bg-gray-300 flex justify-center items-center`
-
-const StyledDiv = injectClassNames(
-  'div'
-)`rounded-full bg-gray-300 flex justify-center items-center p-4`
-
 const Avatar = ({
   size,
   src,
@@ -34,21 +25,21 @@ const Avatar = ({
   ...props
 }: AvatarProps): JSX.Element => {
   return src ? (
-    <StyledImg
+    <img
       src={src}
       alt={alt}
-      className={className}
+      className={['avatar--img', className].join(' ')}
       style={{ width: size, height: size }}
       {...props}
     />
   ) : (
-    <StyledDiv
-      className={className}
+    <div
+      className={['avatar--div', className].join(' ')}
       style={{ width: size, height: size }}
       {...props}
     >
       {getStringFromAlt(alt)}
-    </StyledDiv>
+    </div>
   )
 }
 

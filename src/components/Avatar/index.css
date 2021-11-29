@@ -1,0 +1,7 @@
+.avatar--img {
+  @apply rounded-full bg-gray-300 flex justify-center items-center;
+}
+
+.avatar--div {
+  @apply rounded-full bg-gray-300 flex justify-center items-center p-4;
+}
