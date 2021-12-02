@@ -1,5 +1,5 @@
 import React from 'react'
-
+import './index.css'
 export interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string
   children?: React.ReactNode

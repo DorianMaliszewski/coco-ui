@@ -3,20 +3,12 @@ import TableBody from './TableBody'
 import TableHead from './TableHead'
 import TableHeadCell from './TableHeadCell'
 import TableRow from './TableRow'
-
+import 'index.css'
 export interface TableProps {
   children: React.ReactNode
   className?: string
-  hoverable?: boolean
-  data?: any[]
 }
-const Table = ({
-  children,
-  className,
-  hoverable,
-  data,
-  ...props
-}: TableProps): JSX.Element => (
+const Table = ({ children, className, ...props }: TableProps): JSX.Element => (
   <table className={['table-container', className].join(' ')} {...props}>
     {children}
   </table>

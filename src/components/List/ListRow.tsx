@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react'
-import { useListContext } from '.'
+import { useListContext } from './context'
 
 type ListRowProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
@@ -14,19 +14,15 @@ const ListRowCard = ({
 }: Omit<
   ListRowProps & { innerRef: React.ForwardedRef<HTMLDivElement> },
   'variant'
->): JSX.Element => {
-  const { columns } = useListContext()
-
-  return (
-    <div
-      className={[`list-row-card`, className ?? ''].join(' ')}
-      ref={innerRef}
-      {...props}
-    >
-      {children}
-    </div>
-  )
-}
+>): JSX.Element => (
+  <div
+    className={[`list-row-card`, className].join(' ')}
+    ref={innerRef}
+    {...props}
+  >
+    {children}
+  </div>
+)
 
 const DefaultListRow = ({
   className,
@@ -36,18 +32,11 @@ const DefaultListRow = ({
 }: Omit<
   ListRowProps & { innerRef: React.ForwardedRef<HTMLDivElement> },
   'variant'
->): JSX.Element => {
-  const { columns } = useListContext()
-  return (
-    <div
-      className={[`list-row`, className ?? ''].join(' ')}
-      ref={innerRef}
-      {...props}
-    >
-      {children}
-    </div>
-  )
-}
+>): JSX.Element => (
+  <div className={[`list-row`, className].join(' ')} ref={innerRef} {...props}>
+    {children}
+  </div>
+)
 
 const ListRow = forwardRef(
   (
