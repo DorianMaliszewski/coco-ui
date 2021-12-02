@@ -32,6 +32,7 @@ export type ButtonProps = {
   iconSize?: number
   iconPosition?: 'left' | 'right'
   disabled?: boolean
+  title?: string
 }
 const Button = ({
   children,
