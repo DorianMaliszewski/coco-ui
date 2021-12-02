@@ -1,3 +1,10 @@
+### [1.16.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.16.0...v1.16.1) (2021-12-02)
+
+
+### :bug: Bug Fixes
+
+* css import ([3291fe1](https://github.com/DorianMaliszewski/coco-ui/commit/3291fe16fdea26fa639b0dacd6d3aeb5ad6ebb9d))
+
 ## [1.16.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.15.0...v1.16.0) (2021-11-29)
 
 
