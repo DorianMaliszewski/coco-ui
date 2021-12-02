@@ -1,5 +1,5 @@
 import React from 'react'
-import 'index.css'
+import './index.css'
 
 type Variants = 'inside' | 'outside'
 

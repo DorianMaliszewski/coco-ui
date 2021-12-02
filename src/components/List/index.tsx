@@ -4,7 +4,7 @@ import ListCell from './ListCell'
 import Icon from 'components/Icon'
 import { ListColumn, ListSort, ListVariant } from './types'
 import { ListContext } from './context'
-import 'index.css'
+import './index.css'
 
 const variants = {
   card: ({ gap }: { gap: string | number }) => `gap-${gap}`,

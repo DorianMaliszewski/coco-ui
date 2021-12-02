@@ -18,9 +18,9 @@ const fakeDataGenerator = (length: number) => {
 
 const fakeData = fakeDataGenerator(10)
 
-export const Basic: Story<TableProps> = ({ hoverable }: TableProps) => {
+export const Basic: Story<TableProps> = () => {
   return (
-    <Table hoverable={hoverable}>
+    <Table>
       <Table.Head
         columns={[{ name: 'Id' }, { name: 'Name' }, { name: 'Skill' }]}
       />
@@ -37,13 +37,9 @@ export const Basic: Story<TableProps> = ({ hoverable }: TableProps) => {
   )
 }
 
-Basic.args = {
-  hoverable: false,
-}
-
-export const Composition: Story<TableProps> = ({ hoverable }: TableProps) => {
+export const Composition: Story<TableProps> = () => {
   return (
-    <Table hoverable={hoverable}>
+    <Table>
       <Table.Head>
         <Table.Row>
           <Table.HeadCell>Id</Table.HeadCell>
@@ -64,17 +60,13 @@ export const Composition: Story<TableProps> = ({ hoverable }: TableProps) => {
   )
 }
 
-Composition.args = {
-  hoverable: false,
-}
-
-export const Sortable: Story<TableProps> = ({ hoverable }: TableProps) => {
+export const Sortable: Story<TableProps> = () => {
   const { data, sort, onSort } = useTableState({
     data: fakeData,
     initialSort: { field: 'id', order: 'asc' },
   })
   return (
-    <Table data={data} hoverable={hoverable}>
+    <Table>
       <Table.Head>
         <Table.Row>
           <Table.HeadCell onSort={onSort} sort={sort} sortable="id">
@@ -101,17 +93,13 @@ export const Sortable: Story<TableProps> = ({ hoverable }: TableProps) => {
   )
 }
 
-Sortable.args = {
-  hoverable: false,
-}
-
-export const Example: Story<TableProps> = ({ hoverable }: TableProps) => {
+export const Example: Story<TableProps> = () => {
   const { data, sort, onSort } = useTableState({
     data: fakeData,
     initialSort: { field: 'id', order: 'asc' },
   })
   return (
-    <Table data={data} hoverable={hoverable}>
+    <Table>
       <Table.Head>
         <Table.Row>
           <Table.HeadCell
@@ -142,7 +130,7 @@ export const Example: Story<TableProps> = ({ hoverable }: TableProps) => {
       </Table.Head>
       <Table.Body>
         {data.map((row) => (
-          <Table.Row hoverable={hoverable} key={row.id}>
+          <Table.Row hoverable key={row.id}>
             <Table.Cell>{row.id}</Table.Cell>
             <Table.Cell>{row.name}</Table.Cell>
             <Table.Cell>{row.skill}</Table.Cell>
@@ -151,8 +139,4 @@ export const Example: Story<TableProps> = ({ hoverable }: TableProps) => {
       </Table.Body>
     </Table>
   )
-}
-
-Example.args = {
-  hoverable: true,
 }
