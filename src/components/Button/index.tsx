@@ -21,16 +21,16 @@ type Sizes = 'xs' | 'sm' | 'md' | 'xl' | '2xl'
 
 type ButtonType = 'button' | 'submit' | 'reset' | undefined
 export type ButtonProps = {
-  tabIndex: number
+  tabIndex?: number
   className?: string
-  variant: Variants
+  variant?: Variants
   onClick?: React.MouseEventHandler<HTMLButtonElement>
   type?: ButtonType
   children?: React.ReactNode
   size?: Sizes
   icon?: IconName
   iconSize?: number
-  iconPosition: 'left' | 'right'
+  iconPosition?: 'left' | 'right'
   disabled?: boolean
 }
 const Button = ({

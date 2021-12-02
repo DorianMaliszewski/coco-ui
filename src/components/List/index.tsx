@@ -2,32 +2,13 @@ import React from 'react'
 import ListRow from './ListRow'
 import ListCell from './ListCell'
 import Icon from 'components/Icon'
-
-type SortOrder = 'asc' | 'desc'
-type ListSort = { index?: number; order: SortOrder }
+import { ListColumn, ListSort, ListVariant } from './types'
+import { ListContext } from './context'
+import 'index.css'
 
 const variants = {
   card: ({ gap }: { gap: string | number }) => `gap-${gap}`,
-} as const
-export type ListVariant = keyof typeof variants
-
-export type ListColumn<T = unknown> = {
-  name: string
-  className?: string
-  sort?: (itemA: T, itemB: T) => number
 }
-
-type ListContextType = {
-  variant?: ListVariant
-  columns?: ListColumn[]
-}
-
-export const ListContext = React.createContext<ListContextType>(
-  {} as ListContextType
-)
-
-export const useListContext = (): ListContextType =>
-  React.useContext(ListContext)
 
 const ListHeaders = ({
   columns,

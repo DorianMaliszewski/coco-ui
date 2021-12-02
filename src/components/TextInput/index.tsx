@@ -1,4 +1,5 @@
 import React from 'react'
+import 'index.css'
 
 type Variants = 'inside' | 'outside'
 
@@ -13,9 +14,6 @@ export interface TextInputProps extends TextInputType {
   autoResizeHeight?: boolean
   error?: string | boolean
 }
-
-const baseClassName = `text-input`
-const withLabelClassName = `text-input--labeled`
 
 const TextInput = React.forwardRef(
   (

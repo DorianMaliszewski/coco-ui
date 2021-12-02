@@ -1,11 +1,12 @@
 import React from 'react'
+import './index.css'
 
 type Variants = 'basic' | 'outline' | 'no-border'
 type Sizes = 'xs' | 'sm' | 'md' | 'xl' | '2xl'
 
 export interface BadgeProps {
-  variant: Variants
-  size: Sizes
+  variant?: Variants
+  size?: Sizes
   className?: string
   children?: React.ReactNode
 }

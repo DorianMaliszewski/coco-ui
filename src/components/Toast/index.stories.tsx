@@ -64,7 +64,7 @@ export const Variants: Story<ToastProps> = () => {
       <Button variant="info" size="md" onClick={showToast('info')}>
         info
       </Button>
-      <Button variant="default" size="md" onClick={showToast('default')}>
+      <Button variant="secondary" size="md" onClick={showToast('default')}>
         default
       </Button>
     </Grid>
