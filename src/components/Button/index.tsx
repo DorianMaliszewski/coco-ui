@@ -1,5 +1,6 @@
 import Icon, { IconName } from 'components/Icon'
 import React from 'react'
+import './index.css'
 
 type Variants =
   | 'primary'
