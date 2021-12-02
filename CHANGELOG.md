@@ -1,3 +1,10 @@
+### [1.16.2](https://github.com/DorianMaliszewski/coco-ui/compare/v1.16.1...v1.16.2) (2021-12-02)
+
+
+### :bug: Bug Fixes
+
+* button props ([db04f05](https://github.com/DorianMaliszewski/coco-ui/commit/db04f0589b2121100eeaff02b6a963c56dd230e3))
+
 ### [1.16.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.16.0...v1.16.1) (2021-12-02)
 
 
