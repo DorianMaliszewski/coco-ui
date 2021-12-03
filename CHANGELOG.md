@@ -1,3 +1,10 @@
+### [1.16.4](https://github.com/DorianMaliszewski/coco-ui/compare/v1.16.3...v1.16.4) (2021-12-03)
+
+
+### :bug: Bug Fixes
+
+* disable text input with label ([bd5ef19](https://github.com/DorianMaliszewski/coco-ui/commit/bd5ef19c6bed1784910f840d075e78b259656b5a))
+
 ### [1.16.3](https://github.com/DorianMaliszewski/coco-ui/compare/v1.16.2...v1.16.3) (2021-12-02)
 
 
