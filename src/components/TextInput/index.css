@@ -1,8 +1,8 @@
 .text-input-container--inside {
   @apply relative text-gray-500 focus-within:text-primary-700;
 
-  &:disabled {
-    @apply opacity-30 select-none pointer-events-none;
+  &[aria-disabled="true"] {
+    @apply opacity-30 select-none pointer-events-none cursor-not-allowed;
   }
 
   & label {
@@ -23,8 +23,8 @@
 .text-input-container--outside {
   @apply flex flex-col text-gray-500 focus-within:text-primary-700;
 
-  &:disabled {
-    @apply opacity-30 select-none pointer-events-none;
+  &[aria-disabled="true"] {
+    @apply opacity-30 select-none pointer-events-none cursor-not-allowed;
   }
 
   & label {
@@ -54,7 +54,7 @@
   @apply border focus:border-primary-600 p-2 rounded outline-none focus:ring-2 ring-primary-200 text-black;
 
   &:disabled {
-    @apply opacity-30 select-none pointer-events-none;
+    @apply opacity-30 select-none pointer-events-none cursor-not-allowed;
   }
 
   &[aria-invalid="true"] {

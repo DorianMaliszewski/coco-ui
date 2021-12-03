@@ -13,6 +13,7 @@ export interface TextInputProps extends TextInputType {
   containerClassName?: string
   autoResizeHeight?: boolean
   error?: string | boolean
+  disabled?: boolean
 }
 
 const TextInput = React.forwardRef(
@@ -92,6 +93,7 @@ const TextInput = React.forwardRef(
             defaultValue={defaultValue}
             onChange={onInputChange}
             rows={rowsCount}
+            disabled={disabled}
             {...props}
           />
         </div>
