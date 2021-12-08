@@ -1,3 +1,10 @@
+### [1.17.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.17.0...v1.17.1) (2021-12-08)
+
+
+### :bug: Bug Fixes
+
+* className forward on textarea ([e3fb4ff](https://github.com/DorianMaliszewski/coco-ui/commit/e3fb4ff2b8353022f886a791761b00ea5e7b839c))
+
 ## [1.17.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.16.4...v1.17.0) (2021-12-08)
 
 
