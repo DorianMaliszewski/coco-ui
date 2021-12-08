@@ -325,6 +325,7 @@ const Select = forwardRef(
             <div className=" flex outline-none mr-1">{valueRender}</div>
           ) : null}
           <input
+            autoComplete="off"
             name={name}
             className={!isSearchable ? 'w-0' : inputClassNames}
             role="combobox"
