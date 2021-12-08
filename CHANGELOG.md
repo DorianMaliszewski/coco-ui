@@ -1,3 +1,12 @@
+### [1.17.6](https://github.com/DorianMaliszewski/coco-ui/compare/v1.17.5...v1.17.6) (2021-12-08)
+
+
+### :bug: Bug Fixes
+
+* handle key down ([aed61af](https://github.com/DorianMaliszewski/coco-ui/commit/aed61af42c89a2544222ca1f1e748e7d5346ded8))
+* rows prop forward ([b979d99](https://github.com/DorianMaliszewski/coco-ui/commit/b979d9931b09d680f07262b3667149e880860f67))
+* textarea naming ([d3efff7](https://github.com/DorianMaliszewski/coco-ui/commit/d3efff7290becb9643b4da1c100db59547a4ecd2))
+
 ### [1.17.5](https://github.com/DorianMaliszewski/coco-ui/compare/v1.17.4...v1.17.5) (2021-12-08)
 
 
