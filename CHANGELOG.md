@@ -1,3 +1,10 @@
+### [1.17.3](https://github.com/DorianMaliszewski/coco-ui/compare/v1.17.2...v1.17.3) (2021-12-08)
+
+
+### :bug: Bug Fixes
+
+* preventDefault behaviour ([4e2c72a](https://github.com/DorianMaliszewski/coco-ui/commit/4e2c72a73e615758a4fc8945dd42904504946ac5))
+
 ### [1.17.2](https://github.com/DorianMaliszewski/coco-ui/compare/v1.17.1...v1.17.2) (2021-12-08)
 
 
