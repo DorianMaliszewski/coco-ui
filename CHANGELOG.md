@@ -1,3 +1,10 @@
+### [1.17.4](https://github.com/DorianMaliszewski/coco-ui/compare/v1.17.3...v1.17.4) (2021-12-08)
+
+
+### :bug: Bug Fixes
+
+* keys on select ([b71e040](https://github.com/DorianMaliszewski/coco-ui/commit/b71e04074ac73462150d5c36c9ea819fd386c644))
+
 ### [1.17.3](https://github.com/DorianMaliszewski/coco-ui/compare/v1.17.2...v1.17.3) (2021-12-08)
 
 
