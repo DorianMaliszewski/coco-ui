@@ -1,3 +1,10 @@
+### [1.17.7](https://github.com/DorianMaliszewski/coco-ui/compare/v1.17.6...v1.17.7) (2021-12-08)
+
+
+### :bug: Bug Fixes
+
+* handleKey on select ([63249b5](https://github.com/DorianMaliszewski/coco-ui/commit/63249b5b7434a39e4d84c37a23ba8ba13145bf51))
+
 ### [1.17.6](https://github.com/DorianMaliszewski/coco-ui/compare/v1.17.5...v1.17.6) (2021-12-08)
 
 
