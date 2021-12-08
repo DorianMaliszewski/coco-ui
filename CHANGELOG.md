@@ -1,3 +1,10 @@
+### [1.17.5](https://github.com/DorianMaliszewski/coco-ui/compare/v1.17.4...v1.17.5) (2021-12-08)
+
+
+### :bug: Bug Fixes
+
+* select truncate ([8c587c7](https://github.com/DorianMaliszewski/coco-ui/commit/8c587c73e84554d16c85376fdaa93a352514b955))
+
 ### [1.17.4](https://github.com/DorianMaliszewski/coco-ui/compare/v1.17.3...v1.17.4) (2021-12-08)
 
 
