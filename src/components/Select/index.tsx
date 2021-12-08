@@ -137,12 +137,18 @@ const Select = forwardRef(
       [onChange]
     )
 
-    const handleKeyPress = useCallback(
+    const handleKeyDown = useCallback(
       (event: KeyboardEvent) => {
         if (!isOpen) {
           if (event.key === KEYS.ArrowDown) handleOpen()
         } else if (
-          ['Arrow', KEYS.Enter, KEYS.Tab, KEYS.Escape].includes(event.key)
+          [
+            KEYS.ArrowDown,
+            KEYS.ArrowUp,
+            KEYS.Enter,
+            KEYS.Tab,
+            KEYS.Escape,
+          ].includes(event.key)
         ) {
           event.stopPropagation()
           switch (event.key) {
@@ -316,7 +322,7 @@ const Select = forwardRef(
         className={containerClassNames}
         htmlFor={id}
         aria-disabled={disabled}
-        onKeyPress={handleKeyPress}
+        onKeyDown={handleKeyDown}
         onClick={handleOpen}
         aria-expanded={isOpen}
         ref={containerRef}
