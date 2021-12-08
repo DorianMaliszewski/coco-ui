@@ -1,3 +1,10 @@
+### [1.17.2](https://github.com/DorianMaliszewski/coco-ui/compare/v1.17.1...v1.17.2) (2021-12-08)
+
+
+### :bug: Bug Fixes
+
+* type forwarding on input ([364eb4a](https://github.com/DorianMaliszewski/coco-ui/commit/364eb4ab6300e1485123bf64367a508763cb3726))
+
 ### [1.17.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.17.0...v1.17.1) (2021-12-08)
 
 
