@@ -69,6 +69,7 @@ const InputLabelInside = forwardRef<HTMLInputElement, InternalInputProps>(
       placeholder,
       value,
       required,
+      type,
     },
     ref
   ): JSX.Element => {
@@ -125,6 +126,7 @@ const InputLabelInside = forwardRef<HTMLInputElement, InternalInputProps>(
           placeholder={placeholder}
           value={value}
           ref={ref}
+          type={type}
         />
       </label>
     )
@@ -148,6 +150,7 @@ const InputLabelOutside = forwardRef<HTMLInputElement, InternalInputProps>(
       placeholder,
       value,
       required,
+      type,
     },
     ref
   ): JSX.Element => {
@@ -204,6 +207,7 @@ const InputLabelOutside = forwardRef<HTMLInputElement, InternalInputProps>(
           placeholder={placeholder}
           value={value}
           ref={ref}
+          type={type}
         />
       </label>
     )
@@ -227,6 +231,7 @@ const InputDefault = forwardRef<HTMLInputElement, InternalInputProps>(
       placeholder,
       value,
       required,
+      type,
     },
     ref
   ): JSX.Element => {
@@ -261,6 +266,7 @@ const InputDefault = forwardRef<HTMLInputElement, InternalInputProps>(
         placeholder={placeholder}
         value={value}
         ref={ref}
+        type={type}
       />
     )
   }
@@ -284,6 +290,11 @@ const Input = forwardRef<
       ref,
     })
 )
+
+Input.defaultProps = {
+  type: 'text',
+  variant: 'default',
+}
 
 Input.displayName = 'Input'
 InputDefault.displayName = 'Input'
