@@ -1,3 +1,16 @@
+### [1.17.8](https://github.com/DorianMaliszewski/coco-ui/compare/v1.17.7...v1.17.8) (2021-12-08)
+
+
+### :zap: Refactor
+
+* clean config ([1a53bbb](https://github.com/DorianMaliszewski/coco-ui/commit/1a53bbbc43fe718b7fd3e09632e3fa24a52283c3))
+
+
+### :bug: Bug Fixes
+
+* drop shadowdark ([d5f8b28](https://github.com/DorianMaliszewski/coco-ui/commit/d5f8b2821416ce0d13434370bafae4db878b48d6))
+* usememo deps ([9ad9896](https://github.com/DorianMaliszewski/coco-ui/commit/9ad98961e2bc5a5bfe3579b3fedd11abd0278fb1))
+
 ### [1.17.7](https://github.com/DorianMaliszewski/coco-ui/compare/v1.17.6...v1.17.7) (2021-12-08)
 
 
