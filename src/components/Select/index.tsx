@@ -325,7 +325,7 @@ const Select = forwardRef(
           className={valueContainerClassNames}
         >
           {isMulti || (value && !search) ? (
-            <div className=" flex outline-none mr-1">{valueRender}</div>
+            <div className="truncate flex outline-none mr-1">{valueRender}</div>
           ) : null}
           <input
             autoComplete="off"
