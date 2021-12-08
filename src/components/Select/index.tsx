@@ -142,6 +142,7 @@ const Select = forwardRef(
         if (!isOpen) {
           if (event.key === KEYS.ArrowDown) handleOpen()
         } else if (event.key.includes('Arrow') || event.key === KEYS.Enter) {
+          event.preventDefault()
           event.stopPropagation()
           switch (event.key) {
             case KEYS.Tab:
