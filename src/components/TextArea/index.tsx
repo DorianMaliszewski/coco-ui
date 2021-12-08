@@ -133,7 +133,7 @@ const TextAreaLabelInside = forwardRef<
   }
 )
 
-const InputLabelOutside = forwardRef<
+const TextAreaLabelOutside = forwardRef<
   HTMLTextAreaElement,
   InternalTextAreaProps
 >(
@@ -215,7 +215,7 @@ const InputLabelOutside = forwardRef<
   }
 )
 
-const InputDefault = forwardRef<HTMLTextAreaElement, InternalTextAreaProps>(
+const TextAreaDefault = forwardRef<HTMLTextAreaElement, InternalTextAreaProps>(
   (
     {
       label,
@@ -269,10 +269,10 @@ const InputDefault = forwardRef<HTMLTextAreaElement, InternalTextAreaProps>(
   }
 )
 
-const variants: Record<TextAreaVariants, typeof InputDefault> = {
-  inside: InputLabelInside,
-  outside: InputLabelOutside,
-  default: InputDefault,
+const variants: Record<TextAreaVariants, typeof TextAreaDefault> = {
+  inside: TextAreaLabelInside,
+  outside: TextAreaLabelOutside,
+  default: TextAreaDefault,
 }
 
 const TextArea = forwardRef<

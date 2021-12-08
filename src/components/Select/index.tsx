@@ -137,14 +137,13 @@ const Select = forwardRef(
       [onChange]
     )
 
-    const handleKeyDown = useCallback(
+    const handleKeyPress = useCallback(
       (event: KeyboardEvent) => {
         if (!isOpen) {
           if (event.key === KEYS.ArrowDown) handleOpen()
         } else if (
           ['Arrow', KEYS.Enter, KEYS.Tab, KEYS.Escape].includes(event.key)
         ) {
-          event.preventDefault()
           event.stopPropagation()
           switch (event.key) {
             case KEYS.Tab:
@@ -207,6 +206,12 @@ const Select = forwardRef(
       },
       [isSearchable]
     )
+
+    const handleInputKeyPress = useCallback((event: KeyboardEvent) => {
+      if ([KEYS.Enter].includes(event.key)) {
+        event.preventDefault()
+      }
+    }, [])
 
     const containerClassNames = useMemo(() => {
       const { container } =
@@ -311,7 +316,7 @@ const Select = forwardRef(
         className={containerClassNames}
         htmlFor={id}
         aria-disabled={disabled}
-        onKeyDown={handleKeyDown}
+        onKeyPress={handleKeyPress}
         onClick={handleOpen}
         aria-expanded={isOpen}
         ref={containerRef}
@@ -340,7 +345,7 @@ const Select = forwardRef(
             disabled={disabled || !isSearchable}
             placeholder={!value ? placeholder ?? 'Select...' : undefined}
             onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
+            onKeyPress={handleInputKeyPress}
             value={search}
           />
           {isLoading ? (
