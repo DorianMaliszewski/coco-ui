@@ -238,7 +238,7 @@ const InputDefault = forwardRef<HTMLTextAreaElement, InternalTextAreaProps>(
           [classes.input.disabled]: disabled,
           [className ?? '']: true,
         }),
-      [error]
+      [error, className, disabled]
     )
     return (
       <textarea
