@@ -10,7 +10,7 @@ const Box = ({ children, className, ...props }: BoxProps): JSX.Element => {
   return (
     <div
       className={classNames(
-        'shadow dark:shadow-dark rounded text-foreground dark:text-background',
+        'shadow rounded text-foreground dark:text-background',
         className
       )}
       {...props}
