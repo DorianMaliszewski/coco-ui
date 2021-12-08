@@ -52,7 +52,10 @@ export type TextAreaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> & 
 
 type InternalTextAreaProps = Omit<TextAreaProps, 'variant'>
 
-const InputLabelInside = forwardRef<HTMLTextAreaElement, InternalTextAreaProps>(
+const TextAreaLabelInside = forwardRef<
+  HTMLTextAreaElement,
+  InternalTextAreaProps
+>(
   (
     {
       label,
@@ -272,7 +275,7 @@ const variants: Record<TextAreaVariants, typeof InputDefault> = {
   default: InputDefault,
 }
 
-const Input = forwardRef<
+const TextArea = forwardRef<
   HTMLTextAreaElement,
   TextAreaProps & {
     variant?: TextAreaVariants
@@ -285,8 +288,8 @@ const Input = forwardRef<
     })
 )
 
-Input.displayName = 'Input'
-InputDefault.displayName = 'Input'
-InputLabelInside.displayName = 'Input'
-InputLabelOutside.displayName = 'Input'
-export default Input
+TextArea.displayName = 'TextArea'
+TextAreaDefault.displayName = 'TextArea'
+TextAreaLabelInside.displayName = 'TextArea'
+TextAreaLabelOutside.displayName = 'TextArea'
+export default TextArea
