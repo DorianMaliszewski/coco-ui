@@ -15,5 +15,5 @@
 }
 
 .list-row-card {
-  @apply list-row shadow dark:shadow-dark rounded p-2;
+  @apply list-row shadow rounded p-2;
 }
