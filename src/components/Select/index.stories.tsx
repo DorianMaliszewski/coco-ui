@@ -74,12 +74,10 @@ Multi.args = {
 }
 
 export const Controlled: Story<SelectProps> = ({ ...props }: SelectProps) => {
-  const [search, setSearch] = React.useState<string | undefined>()
   const [value, setValue] = React.useState<any>(1)
 
   const handleReset = () => {
     setValue(undefined)
-    setSearch('')
   }
   return (
     <div className="w-full">
@@ -91,10 +89,7 @@ export const Controlled: Story<SelectProps> = ({ ...props }: SelectProps) => {
         value={value}
         isSearchable
         onChange={(result) => setValue(result)}
-        onSearchChange={(str) => setSearch(str)}
-        searchValue={search}
       />
-      <p>Search is {search}</p>
       <p>Value is {JSON.stringify(value)}</p>
     </div>
   )
