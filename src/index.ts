@@ -17,7 +17,8 @@ export { default as Select } from './components/Select'
 export { default as Switch } from './components/Switch'
 export { default as Table } from './components/Table'
 export { default as TextArrayInput } from './components/TextArrayInput'
-export { default as TextInput } from './components/TextInput'
+export { default as Input } from './components/Input'
+export { default as TextArea } from './components/TextArea'
 export {
   useToast,
   default as ToastProvider,
