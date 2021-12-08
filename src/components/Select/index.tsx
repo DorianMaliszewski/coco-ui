@@ -141,7 +141,9 @@ const Select = forwardRef(
       (event: KeyboardEvent) => {
         if (!isOpen) {
           if (event.key === KEYS.ArrowDown) handleOpen()
-        } else if (event.key.includes('Arrow') || event.key === KEYS.Enter) {
+        } else if (
+          ['Arrow', KEYS.Enter, KEYS.Tab, KEYS.Escape].includes(event.key)
+        ) {
           event.preventDefault()
           event.stopPropagation()
           switch (event.key) {
