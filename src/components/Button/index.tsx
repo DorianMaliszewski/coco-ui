@@ -1,40 +1,29 @@
+import classNames from 'classnames'
 import Icon, { IconName } from 'components/Icon'
-import React from 'react'
-import './index.css'
-
-type Variants =
-  | 'primary'
-  | 'secondary'
-  | 'success'
-  | 'error'
-  | 'warning'
-  | 'info'
-  | 'transparent'
-  | 'link'
-  | 'inverted-primary'
-  | 'inverted-secondary'
-  | 'inverted-success'
-  | 'inverted-error'
-  | 'inverted-warning'
-  | 'inverted-info'
-
-type Sizes = 'xs' | 'sm' | 'md' | 'xl' | '2xl'
+import React, { useMemo } from 'react'
+import {
+  ButtonSize,
+  ButtonSizeClassNames,
+  ButtonVariant,
+  ButtonVariantClassNames,
+} from './variant'
 
 type ButtonType = 'button' | 'submit' | 'reset' | undefined
 export type ButtonProps = {
   tabIndex?: number
   className?: string
-  variant?: Variants
+  variant?: ButtonVariant
   onClick?: React.MouseEventHandler<HTMLButtonElement>
   type?: ButtonType
   children?: React.ReactNode
-  size?: Sizes
+  size?: ButtonSize
   icon?: IconName
   iconSize?: number
   iconPosition?: 'left' | 'right'
   disabled?: boolean
   title?: string
 }
+
 const Button = ({
   children,
   tabIndex,
@@ -47,15 +36,25 @@ const Button = ({
   disabled,
   ...props
 }: ButtonProps): JSX.Element => {
-  const tokenClass = React.useMemo(() => `button--${variant}--${size}`, [
-    variant,
-    size,
-  ])
+  const buttonClassNames = useMemo(() => {
+    const classes =
+      ButtonVariantClassNames[variant] ?? ButtonVariantClassNames.primary
+    const sizeClasses = ButtonSizeClassNames[size] ?? ButtonSizeClassNames.md
+
+    return classNames({
+      [classes.base]: true,
+      [sizeClasses]: true,
+      [classes.default]: !disabled,
+      [classes.disabled]: disabled,
+      [className ?? '']: true,
+    })
+  }, [className, variant, size, disabled])
+
   return (
     <button
       disabled={disabled}
       tabIndex={tabIndex}
-      className={[tokenClass, className].join(' ')}
+      className={buttonClassNames}
       {...props}
     >
       {icon ? (

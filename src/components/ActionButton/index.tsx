@@ -1,9 +1,42 @@
+import classNames from 'classnames'
 import React, { useMemo } from 'react'
-import './index.css'
 
 type Sizes = 'xs' | 'sm' | 'md' | 'xl' | '2xl'
 
 type Variants = 'primary' | 'outline' | 'no-border'
+
+const SIZE_CLASSNAMES: Record<Sizes, string> = {
+  xs: 'text-xs',
+  sm: 'text-sm',
+  md: 'text-md',
+  xl: 'text-xl',
+  '2xl': 'text-2xl',
+}
+
+const POPUP_CLASSNAMES = {
+  container: 'shadow z-10 bg-background absolute left-0 min-w-full w-max mt-1',
+  action: 'hover:bg-primary-100 cursor-pointer p-2',
+}
+
+const CLASSNAMES: Record<Variants, any> = {
+  primary: {
+    base: `cursor-pointer flex rounded items-center justify-center bg-primary-600 text-background p-2`,
+    disabled: 'opacity-30 cursor-not-allowed',
+    default:
+      'hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-300',
+  },
+  outline: {
+    base: `cursor-pointer rounded p-2 border border-primary-600 text-primary-600`,
+    disabled: 'opacity-30 cursor-not-allowed',
+    default:
+      'hover:bg-primary-600 hover:text-background focus:outline-none focus:ring-2 focus:ring-primary-300',
+  },
+  'no-border': {
+    base: 'cursor-pointer p-2 text-primary-600',
+    disabled: 'opacity-30 cursor-not-allowed',
+    default: 'focus:outline-none focus:ring-2 focus:ring-primary-300',
+  },
+}
 
 export type ActionButtonProps = {
   children: React.ReactNode
@@ -28,8 +61,8 @@ const ActionButton = ({
 
   const handleActionClick = (
     childOnClick: React.MouseEventHandler<HTMLDivElement>
-  ) => async (event: React.MouseEvent<HTMLDivElement>) => {
-    await childOnClick(event)
+  ) => (event: React.MouseEvent<HTMLDivElement>) => {
+    childOnClick(event)
     setShowActions(false)
   }
 
@@ -68,26 +101,34 @@ const ActionButton = ({
     }
   })
 
-  const token = useMemo(() => `action-button--${variant}--${size}`, [
-    variant,
-    size,
-  ])
+  const buttonClassNames = useMemo(() => {
+    const classes = CLASSNAMES[variant] ?? CLASSNAMES.primary
+    const sizeClasses = SIZE_CLASSNAMES[size] ?? SIZE_CLASSNAMES.md
+    return classNames({
+      [classes.base]: true,
+      [classes.default]: !disabled,
+      [classes.disabled]: disabled,
+      [sizeClasses]: true,
+      [className ?? '']: true,
+    })
+  }, [variant, size, className, disabled])
 
   return (
     <div ref={listRef} className="relative">
       <button
         disabled={disabled}
-        onClick={() => setShowActions(!showActions)}
-        className={[token, className].join(' ')}
+        onClick={() => setShowActions(true)}
+        className={buttonClassNames}
         {...props}
       >
         {content}
       </button>
       <div
-        className={[
-          'action-button-content',
-          showActions ? 'block' : 'sr-only',
-        ].join(' ')}
+        className={classNames({
+          [POPUP_CLASSNAMES.container]: true,
+          block: showActions,
+          'sr-only': !showActions,
+        })}
       >
         {actions}
       </div>
@@ -105,7 +146,7 @@ interface IActionProps {
 }
 const Action = (props: IActionProps) => {
   return (
-    <div className="action-button-action" onClick={props.onClick}>
+    <div className={POPUP_CLASSNAMES.action} onClick={props.onClick}>
       {props.children}
     </div>
   )

@@ -1,5 +1,6 @@
+import classNames from 'classnames'
 import React from 'react'
-import './index.css'
+
 export interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string
   children?: React.ReactNode
@@ -7,7 +8,13 @@ export interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const Box = ({ children, className, ...props }: BoxProps): JSX.Element => {
   return (
-    <div className={['box', className].join(' ')} {...props}>
+    <div
+      className={classNames(
+        'shadow dark:shadow-dark rounded text-foreground dark:text-background',
+        className
+      )}
+      {...props}
+    >
       {children}
     </div>
   )

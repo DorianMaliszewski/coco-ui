@@ -1,5 +1,5 @@
+import classNames from 'classnames'
 import React from 'react'
-import './index.css'
 
 export const getStringFromAlt = (altStr: string): string => {
   if (!altStr) return ''
@@ -29,13 +29,19 @@ const Avatar = ({
     <img
       src={src}
       alt={alt}
-      className={['avatar--img', className].join(' ')}
+      className={classNames(
+        'rounded-full bg-gray-300 flex justify-center items-center',
+        className
+      )}
       style={{ width: size, height: size }}
       {...props}
     />
   ) : (
     <div
-      className={['avatar--div', className].join(' ')}
+      className={classNames(
+        'rounded-full bg-gray-300 flex justify-center items-center p-4',
+        className
+      )}
       style={{ width: size, height: size }}
       {...props}
     >

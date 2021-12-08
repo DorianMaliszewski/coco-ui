@@ -15,6 +15,7 @@
   "homepage": "https://dorianmaliszewski.github.io/coco-ui",
   "dependencies": {
     "@heroicons/react": "^1.0.1",
+    "classnames": "^2.3.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "typescript": "^4.1.2"

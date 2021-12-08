@@ -68,9 +68,9 @@ export interface SelectProps {
   isLoading?: boolean
   isSearchable?: boolean
   isMulti?: boolean
-  isMultiLine?: boolean
   inputProps?: any
   searchValue?: string
+  error?: boolean | string
 }
 
 const Select = React.forwardRef(
@@ -94,14 +94,13 @@ const Select = React.forwardRef(
       tabIndex,
       isLoading,
       isSearchable,
-      isMultiLine,
       inputProps: additionalInputProps,
       searchValue,
+      error,
       filterOptions = defaultFilterOptions,
     }: SelectProps,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
-    const InputComponent = isMultiLine ? 'textarea' : 'input'
     const [isOpen, setOpen] = React.useState(false)
     const [search, setSearch] = React.useState<string | undefined>(searchValue)
     const [focused, setFocused] = React.useState<string | number>(
@@ -307,7 +306,9 @@ const Select = React.forwardRef(
       <div
         onClick={handleOpen}
         ref={containerRef}
-        className={containerClassName}
+        className={[containerClassName, error ? 'text-error-500' : ''].join(
+          ' '
+        )}
         aria-disabled={disabled}
         onKeyDown={handleKeyDown}
       >
@@ -325,7 +326,7 @@ const Select = React.forwardRef(
               {value && (
                 <div className="flex outline-none mr-1">{valueRender}</div>
               )}
-              <InputComponent
+              <input
                 className={`flex-grow outline-none ${
                   isLoading
                     ? 'bg-transparent pointer-events-none cursor-not-allowed'
@@ -338,6 +339,7 @@ const Select = React.forwardRef(
                 aria-haspopup="listbox"
                 id={id}
                 placeholder={placeholder || 'Select...'}
+                error={error}
                 {...inputProps}
                 ref={inputRef}
                 disabled={disabled}
@@ -348,7 +350,7 @@ const Select = React.forwardRef(
               />
             </>
           ) : (
-            <InputComponent
+            <input
               className={`bg-transparent w-full outline-none ${
                 isLoading ? 'pointer-events-none cursor-not-allowed' : ''
               } ${disabled ? 'opacity-50' : ''}`.replace(/ +(?= )/g, ' ')}
