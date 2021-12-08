@@ -246,7 +246,7 @@ const InputDefault = forwardRef<HTMLInputElement, InternalInputProps>(
           [classes.input.disabled]: disabled,
           [className ?? '']: true,
         }),
-      [error]
+      [error, disabled, className]
     )
 
     return (
