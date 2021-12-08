@@ -1,3 +1,17 @@
+## [1.17.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.16.4...v1.17.0) (2021-12-08)
+
+
+### :gear: Features
+
+* refactor css to js classes ([c8e0da2](https://github.com/DorianMaliszewski/coco-ui/commit/c8e0da2b0d9cff307a19bf48390fd26cf691ae95))
+* refactor select ([5652c2a](https://github.com/DorianMaliszewski/coco-ui/commit/5652c2a04c4a11fbb8d99ccace11b1c04357b518))
+
+
+### :bug: Bug Fixes
+
+* automplete off ([235dbba](https://github.com/DorianMaliszewski/coco-ui/commit/235dbbac0667368bd53491c648e427e2b7775860))
+* exports ([d41b891](https://github.com/DorianMaliszewski/coco-ui/commit/d41b891abf473c17f4a287ed17d239d75a73144d))
+
 ### [1.16.4](https://github.com/DorianMaliszewski/coco-ui/compare/v1.16.3...v1.16.4) (2021-12-03)
 
 
