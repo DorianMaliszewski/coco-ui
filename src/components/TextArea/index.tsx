@@ -68,6 +68,7 @@ const InputLabelInside = forwardRef<HTMLTextAreaElement, InternalTextAreaProps>(
       onKeyUp,
       placeholder,
       value,
+      rows,
     },
     ref
   ): JSX.Element => {
@@ -110,6 +111,7 @@ const InputLabelInside = forwardRef<HTMLTextAreaElement, InternalTextAreaProps>(
       >
         <span className={labelClassNames}>{label}</span>
         <textarea
+          rows={rows}
           id={id}
           disabled={disabled}
           className={inputClassNames}
@@ -147,6 +149,7 @@ const InputLabelOutside = forwardRef<
       onKeyUp,
       placeholder,
       value,
+      rows,
     },
     ref
   ): JSX.Element => {
@@ -202,6 +205,7 @@ const InputLabelOutside = forwardRef<
           placeholder={placeholder}
           value={value}
           ref={ref}
+          rows={rows}
         />
       </label>
     )
@@ -224,6 +228,7 @@ const InputDefault = forwardRef<HTMLTextAreaElement, InternalTextAreaProps>(
       onKeyUp,
       placeholder,
       value,
+      rows,
     },
     ref
   ): JSX.Element => {
@@ -254,6 +259,7 @@ const InputDefault = forwardRef<HTMLTextAreaElement, InternalTextAreaProps>(
         onClick={onClick}
         placeholder={placeholder}
         value={value}
+        rows={rows}
         ref={ref}
       />
     )
