@@ -70,6 +70,16 @@ const InputLabelInside = forwardRef<HTMLInputElement, InternalInputProps>(
       value,
       required,
       type,
+      min,
+      max,
+      step,
+      maxLength,
+      minLength,
+      pattern,
+      autoCapitalize,
+      autoComplete,
+      autoCorrect,
+      inputMode,
     },
     ref
   ): JSX.Element => {
@@ -127,6 +137,16 @@ const InputLabelInside = forwardRef<HTMLInputElement, InternalInputProps>(
           value={value}
           ref={ref}
           type={type}
+          min={min}
+          max={max}
+          step={step}
+          maxLength={maxLength}
+          minLength={minLength}
+          pattern={pattern}
+          autoComplete={autoComplete}
+          autoCorrect={autoCorrect}
+          autoCapitalize={autoCapitalize}
+          inputMode={inputMode}
         />
       </label>
     )
@@ -151,6 +171,16 @@ const InputLabelOutside = forwardRef<HTMLInputElement, InternalInputProps>(
       value,
       required,
       type,
+      min,
+      max,
+      step,
+      maxLength,
+      minLength,
+      pattern,
+      autoCapitalize,
+      autoComplete,
+      autoCorrect,
+      inputMode,
     },
     ref
   ): JSX.Element => {
@@ -208,6 +238,16 @@ const InputLabelOutside = forwardRef<HTMLInputElement, InternalInputProps>(
           value={value}
           ref={ref}
           type={type}
+          min={min}
+          max={max}
+          step={step}
+          maxLength={maxLength}
+          minLength={minLength}
+          pattern={pattern}
+          autoComplete={autoComplete}
+          autoCorrect={autoCorrect}
+          autoCapitalize={autoCapitalize}
+          inputMode={inputMode}
         />
       </label>
     )
@@ -232,6 +272,16 @@ const InputDefault = forwardRef<HTMLInputElement, InternalInputProps>(
       value,
       required,
       type,
+      min,
+      max,
+      step,
+      maxLength,
+      minLength,
+      pattern,
+      autoCapitalize,
+      autoComplete,
+      autoCorrect,
+      inputMode,
     },
     ref
   ): JSX.Element => {
@@ -267,6 +317,16 @@ const InputDefault = forwardRef<HTMLInputElement, InternalInputProps>(
         value={value}
         ref={ref}
         type={type}
+        min={min}
+        max={max}
+        step={step}
+        maxLength={maxLength}
+        minLength={minLength}
+        pattern={pattern}
+        autoComplete={autoComplete}
+        autoCorrect={autoCorrect}
+        autoCapitalize={autoCapitalize}
+        inputMode={inputMode}
       />
     )
   }
