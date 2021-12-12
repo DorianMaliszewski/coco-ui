@@ -1,3 +1,10 @@
+## [1.18.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.17.8...v1.18.0) (2021-12-12)
+
+
+### :gear: Features
+
+* improve input props ([aed567a](https://github.com/DorianMaliszewski/coco-ui/commit/aed567ac45f3ae6026f4f944fbac0a3f75e9d328))
+
 ### [1.17.8](https://github.com/DorianMaliszewski/coco-ui/compare/v1.17.7...v1.17.8) (2021-12-08)
 
 
