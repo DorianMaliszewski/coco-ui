@@ -11,7 +11,7 @@ import React, {
 import classNames from 'classnames'
 import Button from '../Button'
 import Icon from '../Icon'
-import { Grid, useClickOutsideHandler } from 'index'
+import useClickOutsideHandler from '../../hooks/useClickOutsideHandler'
 import { datesAreOnSameDay, datesOfMonthAndYear, daysOfWeek } from './helpers'
 
 type CalendarProps = {
@@ -73,7 +73,7 @@ const Calendar = ({ selected, onDateClick }: CalendarProps): JSX.Element => {
             .toLocaleUpperCase()}
         </div>
       </div>
-      <Grid cols={7} gap={4}>
+      <div className="grid grid-cols-7 gap-4">
         {Object.entries(dates).map(([dayIndex, dates]) => (
           <section
             key={dayIndex}
@@ -107,7 +107,7 @@ const Calendar = ({ selected, onDateClick }: CalendarProps): JSX.Element => {
             )}
           </section>
         ))}
-      </Grid>
+      </div>
     </>
   )
 }
