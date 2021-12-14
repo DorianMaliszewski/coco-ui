@@ -64,6 +64,7 @@ const InputLabelInside = forwardRef<HTMLInputElement, InternalInputProps>(
       onBlur,
       onChange,
       onClick,
+      onFocus,
       onKeyDown,
       onKeyUp,
       placeholder,
@@ -133,6 +134,7 @@ const InputLabelInside = forwardRef<HTMLInputElement, InternalInputProps>(
           onKeyDown={onKeyDown}
           onKeyUp={onKeyUp}
           onClick={onClick}
+          onFocus={onFocus}
           placeholder={placeholder}
           value={value}
           ref={ref}
@@ -165,6 +167,7 @@ const InputLabelOutside = forwardRef<HTMLInputElement, InternalInputProps>(
       onBlur,
       onChange,
       onClick,
+      onFocus,
       onKeyDown,
       onKeyUp,
       placeholder,
@@ -234,6 +237,7 @@ const InputLabelOutside = forwardRef<HTMLInputElement, InternalInputProps>(
           onKeyDown={onKeyDown}
           onKeyUp={onKeyUp}
           onClick={onClick}
+          onFocus={onFocus}
           placeholder={placeholder}
           value={value}
           ref={ref}
@@ -268,6 +272,7 @@ const InputDefault = forwardRef<HTMLInputElement, InternalInputProps>(
       onClick,
       onKeyDown,
       onKeyUp,
+      onFocus,
       placeholder,
       value,
       required,
@@ -313,6 +318,7 @@ const InputDefault = forwardRef<HTMLInputElement, InternalInputProps>(
         onKeyDown={onKeyDown}
         onKeyUp={onKeyUp}
         onClick={onClick}
+        onFocus={onFocus}
         placeholder={placeholder}
         value={value}
         ref={ref}
