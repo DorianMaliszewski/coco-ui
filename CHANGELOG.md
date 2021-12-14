@@ -1,3 +1,10 @@
+### [1.19.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.19.0...v1.19.1) (2021-12-14)
+
+
+### :bug: Bug Fixes
+
+* grid purge css ([236bc34](https://github.com/DorianMaliszewski/coco-ui/commit/236bc348e74c847edebd23aa3d50e75364b7bbad))
+
 ## [1.19.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.18.0...v1.19.0) (2021-12-14)
 
 
