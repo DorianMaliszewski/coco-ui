@@ -1,3 +1,10 @@
+## [1.19.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.18.0...v1.19.0) (2021-12-14)
+
+
+### :gear: Features
+
+* add time and date picker ([e9678ed](https://github.com/DorianMaliszewski/coco-ui/commit/e9678ed1d9a58c41713844b507a226062ec50f04))
+
 ## [1.18.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.17.8...v1.18.0) (2021-12-12)
 
 
