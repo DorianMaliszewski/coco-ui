@@ -22,3 +22,15 @@ export const Basic = Template.bind({})
 Basic.args = {
   id: 'test',
 }
+
+export const Disabled = Template.bind({})
+Disabled.args = {
+  id: 'test',
+  disabled: true,
+}
+
+export const Error = Template.bind({})
+Error.args = {
+  id: 'test',
+  error: true,
+}

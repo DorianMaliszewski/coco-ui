@@ -9,108 +9,9 @@ import React, {
   useState,
 } from 'react'
 import classNames from 'classnames'
-import Button from '../Button'
 import Icon from '../Icon'
 import useClickOutsideHandler from '../../hooks/useClickOutsideHandler'
-import { datesAreOnSameDay, datesOfMonthAndYear, daysOfWeek } from './helpers'
-
-type CalendarProps = {
-  selected?: Date
-  onDateClick?: (newDate: Date) => void
-}
-
-const Calendar = ({ selected, onDateClick }: CalendarProps): JSX.Element => {
-  const [dateView, setDateView] = useState(selected ?? new Date())
-
-  const goPrevious = useCallback(() => {
-    setDateView((current) => {
-      current.setMonth(current.getMonth() - 1)
-      return new Date(current.getTime())
-    })
-  }, [])
-
-  const goNext = useCallback(() => {
-    setDateView((current) => {
-      current.setMonth(current.getMonth() + 1)
-      return new Date(current.getTime())
-    })
-  }, [])
-
-  const goToday = useCallback(() => {
-    setDateView(new Date())
-  }, [])
-
-  const dates = useMemo(() => datesOfMonthAndYear(dateView), [dateView])
-
-  const daysOfWeekStrings = useMemo(() => daysOfWeek(undefined), [])
-
-  const isSelected = useCallback(
-    (dateToTest: Date) =>
-      selected ? datesAreOnSameDay(selected, dateToTest) : false,
-    [selected]
-  )
-
-  return (
-    <>
-      <div className="flex flex-col">
-        <div className="flex items-center justify-between">
-          <Button variant="secondary" onClick={goPrevious}>
-            <Icon name="arrow-left" size={10} />
-          </Button>
-          <Button onClick={goToday} variant="link" size="xs" className="mx-2">
-            Aujourd&apos;hui
-          </Button>
-          <Button variant="secondary" onClick={goNext}>
-            <Icon name="arrow-right" size={10} />
-          </Button>
-        </div>
-        <div className="text-center my-2">
-          {dateView
-            .toLocaleDateString(undefined, {
-              month: 'long',
-              year: 'numeric',
-            })
-            .toLocaleUpperCase()}
-        </div>
-      </div>
-      <div className="grid grid-cols-7 gap-4">
-        {Object.entries(dates).map(([dayIndex, dates]) => (
-          <section
-            key={dayIndex}
-            className="text-center flex flex-col items-center w-6"
-          >
-            <div className="text-gray-500 mb-2">
-              {daysOfWeekStrings[dayIndex as keyof typeof daysOfWeekStrings]}
-            </div>
-            {dates.map((date, index) =>
-              date ? (
-                <button
-                  onClick={() => {
-                    onDateClick?.(date)
-                  }}
-                  className={classNames(
-                    'appearance-none text-sm mb-2 h-6 w-6 rounded-full',
-                    {
-                      ['hover:bg-primary-100 hover:text-primary-700']: !isSelected(
-                        date
-                      ),
-                      ['bg-primary-100 text-primary-700']: isSelected(date),
-                    }
-                  )}
-                  key={date.getTime()}
-                >
-                  {date.getDate()}
-                </button>
-              ) : (
-                <div key={`empty-${index}`} className="mb-2 h-6 w-6" />
-              )
-            )}
-          </section>
-        ))}
-      </div>
-    </>
-  )
-}
+import MonthCalendar from './MonthCalendar'
 
 export type DatePickerProps = {
   name?: string
@@ -120,10 +21,25 @@ export type DatePickerProps = {
   className?: string
   label?: string
   variant?: 'inside' | 'outside'
+  disabled?: boolean
+  error?: boolean
 }
 
 const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
-  ({ name, value, onChange, onBlur, label, variant, className }, ref) => {
+  (
+    {
+      name,
+      value,
+      onChange,
+      onBlur,
+      label,
+      variant,
+      className,
+      disabled,
+      error,
+    },
+    ref
+  ) => {
     if (value && !(value instanceof Date && !Number.isNaN(value))) {
       throw new Error(
         'DatePicker : value should be a Date instance or undefined'
@@ -132,6 +48,7 @@ const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
     const [inputValue, setInputValue] = useState(value?.toLocaleDateString())
     const [open, setOpen] = useState(false)
     const containerRef = useRef<HTMLDivElement>(null)
+
     useClickOutsideHandler(containerRef, () => {
       setOpen(false)
     })
@@ -148,21 +65,35 @@ const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
     }, [value])
 
     const handleFocus = useCallback(() => {
-      setOpen(true)
-    }, [])
+      if (!disabled) setOpen(true)
+    }, [disabled])
 
-    const handleDateClick = useCallback((newDate) => {
-      onChange?.(newDate)
-      setOpen(false)
-    }, [])
+    const handleDateClick = useCallback(
+      (newDate) => {
+        onChange?.(newDate)
+        setOpen(false)
+      },
+      [onChange]
+    )
 
     const containerClassNames = useMemo(
       () =>
         classNames({
-          ['absolute top-full shadow p-2 w-max']: true,
+          ['absolute top-full shadow w-max rounded overflow-hidden']: true,
           ['sr-only']: !open,
         }),
       [open]
+    )
+
+    const iconClassNames = useMemo(
+      () =>
+        classNames('absolute right-2', {
+          'text-gray-400': !error && !open,
+          'text-primary-700': !error && open,
+          'text-error-600': error,
+          'bottom-3': variant === 'outside' && label,
+        }),
+      [error, variant, label, open]
     )
 
     return (
@@ -176,16 +107,22 @@ const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
           name={name}
           value={inputValue}
           ref={ref}
+          disabled={disabled}
+          error={error}
         />
-        <Icon
-          name="calendar"
-          type="outline"
-          size={18}
-          className="absolute right-2"
-        />
-        <div className={containerClassNames}>
-          <Calendar selected={value} onDateClick={handleDateClick} />
-        </div>
+        {!disabled ? (
+          <>
+            <Icon
+              name="calendar"
+              type="outline"
+              size={18}
+              className={iconClassNames}
+            />
+            <div className={containerClassNames}>
+              <MonthCalendar selected={value} onDateClick={handleDateClick} />
+            </div>
+          </>
+        ) : null}
       </div>
     )
   }

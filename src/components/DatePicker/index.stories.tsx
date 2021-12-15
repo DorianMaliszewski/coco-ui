@@ -19,4 +19,24 @@ const Template: Story<DatePickerProps> = ({ ...args }: DatePickerProps) => {
 }
 
 export const Basic = Template.bind({})
-Basic.args = {}
+Basic.args = {
+  label: 'Basic',
+}
+
+export const Labeled = Template.bind({})
+Labeled.args = {
+  label: 'Labeled',
+  variant: 'outside',
+}
+
+export const Disabled = Template.bind({})
+Disabled.args = {
+  label: 'Disabled',
+  disabled: true,
+}
+
+export const Error = Template.bind({})
+Error.args = {
+  label: 'Error',
+  error: true,
+}
