@@ -1,3 +1,10 @@
+## [1.20.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.19.1...v1.20.0) (2021-12-15)
+
+
+### :gear: Features
+
+* improve date colors ([598dfd4](https://github.com/DorianMaliszewski/coco-ui/commit/598dfd498a74f46937b8e687eb947c61d58ba862))
+
 ### [1.19.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.19.0...v1.19.1) (2021-12-14)
 
 
