@@ -1,3 +1,10 @@
+## [1.21.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.20.0...v1.21.0) (2021-12-15)
+
+
+### :gear: Features
+
+* add required asterisk ([7e09cf9](https://github.com/DorianMaliszewski/coco-ui/commit/7e09cf97cb34586212e22e4fae77e91685ca4347))
+
 ## [1.20.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.19.1...v1.20.0) (2021-12-15)
 
 
