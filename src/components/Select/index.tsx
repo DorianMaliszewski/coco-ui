@@ -41,6 +41,7 @@ export type SelectProps = {
   isSearchable?: boolean
   isMulti?: boolean
   error?: boolean | string
+  required?: boolean
 }
 
 const KEYS = {
@@ -80,6 +81,7 @@ const Select = forwardRef(
       isLoading,
       isSearchable,
       error,
+      required,
     }: SelectProps,
     ref: ForwardedRef<HTMLInputElement>
   ) => {
@@ -325,11 +327,15 @@ const Select = forwardRef(
         onKeyDown={handleKeyDown}
         onClick={handleOpen}
         aria-expanded={isOpen}
+        aria-invalid={required && !value}
         ref={containerRef}
         tabIndex={variant !== 'outside' ? -1 : undefined}
       >
         {label && variant !== 'default' ? (
-          <span className={labelClassNames}>{label}</span>
+          <span className={labelClassNames}>
+            {label}
+            {required ? <>&nbsp;*</> : null}
+          </span>
         ) : null}
         <div
           tabIndex={variant === 'outside' ? -1 : undefined}

@@ -1,5 +1,12 @@
 import classNames from 'classnames'
-import React, { forwardRef, useMemo } from 'react'
+import React, {
+  ChangeEventHandler,
+  FocusEventHandler,
+  forwardRef,
+  KeyboardEventHandler,
+  MouseEventHandler,
+  useMemo,
+} from 'react'
 
 const VARIANTS = {
   inside: {
@@ -44,10 +51,24 @@ const VARIANTS = {
 
 export type TextAreaVariants = keyof typeof VARIANTS
 
-export type TextAreaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
+export type TextAreaProps = {
   label?: string
   variant?: TextAreaVariants
   error?: string | boolean
+  required?: boolean
+  readOnly?: boolean
+  disabled?: boolean
+  className?: string
+  id?: string
+  name?: string
+  onBlur?: FocusEventHandler<HTMLTextAreaElement>
+  onChange?: ChangeEventHandler<HTMLTextAreaElement>
+  onClick?: MouseEventHandler<HTMLTextAreaElement>
+  onKeyDown?: KeyboardEventHandler<HTMLTextAreaElement>
+  onKeyUp?: KeyboardEventHandler<HTMLTextAreaElement>
+  placeholder?: string
+  value?: string
+  rows?: number
 }
 
 type InternalTextAreaProps = Omit<TextAreaProps, 'variant'>
@@ -72,6 +93,8 @@ const TextAreaLabelInside = forwardRef<
       placeholder,
       value,
       rows,
+      required,
+      readOnly,
     },
     ref
   ): JSX.Element => {
@@ -112,7 +135,10 @@ const TextAreaLabelInside = forwardRef<
         className={containerClassNames}
         htmlFor={id}
       >
-        <span className={labelClassNames}>{label}</span>
+        <span className={labelClassNames}>
+          {label}
+          {required ? <>&nbsp;*</> : null}
+        </span>
         <textarea
           rows={rows}
           id={id}
@@ -127,6 +153,8 @@ const TextAreaLabelInside = forwardRef<
           placeholder={placeholder}
           value={value}
           ref={ref}
+          required={required}
+          readOnly={readOnly}
         />
       </label>
     )
@@ -153,6 +181,8 @@ const TextAreaLabelOutside = forwardRef<
       placeholder,
       value,
       rows,
+      required,
+      readOnly,
     },
     ref
   ): JSX.Element => {
@@ -194,7 +224,10 @@ const TextAreaLabelOutside = forwardRef<
         className={containerClassNames}
         htmlFor={id}
       >
-        <span className={labelClassNames}>{label}</span>
+        <span className={labelClassNames}>
+          {label}
+          {required ? <>&nbsp;*</> : null}
+        </span>
         <textarea
           id={id}
           disabled={disabled}
@@ -209,6 +242,8 @@ const TextAreaLabelOutside = forwardRef<
           value={value}
           ref={ref}
           rows={rows}
+          required={required}
+          readOnly={readOnly}
         />
       </label>
     )
@@ -232,6 +267,8 @@ const TextAreaDefault = forwardRef<HTMLTextAreaElement, InternalTextAreaProps>(
       placeholder,
       value,
       rows,
+      required,
+      readOnly,
     },
     ref
   ): JSX.Element => {
@@ -264,6 +301,8 @@ const TextAreaDefault = forwardRef<HTMLTextAreaElement, InternalTextAreaProps>(
         value={value}
         rows={rows}
         ref={ref}
+        required={required}
+        readOnly={readOnly}
       />
     )
   }

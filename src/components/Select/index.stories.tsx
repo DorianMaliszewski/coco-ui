@@ -64,6 +64,7 @@ export const Labeled = Template.bind({})
 Labeled.args = {
   label: 'My awesome label',
   options: fakeOptions,
+  variant: 'outside',
 }
 
 export const Multi = Template.bind({})

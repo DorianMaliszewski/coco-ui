@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import React, { AriaAttributes } from 'react'
 
 const SwitchButton = ({
@@ -7,9 +8,14 @@ const SwitchButton = ({
   ...props
 }: SwitchProps) => (
   <label
-    className={`p-2 border border-gray-200 rounded hover:shadow ${
-      checked ? 'bg-primary-700 text-white' : 'shadow'
-    }${className ?? ''}`}
+    className={classNames(
+      'p-2 border border-gray-200 rounded hover:shadow',
+      {
+        ['bg-primary-700 text-white']: checked,
+        shadow: !checked,
+      },
+      className
+    )}
   >
     {children}
     <input
@@ -133,27 +139,30 @@ const SwitchDefault = ({
 
 const SwitchButtons = ({
   className,
-  children,
-  size,
   checked,
   offChildren,
   onChildren,
+  children,
+  size,
   ...props
 }: Partial<SwitchProps>) => (
   <label
-    className={`cursor-pointer hover:shadow flex shadow-inner rounded border-gray-200 border rounded ${
-      className ?? ''
-    }`}
+    className={classNames(
+      'cursor-pointer hover:shadow flex shadow-inner border-gray-200 border rounded',
+      { [className ?? '']: true }
+    )}
   >
     <div
-      className={`p-2 rounded mr-1 ${
-        !checked ? 'bg-primary-700 text-white' : ''
-      }`}
+      className={classNames('p-2 rounded mr-1', {
+        'bg-primary-700 text-white': !checked,
+      })}
     >
       {offChildren}
     </div>
     <div
-      className={`p-2 rounded ${checked ? 'bg-primary-700 text-white' : ''}`}
+      className={classNames('p-2 rounded', {
+        'bg-primary-700 text-white': checked,
+      })}
     >
       {onChildren}
     </div>

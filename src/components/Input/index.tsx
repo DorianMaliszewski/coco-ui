@@ -1,5 +1,12 @@
 import classNames from 'classnames'
-import React, { forwardRef, useMemo } from 'react'
+import React, {
+  ChangeEventHandler,
+  FocusEventHandler,
+  forwardRef,
+  KeyboardEventHandler,
+  MouseEventHandler,
+  useMemo,
+} from 'react'
 
 const VARIANTS = {
   inside: {
@@ -44,10 +51,43 @@ const VARIANTS = {
 
 export type InputVariants = keyof typeof VARIANTS
 
-export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
+export type InputProps = {
   label?: string
   variant?: InputVariants
   error?: string | boolean
+  type?: string
+  required?: boolean
+  disabled?: boolean
+  name?: string
+  id?: string
+  onFocus?: FocusEventHandler<HTMLInputElement>
+  onBlur?: FocusEventHandler<HTMLInputElement>
+  onChange?: ChangeEventHandler<HTMLInputElement>
+  onClick?: MouseEventHandler<HTMLInputElement>
+  className?: string
+  onKeyDown?: KeyboardEventHandler<HTMLInputElement>
+  onKeyUp?: KeyboardEventHandler<HTMLInputElement>
+  placeholder?: string
+  value?: string | number
+  autoComplete?: string
+  autoCorrect?: string
+  inputMode?:
+    | 'text'
+    | 'none'
+    | 'search'
+    | 'email'
+    | 'tel'
+    | 'numeric'
+    | 'decimal'
+    | 'url'
+  pattern?: string
+  autoCapitalize?: string
+  min?: number
+  max?: number
+  maxLength?: number
+  minLength?: number
+  step?: number
+  readOnly?: boolean
 }
 
 type InternalInputProps = Omit<InputProps, 'variant'>
@@ -81,6 +121,7 @@ const InputLabelInside = forwardRef<HTMLInputElement, InternalInputProps>(
       autoComplete,
       autoCorrect,
       inputMode,
+      readOnly,
     },
     ref
   ): JSX.Element => {
@@ -122,7 +163,10 @@ const InputLabelInside = forwardRef<HTMLInputElement, InternalInputProps>(
         className={containerClassNames}
         htmlFor={id}
       >
-        <span className={labelClassNames}>{label}</span>
+        <span className={labelClassNames}>
+          {label}
+          {required ? <>&nbsp;*</> : null}
+        </span>
         <input
           id={id}
           required={required}
@@ -149,6 +193,7 @@ const InputLabelInside = forwardRef<HTMLInputElement, InternalInputProps>(
           autoCorrect={autoCorrect}
           autoCapitalize={autoCapitalize}
           inputMode={inputMode}
+          readOnly={readOnly}
         />
       </label>
     )
@@ -184,6 +229,7 @@ const InputLabelOutside = forwardRef<HTMLInputElement, InternalInputProps>(
       autoComplete,
       autoCorrect,
       inputMode,
+      readOnly,
     },
     ref
   ): JSX.Element => {
@@ -225,7 +271,10 @@ const InputLabelOutside = forwardRef<HTMLInputElement, InternalInputProps>(
         className={containerClassNames}
         htmlFor={id}
       >
-        <span className={labelClassNames}>{label}</span>
+        <span className={labelClassNames}>
+          {label}
+          {required ? <>&nbsp;*</> : null}
+        </span>
         <input
           required={required}
           id={id}
@@ -252,6 +301,7 @@ const InputLabelOutside = forwardRef<HTMLInputElement, InternalInputProps>(
           autoCorrect={autoCorrect}
           autoCapitalize={autoCapitalize}
           inputMode={inputMode}
+          readOnly={readOnly}
         />
       </label>
     )
@@ -287,6 +337,7 @@ const InputDefault = forwardRef<HTMLInputElement, InternalInputProps>(
       autoComplete,
       autoCorrect,
       inputMode,
+      readOnly,
     },
     ref
   ): JSX.Element => {
@@ -333,6 +384,7 @@ const InputDefault = forwardRef<HTMLInputElement, InternalInputProps>(
         autoCorrect={autoCorrect}
         autoCapitalize={autoCapitalize}
         inputMode={inputMode}
+        readOnly={readOnly}
       />
     )
   }
