@@ -19,9 +19,9 @@ const MonthCalendarButton = ({
     selected && date ? datesAreOnSameDay(selected, date) : false
 
   const buttonClassNames = classNames(
-    'user-select-none appearance-none text-sm mb-2 h-6 w-6 rounded-full',
+    'user-select-none appearance-none text-sm mb-2 h-6 w-6 rounded-full outline-none',
     {
-      ['hover:bg-primary-100 hover:text-primary-700']: !isSelected,
+      ['hover:bg-primary-100 focus:bg-primary-100 hover:text-primary-700 focus:text-primary-700']: !isSelected,
       ['bg-primary-100 text-primary-700']: isSelected,
     }
   )
@@ -66,11 +66,6 @@ const MonthCalendar = ({
     })
   }, [])
 
-  const selectToday = useCallback(() => {
-    onDateClick?.(new Date())
-    setDateView(new Date())
-  }, [onDateClick])
-
   const dates = useMemo(() => datesOfMonthAndYear(dateView), [dateView])
 
   const daysOfWeekStrings = useMemo(() => daysOfWeek(undefined), [])
@@ -78,7 +73,7 @@ const MonthCalendar = ({
   return (
     <div className="w-60">
       <div className="flex flex-col">
-        <div className="p-2 bg-primary-700 text-white flex items-center justify-between">
+        <div className="px-2 h-12 bg-primary-700 text-white flex items-center justify-between">
           <Button
             aria-label="Previous"
             type="button"
@@ -126,11 +121,6 @@ const MonthCalendar = ({
             ))}
           </Fragment>
         ))}
-      </div>
-      <div className="flex mb-2 justify-end">
-        <Button type="button" onClick={selectToday} size="xs" className="mx-2">
-          Aujourd&apos;hui
-        </Button>
       </div>
     </div>
   )

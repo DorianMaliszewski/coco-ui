@@ -12,6 +12,7 @@ export type TimePickerProps = {
   label?: string
   variant?: 'inside' | 'outside'
   locales?: string
+  required?: boolean
 }
 
 const TimePicker = forwardRef<HTMLInputElement, TimePickerProps>(
@@ -27,6 +28,7 @@ const TimePicker = forwardRef<HTMLInputElement, TimePickerProps>(
       label,
       variant,
       locales,
+      required,
     },
     ref
   ) => {
@@ -74,6 +76,7 @@ const TimePicker = forwardRef<HTMLInputElement, TimePickerProps>(
         label={label}
         variant={variant}
         ref={ref}
+        required={required}
       />
     )
   }

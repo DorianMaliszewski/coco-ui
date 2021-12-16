@@ -12,8 +12,9 @@ import classNames from 'classnames'
 import Icon from '../Icon'
 import useClickOutsideHandler from '../../hooks/useClickOutsideHandler'
 import MonthCalendar from './MonthCalendar'
+import TimeCalendar from './TimeCalendar'
 
-export type DatePickerProps = {
+export type DateTimePickerProps = {
   name?: string
   value?: Date
   onChange?: (newValue: Date) => void
@@ -26,7 +27,7 @@ export type DatePickerProps = {
   required?: boolean
 }
 
-const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
+const DateTimePicker = forwardRef<HTMLInputElement, DateTimePickerProps>(
   (
     {
       name,
@@ -44,10 +45,10 @@ const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
   ) => {
     if (value && !(value instanceof Date && !Number.isNaN(value))) {
       throw new Error(
-        'DatePicker : value should be a Date instance or undefined'
+        'DateTimePicker : value should be a Date instance or undefined'
       )
     }
-    const [inputValue, setInputValue] = useState(value?.toLocaleDateString())
+    const [inputValue, setInputValue] = useState(value)
     const [open, setOpen] = useState(false)
     const containerRef = useRef<HTMLDivElement>(null)
 
@@ -59,10 +60,10 @@ const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
       if (value) {
         if (!(value instanceof Date && !Number.isNaN(value))) {
           throw new Error(
-            'DatePicker : value should be a Date instance or undefined'
+            'DateTimePicker : value should be a Date instance or undefined'
           )
         }
-        setInputValue(value.toLocaleDateString())
+        setInputValue(value)
       }
     }, [value])
 
@@ -73,9 +74,22 @@ const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
     const handleDateClick = useCallback(
       (newDate) => {
         onChange?.(newDate)
-        setOpen(false)
       },
       [onChange]
+    )
+
+    const handleTimeClick = useCallback(
+      (hours: number, minutes: number) => {
+        if (value) {
+          const newValue = new Date(value)
+          newValue.setHours(hours)
+          newValue.setMinutes(minutes)
+          onChange?.(newValue)
+        } else {
+          onChange?.(new Date(0, 0, 0, hours, minutes))
+        }
+      },
+      [onChange, value]
     )
 
     const containerClassNames = useMemo(
@@ -89,11 +103,10 @@ const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
 
     const iconClassNames = useMemo(
       () =>
-        classNames('absolute right-2', {
+        classNames('absolute right-2 bottom-3', {
           'text-gray-400': !error && !open,
           'text-primary-700': !error && open,
           'text-error-600': error,
-          'bottom-3': variant && label,
         }),
       [error, variant, label, open]
     )
@@ -107,7 +120,13 @@ const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
           onFocus={handleFocus}
           onBlur={onBlur}
           name={name}
-          value={inputValue}
+          value={inputValue?.toLocaleString(undefined, {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+          })}
           ref={ref}
           disabled={disabled}
           error={error}
@@ -122,7 +141,16 @@ const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
               className={iconClassNames}
             />
             <div className={containerClassNames}>
-              <MonthCalendar selected={value} onDateClick={handleDateClick} />
+              <div className="flex">
+                <MonthCalendar
+                  selected={inputValue}
+                  onDateClick={handleDateClick}
+                />
+                <TimeCalendar
+                  selected={inputValue}
+                  onTimeClick={handleTimeClick}
+                />
+              </div>
             </div>
           </>
         ) : null}
@@ -131,5 +159,5 @@ const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
   }
 )
 
-DatePicker.displayName = 'DatePicker'
-export default DatePicker
+DateTimePicker.displayName = 'DateTimePicker'
+export default DateTimePicker
