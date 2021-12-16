@@ -1,3 +1,10 @@
+## [1.22.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.21.0...v1.22.0) (2021-12-16)
+
+
+### :gear: Features
+
+* datetimepicker ([3a0c79f](https://github.com/DorianMaliszewski/coco-ui/commit/3a0c79f3336dc71b0dd50987dc9050a5834029b8))
+
 ## [1.21.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.20.0...v1.21.0) (2021-12-15)
 
 
