@@ -2,6 +2,7 @@ import Input from '../Input'
 import React, {
   FocusEventHandler,
   forwardRef,
+  KeyboardEvent,
   useCallback,
   useEffect,
   useMemo,
@@ -71,6 +72,19 @@ const DateTimePicker = forwardRef<HTMLInputElement, DateTimePickerProps>(
       if (!disabled) setOpen(true)
     }, [disabled])
 
+    const handleClick = useCallback(() => {
+      if (!disabled) setOpen(true)
+    }, [disabled])
+
+    const handleKeyDown = useCallback(
+      (event: KeyboardEvent<HTMLDivElement>) => {
+        if (event.key === 'Escape') {
+          setOpen(false)
+        }
+      },
+      []
+    )
+
     const handleDateClick = useCallback(
       (newDate) => {
         onChange?.(newDate)
@@ -112,12 +126,17 @@ const DateTimePicker = forwardRef<HTMLInputElement, DateTimePickerProps>(
     )
 
     return (
-      <div ref={containerRef} className="flex relative items-center">
+      <div
+        onKeyDown={handleKeyDown}
+        ref={containerRef}
+        className="flex relative items-center"
+      >
         <Input
           className={className}
           label={label}
           variant={variant}
           onFocus={handleFocus}
+          onClick={handleClick}
           onBlur={onBlur}
           name={name}
           value={inputValue?.toLocaleString(undefined, {
