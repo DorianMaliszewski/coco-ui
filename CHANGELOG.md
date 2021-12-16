@@ -1,3 +1,10 @@
+## [1.23.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.22.1...v1.23.0) (2021-12-16)
+
+
+### :gear: Features
+
+* keyboardevent datetimepicker ([22fe4dc](https://github.com/DorianMaliszewski/coco-ui/commit/22fe4dc875aac5a7e9aea96c065fb92d64b873df))
+
 ### [1.22.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.22.0...v1.22.1) (2021-12-16)
 
 
