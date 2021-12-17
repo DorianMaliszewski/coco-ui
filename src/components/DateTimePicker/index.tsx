@@ -26,6 +26,7 @@ export type DateTimePickerProps = {
   disabled?: boolean
   error?: boolean
   required?: boolean
+  onClickOutside?: () => void | Promise<void>
 }
 
 const DateTimePicker = forwardRef<HTMLInputElement, DateTimePickerProps>(
@@ -34,6 +35,7 @@ const DateTimePicker = forwardRef<HTMLInputElement, DateTimePickerProps>(
       name,
       value,
       onChange,
+      onClickOutside,
       onBlur,
       label,
       variant,
@@ -55,6 +57,7 @@ const DateTimePicker = forwardRef<HTMLInputElement, DateTimePickerProps>(
 
     useClickOutsideHandler(containerRef, () => {
       setOpen(false)
+      onClickOutside?.()
     })
 
     useEffect(() => {

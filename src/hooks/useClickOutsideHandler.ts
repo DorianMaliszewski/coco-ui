@@ -2,24 +2,24 @@ import React from 'react'
 
 const useClickOutsideHandler = (
   ref: React.RefObject<any>,
-  callback: () => any
+  callback: (event: MouseEvent | TouchEvent) => any
 ): void => {
   const callbackFnRef = React.useRef(callback)
 
   React.useEffect(() => {
     const handler = (event: MouseEvent | TouchEvent) => {
       if (ref.current && !ref.current.contains(event.target)) {
-        callbackFnRef.current?.()
+        callbackFnRef.current?.(event)
       }
     }
 
     // Bind the event listener
-    document.addEventListener('mousedown', handler)
-    document.addEventListener('touchstart', handler)
+    document.addEventListener('mouseup', handler)
+    document.addEventListener('touchend', handler)
     return () => {
       // Unbind the event listener on clean up
-      document.removeEventListener('mousedown', handler)
-      document.removeEventListener('touchstart', handler)
+      document.removeEventListener('mouseup', handler)
+      document.removeEventListener('touchend', handler)
     }
   }, [ref])
 
