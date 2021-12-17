@@ -81,7 +81,7 @@ const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
     const containerClassNames = useMemo(
       () =>
         classNames({
-          ['absolute top-full shadow rounded overflow-hidden z-10 bg-background']: true,
+          ['absolute top-full shadow rounded overflow-hidden z-100 bg-background']: true,
           ['sr-only']: !open,
         }),
       [open]

@@ -4,7 +4,7 @@ import { SelectOptionType, ValueType } from '.'
 import Option from './Option'
 
 const optionListClassNames =
-  'z-10 absolute top-full left-0 border shadow bg-white mt-1 max-h-40 w-full overflow-y-scroll'
+  'z-100 absolute top-full left-0 border shadow bg-white mt-1 max-h-40 w-full overflow-y-scroll'
 
 type OptionListProps = {
   focused: string | number

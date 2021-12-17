@@ -17,6 +17,9 @@ module.exports = {
       black: 'black',
       transparent: 'transparent',
     },
+    zIndex: {
+      100: '100',
+    },
   },
   variants: {
     extend: {

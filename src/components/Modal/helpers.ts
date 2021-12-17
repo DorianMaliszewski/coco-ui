@@ -33,7 +33,7 @@ const generateFadeAnimations = (): Record<
       ...acc,
       [fadeEntry[0]]: {
         container: {
-          in: 'fixed inset-0 z-10 overflow-y-auto',
+          in: 'fixed inset-0 z-100 overflow-y-auto',
           out: 'sr-only',
         },
         background: {

@@ -19,6 +19,7 @@ const HourButton = ({
 
   return (
     <button
+      type="button"
       onClick={() => onHourClick?.(hour)}
       className={classNames('py-2 w-full outline-none focus:bg-primary-200', {
         ['bg-primary-200']: isSelected,
@@ -48,6 +49,7 @@ const MinuteButton = ({
 
   return (
     <button
+      type="button"
       onClick={() => onMinuteClick?.(minute)}
       className={classNames('py-2 w-full outline-none', {
         ['bg-primary-200']: isSelected,

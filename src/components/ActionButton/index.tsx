@@ -14,7 +14,7 @@ const SIZE_CLASSNAMES: Record<Sizes, string> = {
 }
 
 const POPUP_CLASSNAMES = {
-  container: 'shadow z-10 bg-background absolute left-0 min-w-full w-max mt-1',
+  container: 'shadow z-100 bg-background absolute left-0 min-w-full w-max mt-1',
   action: 'hover:bg-primary-100 cursor-pointer p-2',
 }
 

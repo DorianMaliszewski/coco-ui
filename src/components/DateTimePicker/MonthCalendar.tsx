@@ -29,6 +29,7 @@ const MonthCalendarButton = ({
   if (date)
     return (
       <button
+        type="button"
         onClick={() => {
           onDateClick?.(date)
         }}

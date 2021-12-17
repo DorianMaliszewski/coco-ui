@@ -32,7 +32,7 @@ export const weekCountInMonth = (year: number, month: number): number => {
  * @returns The week number in month of the date
  */
 export const weekOfDate = (date: Date): number => {
-  const firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay()
+  const firstDay = new Date(date.getFullYear(), date.getMonth(), 0).getDay()
   return Math.ceil((firstDay + date.getDate()) / 7)
 }
 
@@ -54,7 +54,9 @@ export const datesOfMonthAndYear = (
   const baseDate = new Date(date.getFullYear(), date.getMonth(), 1)
   while (baseDate.getMonth() === date.getMonth()) {
     const localDate = new Date(baseDate)
-    daysInWeekDay[weekOfDate(localDate) - 1][localDate.getDay()] = localDate
+    daysInWeekDay[weekOfDate(localDate) - 1][
+      localDate.getDay() === 0 ? 6 : localDate.getDay() - 1
+    ] = localDate
     baseDate.setDate(localDate.getDate() + 1)
   }
   return daysInWeekDay
