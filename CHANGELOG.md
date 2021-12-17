@@ -1,3 +1,10 @@
+### [1.23.2](https://github.com/DorianMaliszewski/coco-ui/compare/v1.23.1...v1.23.2) (2021-12-17)
+
+
+### :bug: Bug Fixes
+
+* datetime handlers ([db981d3](https://github.com/DorianMaliszewski/coco-ui/commit/db981d39250119701f5b7b0c39817d658a4bbf3e))
+
 ### [1.23.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.23.0...v1.23.1) (2021-12-17)
 
 
