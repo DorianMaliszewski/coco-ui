@@ -1,3 +1,10 @@
+### [1.23.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.23.0...v1.23.1) (2021-12-17)
+
+
+### :bug: Bug Fixes
+
+* date calendar ([cf55c52](https://github.com/DorianMaliszewski/coco-ui/commit/cf55c523b9b0b5b1710cf6f7e335f59900ecadfe))
+
 ## [1.23.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.22.1...v1.23.0) (2021-12-16)
 
 
