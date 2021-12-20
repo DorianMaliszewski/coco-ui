@@ -1,3 +1,10 @@
+### [1.23.3](https://github.com/DorianMaliszewski/coco-ui/compare/v1.23.2...v1.23.3) (2021-12-20)
+
+
+### :bug: Bug Fixes
+
+* extend base theme ([80a1e0e](https://github.com/DorianMaliszewski/coco-ui/commit/80a1e0eafb4a83d2e4763fa999864d7d828c4513))
+
 ### [1.23.2](https://github.com/DorianMaliszewski/coco-ui/compare/v1.23.1...v1.23.2) (2021-12-17)
 
 
