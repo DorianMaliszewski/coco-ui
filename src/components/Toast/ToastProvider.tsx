@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode, useCallback } from 'react'
 import Toast, { ToastVariant } from './Toast'
 import ToastContainer from './ToastContainer'
 
@@ -39,9 +39,37 @@ const ToastProvider = ({
       newToast.closed = false
       newToast.variant = info.variant ?? 'default'
       newToast.duration = info.duration ?? duration
-      setToasts([...toasts, newToast])
+      setToasts((current) => [...current, newToast])
     },
-    [toasts, duration]
+    [duration]
+  )
+
+  const success = useCallback(
+    (render: ReactNode, info: ToastOptions) => {
+      show(render, { ...info, variant: 'success' })
+    },
+    [show]
+  )
+
+  const error = useCallback(
+    (render: ReactNode, info: ToastOptions) => {
+      show(render, { ...info, variant: 'error' })
+    },
+    [show]
+  )
+
+  const warning = useCallback(
+    (render: ReactNode, info: ToastOptions) => {
+      show(render, { ...info, variant: 'warning' })
+    },
+    [show]
+  )
+
+  const info = useCallback(
+    (render: ReactNode, info: ToastOptions) => {
+      show(render, { ...info, variant: 'info' })
+    },
+    [show]
   )
 
   const onCloseToast = React.useCallback(
@@ -63,7 +91,13 @@ const ToastProvider = ({
     }
   }, [toasts])
 
-  const value = React.useMemo(() => ({ show }), [show])
+  const value = React.useMemo(() => ({ show, error, success, info, warning }), [
+    show,
+    success,
+    info,
+    error,
+    warning,
+  ])
 
   return (
     <ToastContext.Provider value={value}>

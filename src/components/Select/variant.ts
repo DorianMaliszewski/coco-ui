@@ -3,7 +3,7 @@ export type SelectVariant = 'inside' | 'outside' | 'default'
 export const SelectVariantClassNames: Record<SelectVariant, any> = {
   default: {
     container: {
-      base: `relative border bg-background rounded p-2 flex items-center w-full outline-none`,
+      base: `relative border bg-background rounded p-2 h-10 flex items-center w-full outline-none`,
       default:
         'focus-within:border-primary-600 focus-within:text-primary-600 text-gray-500 border-gray-300',
       disabled: 'opacity-30 cursor-not-allowed pointer-events-none',
@@ -11,7 +11,7 @@ export const SelectVariantClassNames: Record<SelectVariant, any> = {
       error: 'text-error-600 border-error-600',
     },
     input: {
-      base: 'bg-transparent flex-grow outline-none',
+      base: 'absolute bg-transparent flex-grow outline-none',
       error: 'text-error-600',
     },
     label: {
@@ -28,14 +28,14 @@ export const SelectVariantClassNames: Record<SelectVariant, any> = {
   inside: {
     container: {
       loading: 'pointer-events-none cursor-not-allowed',
-      base: `relative border bg-background rounded pt-1 p-2 flex flex-col w-full outline-none`,
+      base: `relative border bg-background rounded pt-1 p-2 flex flex-col w-full outline-none h-10`,
       default:
         'focus-within:border-primary-600 focus-within:text-primary-600 text-gray-500 border-gray-300',
       disabled: 'opacity-30 cursor-not-allowed pointer-events-none',
       error: 'text-error-600 border-error-600',
     },
     input: {
-      base: 'bg-transparent flex-grow outline-none',
+      base: 'absolute bg-transparent flex-grow outline-none',
       error: 'text-error-600',
     },
     label: {
@@ -52,14 +52,14 @@ export const SelectVariantClassNames: Record<SelectVariant, any> = {
   outside: {
     container: {
       loading: 'pointer-events-none cursor-not-allowed',
-      base: `relative flex w-full flex-col`,
+      base: `relative flex w-full flex-col h-10`,
       default:
         'focus-within:border-primary-600 focus-within:text-primary-600 border-gray-300 text-gray-500',
       disabled: 'opacity-30 cursor-not-allowed pointer-events-none',
       error: 'text-error-600',
     },
     input: {
-      base: 'bg-transparent flex-grow outline-none',
+      base: 'absolute bg-transparent flex-grow outline-none',
       error: 'text-error-600',
     },
     label: {

@@ -125,6 +125,7 @@ const Select = forwardRef(
         } else {
           onChange?.([...value, option.value])
         }
+        setSearch('')
       },
       [onChange, value]
     )
@@ -341,8 +342,10 @@ const Select = forwardRef(
           tabIndex={variant === 'outside' ? -1 : undefined}
           className={valueContainerClassNames}
         >
-          {isMulti || (value && !search) ? (
-            <div className="truncate flex outline-none mr-1">{valueRender}</div>
+          {!search ? (
+            <div className="truncate flex outline-none mr-1 flex-grow">
+              {valueRender}
+            </div>
           ) : null}
           <input
             autoComplete="off"
@@ -360,15 +363,6 @@ const Select = forwardRef(
             onKeyPress={handleInputKeyPress}
             value={search}
           />
-          {isLoading ? (
-            <Loader className="mx-1" size="sm" color="primary-800" />
-          ) : (
-            <ChevronDownIcon
-              width={12}
-              height={12}
-              className={chevronClassNames}
-            />
-          )}
           {isLoading || filteredOptions.length === 0 ? null : (
             <OptionList
               isMulti={isMulti}
@@ -386,6 +380,15 @@ const Select = forwardRef(
             />
           )}
         </div>
+        {isLoading ? (
+          <Loader className="mx-1" size="sm" color="primary-800" />
+        ) : (
+          <ChevronDownIcon
+            width={12}
+            height={12}
+            className={chevronClassNames}
+          />
+        )}
       </label>
     )
   }
