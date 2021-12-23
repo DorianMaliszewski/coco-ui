@@ -1,3 +1,10 @@
+## [1.24.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.23.3...v1.24.0) (2021-12-23)
+
+
+### :gear: Features
+
+* input absolute ([5130853](https://github.com/DorianMaliszewski/coco-ui/commit/51308537084ecb1c3fddf63ecc9285ab9551d840))
+
 ### [1.23.3](https://github.com/DorianMaliszewski/coco-ui/compare/v1.23.2...v1.23.3) (2021-12-20)
 
 
