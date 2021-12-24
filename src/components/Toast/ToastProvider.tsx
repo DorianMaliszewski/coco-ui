@@ -1,4 +1,13 @@
-import React, { ReactNode, useCallback } from 'react'
+import React, {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import Toast, { ToastVariant } from './Toast'
 import ToastContainer from './ToastContainer'
 
@@ -8,7 +17,7 @@ type ToastOptions = {
   duration: number
 }
 type ToastInfo = {
-  render: React.ReactNode
+  render: ReactNode
   id: number
   closed: boolean
 } & ToastOptions
@@ -20,26 +29,24 @@ export type ToastProviderProps = {
 }
 
 type ToastContextType = {
-  show: (render: React.ReactNode, info: ToastOptions) => void
+  show: (render: ReactNode, info: ToastOptions) => void
   success: (render: ReactNode, info: ToastOptions) => void
   error: (render: ReactNode, info: ToastOptions) => void
   info: (render: ReactNode, info: ToastOptions) => void
   warning: (render: ReactNode, info: ToastOptions) => void
 }
-const ToastContext = React.createContext<ToastContextType>(
-  {} as ToastContextType
-)
+const ToastContext = createContext<ToastContextType>({} as ToastContextType)
 
 const ToastProvider = ({
   children,
   duration = 3000,
   maxConcurrent = 5,
 }: ToastProviderProps): JSX.Element => {
-  const counterRef = React.useRef(0)
-  const [toasts, setToasts] = React.useState<ToastInfo[]>([])
+  const counterRef = useRef(0)
+  const [toasts, setToasts] = useState<ToastInfo[]>([])
 
-  const show = React.useCallback(
-    (render: React.ReactNode, info: ToastOptions) => {
+  const show = useCallback(
+    (render: ReactNode, info: ToastOptions) => {
       const newToast = {} as ToastInfo
       newToast.id = counterRef.current
       counterRef.current += 1
@@ -81,7 +88,7 @@ const ToastProvider = ({
     [show]
   )
 
-  const onCloseToast = React.useCallback(
+  const onCloseToast = useCallback(
     (toastId: number) => {
       const index = toasts.findIndex(({ id }) => id === toastId)
       if (index > -1) {
@@ -94,13 +101,13 @@ const ToastProvider = ({
     [toasts]
   )
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (toasts.length && toasts.every(({ closed }) => closed)) {
       setToasts([])
     }
   }, [toasts])
 
-  const value = React.useMemo(() => ({ show, error, success, info, warning }), [
+  const value = useMemo(() => ({ show, error, success, info, warning }), [
     show,
     success,
     info,
@@ -131,7 +138,7 @@ const ToastProvider = ({
 }
 
 export const useToast = (): any => {
-  return React.useContext(ToastContext)
+  return useContext(ToastContext)
 }
 
 export default ToastProvider
