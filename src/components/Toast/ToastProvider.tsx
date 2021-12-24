@@ -2,9 +2,7 @@ import React, { ReactNode, useCallback } from 'react'
 import Toast, { ToastVariant } from './Toast'
 import ToastContainer from './ToastContainer'
 
-const ToastContext = React.createContext<any>({})
-
-interface ToastOptions {
+type ToastOptions = {
   variant: ToastVariant
   callback?: () => any
   duration: number
@@ -20,6 +18,17 @@ export type ToastProviderProps = {
   duration?: number
   maxConcurrent?: number
 }
+
+type ToastContextType = {
+  show: (render: React.ReactNode, info: ToastOptions) => void
+  success: (render: ReactNode, info: ToastOptions) => void
+  error: (render: ReactNode, info: ToastOptions) => void
+  info: (render: ReactNode, info: ToastOptions) => void
+  warning: (render: ReactNode, info: ToastOptions) => void
+}
+const ToastContext = React.createContext<ToastContextType>(
+  {} as ToastContextType
+)
 
 const ToastProvider = ({
   children,

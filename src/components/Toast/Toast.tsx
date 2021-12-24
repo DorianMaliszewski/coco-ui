@@ -76,7 +76,7 @@ const Toast = ({
   return (
     <div
       onClick={handleClose}
-      className={`z-20 mr-4 mt-1 w-72 transition duration-500 transition-transform transform  ${
+      className={`z-20 mr-4 mt-1 w-72 duration-500 transition-transform transform  ${
         mounted ? '' : 'translate-x-72'
       } overflow-hidden flex flex-col ${
         (variants as any)[variant]?.toast ?? variants.default.toast
@@ -87,7 +87,7 @@ const Toast = ({
         className={`${
           (variants as any)[variant]?.progressBar ??
           variants.default.progressBar
-        } ease-linear mt-2 h-1 w-full transition transition-transform transform ${
+        } ease-linear mt-2 h-1 w-full transition-transform transform ${
           mounted ? '-translate-x-full' : ''
         }`}
         style={{ transitionDuration: `${Math.round(duration / 1000)}s` }}
