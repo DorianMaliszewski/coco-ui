@@ -1,5 +1,17 @@
-import React from 'react'
+import classNames from 'classnames'
+import React, {
+  ReactNode,
+  SyntheticEvent,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 
+const BASE_TOAST_CLASSNAMES =
+  'z-20 mr-4 mt-1 w-72 duration-500 transition-transform transform overflow-hidden flex flex-col'
+const BASE_PROGRESSBAR_CLASSNAMES =
+  'ease-linear mt-2 h-1 w-full transition-transform transform'
 const variants = {
   default: {
     toast: 'shadow bg-white rounded pt-2 text-black',
@@ -21,14 +33,14 @@ const variants = {
     toast: 'shadow bg-info-600 rounded pt-2 text-white',
     progressBar: 'bg-white opacity-50',
   },
-}
+} as const
 
 export type ToastVariant = keyof typeof variants
 
 export type ToastProps = {
   onClose: (index: number) => any
   duration: number
-  render?: React.ReactNode
+  render?: ReactNode
   variant: ToastVariant
   id: number
 }
@@ -40,9 +52,9 @@ const Toast = ({
   variant,
   id,
 }: ToastProps): JSX.Element => {
-  const [mounted, setMounted] = React.useState(false)
-  const onCloseRef = React.useRef(onClose)
-  const handleClose = (_event?: React.SyntheticEvent, reason?: string) => {
+  const [mounted, setMounted] = useState(false)
+  const onCloseRef = useRef(onClose)
+  const handleClose = (_event?: SyntheticEvent, reason?: string) => {
     if (reason === 'clickaway') {
       return
     }
@@ -52,7 +64,7 @@ const Toast = ({
     }, 500)
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     const timeout = setTimeout(() => {
       setMounted(false)
       setTimeout(() => {
@@ -65,31 +77,38 @@ const Toast = ({
     }
   }, [duration])
 
-  React.useEffect(() => {
+  useEffect(() => {
     setTimeout(() => setMounted(true), 100)
   }, [])
 
-  React.useEffect(() => {
+  useEffect(() => {
     onCloseRef.current = onClose
   }, [onClose])
+
+  const classes = useMemo(() => variants[variant] ?? variants.default, [
+    variant,
+  ])
 
   return (
     <div
       onClick={handleClose}
-      className={`z-20 mr-4 mt-1 w-72 duration-500 transition-transform transform  ${
-        mounted ? '' : 'translate-x-72'
-      } overflow-hidden flex flex-col ${
-        (variants as any)[variant]?.toast ?? variants.default.toast
-      }`}
+      className={classNames(
+        BASE_TOAST_CLASSNAMES,
+        {
+          'translate-x-72': mounted,
+        },
+        classes.toast
+      )}
     >
       <div className="flex-grow px-2">{render}</div>
       <div
-        className={`${
-          (variants as any)[variant]?.progressBar ??
-          variants.default.progressBar
-        } ease-linear mt-2 h-1 w-full transition-transform transform ${
-          mounted ? '-translate-x-full' : ''
-        }`}
+        className={classNames(
+          BASE_PROGRESSBAR_CLASSNAMES,
+          classes.progressBar,
+          {
+            '-translate-x-full': mounted,
+          }
+        )}
         style={{ transitionDuration: `${Math.round(duration / 1000)}s` }}
       />
     </div>

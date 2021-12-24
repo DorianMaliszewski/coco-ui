@@ -25,13 +25,16 @@ const Template: Story<ListProps> = (args) => (
   <List {...args}>
     {({ data }) => (
       <>
-        {data.map((line) => (
-          <List.Row key={(line as any).name}>
-            <List.Cell>{(line as any).id}</List.Cell>
-            <List.Cell>{(line as any).name}</List.Cell>
-            <List.Cell>{(line as any).skill}</List.Cell>
-          </List.Row>
-        ))}
+        {data.map((line) => {
+          const typedLine = line as { name: string; id: number; skill: string }
+          return (
+            <List.Row key={typedLine.name}>
+              <List.Cell>{typedLine.id}</List.Cell>
+              <List.Cell>{typedLine.name}</List.Cell>
+              <List.Cell>{typedLine.skill}</List.Cell>
+            </List.Row>
+          )
+        })}
       </>
     )}
   </List>
