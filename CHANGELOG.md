@@ -1,3 +1,10 @@
+## [1.25.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.24.0...v1.25.0) (2021-12-24)
+
+
+### :gear: Features
+
+* typing on provider ([e7ed001](https://github.com/DorianMaliszewski/coco-ui/commit/e7ed001017fd674c4a0953679abe6f5843f60738))
+
 ## [1.24.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.23.3...v1.24.0) (2021-12-23)
 
 
