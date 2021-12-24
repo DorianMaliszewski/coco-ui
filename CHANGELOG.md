@@ -1,3 +1,10 @@
+### [1.25.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.25.0...v1.25.1) (2021-12-24)
+
+
+### :bug: Bug Fixes
+
+* zIndex on toast coontainer ([18fb5a2](https://github.com/DorianMaliszewski/coco-ui/commit/18fb5a228f3667a7e3739ce4e806dda5f6299bbf))
+
 ## [1.25.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.24.0...v1.25.0) (2021-12-24)
 
 
