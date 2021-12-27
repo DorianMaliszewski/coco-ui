@@ -273,7 +273,7 @@ const Select = forwardRef(
     const chevronClassNames = useMemo(
       () =>
         classNames({
-          'fill-current': true,
+          'fill-current absolute right-2 bottom-3': true,
           'text-primary-600': isOpen && !error,
           'text-gray-300': !error && !isOpen,
           'text-error-600': error,
