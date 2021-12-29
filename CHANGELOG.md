@@ -1,3 +1,15 @@
+### [1.25.2](https://github.com/DorianMaliszewski/coco-ui/compare/v1.25.1...v1.25.2) (2021-12-29)
+
+
+### :zap: Refactor
+
+* classnames and typing ([daaeebf](https://github.com/DorianMaliszewski/coco-ui/commit/daaeebf30c709e5e062172a30d9073376446f2bf))
+
+
+### :bug: Bug Fixes
+
+* select height ([b335d49](https://github.com/DorianMaliszewski/coco-ui/commit/b335d4914a7cc0a45e7dfb4e1efe98117d12b2a8))
+
 ### [1.25.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.25.0...v1.25.1) (2021-12-24)
 
 
