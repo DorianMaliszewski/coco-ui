@@ -42,7 +42,10 @@ export type SelectProps = {
   isMulti?: boolean
   error?: boolean | string
   required?: boolean
+  'aria-label'?: string
 }
+
+const inputContainerClassNames = 'relative'
 
 const KEYS = {
   ArrowDown: 'ArrowDown',
@@ -66,6 +69,7 @@ const filterOptions = ({
 const Select = forwardRef(
   (
     {
+      'aria-label': ariaLabel,
       className,
       id,
       name,
@@ -76,7 +80,7 @@ const Select = forwardRef(
       value = isMulti ? [] : undefined,
       disabled,
       label,
-      variant = 'default',
+      variant = 'outside',
       tabIndex,
       isLoading,
       isSearchable,
@@ -209,11 +213,10 @@ const Select = forwardRef(
 
     const handleInputChange = useCallback(
       (event: ChangeEvent) => {
-        if (isSearchable) {
-          setSearch((event.target as HTMLInputElement).value)
-        }
+        setSearch((event.target as HTMLInputElement).value ?? '')
+        handleOpen()
       },
-      [isSearchable]
+      [handleOpen]
     )
 
     const handleInputKeyPress = useCallback((event: KeyboardEvent) => {
@@ -224,9 +227,8 @@ const Select = forwardRef(
 
     const containerClassNames = useMemo(() => {
       const { container } =
-        SelectVariantClassNames[variant] ?? SelectVariantClassNames.default
-      return classNames({
-        [container.base]: true,
+        SelectVariantClassNames[variant] ?? SelectVariantClassNames.inside
+      return classNames(container.base, {
         [container.error]: !!error && !disabled,
         [container.disabled]: disabled,
         [container.loading]: isLoading,
@@ -238,48 +240,49 @@ const Select = forwardRef(
 
     const inputClassNames = useMemo(() => {
       const { input: inputClasses } =
-        SelectVariantClassNames[variant] ?? SelectVariantClassNames.default
-      return classNames({
-        [inputClasses.base]: true,
+        SelectVariantClassNames[variant] ?? SelectVariantClassNames.inside
+      return classNames(inputClasses.base, {
         [inputClasses.error]: !!error && !disabled,
         [inputClasses.disabled]: disabled,
+        [inputClasses.open]: isOpen && variant === 'outside',
+        [inputClasses.close]: !isOpen && variant === 'outside',
         [inputClasses.default]: !disabled && !error,
       })
-    }, [disabled, error, label, variant])
+    }, [disabled, error, label, variant, isOpen])
+
+    const chevronClassNames = useMemo(
+      () =>
+        classNames(
+          'fill-current absolute inset-y-0 right-0 w-4',
+          variant === 'inside' ? 'top-1' : 'top-3 right-2',
+          {
+            'text-primary-600': isOpen && !error,
+            'text-gray-300': !error && !isOpen,
+            'text-error-600': error,
+          }
+        ),
+      [error, isOpen, variant]
+    )
 
     const labelClassNames = useMemo(() => {
       const { label: labelClasses } =
-        SelectVariantClassNames[variant] ?? SelectVariantClassNames.default
-      return classNames({
-        [labelClasses.base]: true,
+        SelectVariantClassNames[variant] ?? SelectVariantClassNames.inside
+      return classNames('text-xs', {
         [labelClasses.error]: !!error && !disabled,
         [labelClasses.disabled]: disabled,
         [labelClasses.default]: !disabled && !error,
       })
     }, [disabled, error, variant])
 
-    const valueContainerClassNames = useMemo(() => {
+    const searchClassNames = useMemo(() => {
       const { valueContainer } =
-        SelectVariantClassNames[variant] ?? SelectVariantClassNames.default
-      return classNames({
-        [valueContainer.base]: true,
-        [valueContainer.error]: !!error && !disabled,
-        [valueContainer.disabled]: disabled,
+        SelectVariantClassNames[variant] ?? SelectVariantClassNames.inside
+      return classNames(valueContainer.base, {
         [valueContainer.default]: !disabled && !error,
-        [valueContainer.opened]: isOpen && !disabled && !error,
+        [valueContainer.error]: !disabled && !!error,
+        'bg-transparent': search.length === 0,
       })
-    }, [disabled, error, variant, isOpen])
-
-    const chevronClassNames = useMemo(
-      () =>
-        classNames({
-          'fill-current absolute right-2 bottom-3': true,
-          'text-primary-600': isOpen && !error,
-          'text-gray-300': !error && !isOpen,
-          'text-error-600': error,
-        }),
-      [error, isOpen]
-    )
+    }, [variant, disabled, error, search])
 
     const valueRender = useMemo(
       () =>
@@ -322,6 +325,69 @@ const Select = forwardRef(
 
     return (
       <label
+        htmlFor={id}
+        aria-disabled={disabled}
+        className={containerClassNames}
+        onKeyDown={handleKeyDown}
+        onClick={handleOpen}
+        aria-expanded={isOpen}
+        aria-invalid={required && !value}
+        ref={containerRef}
+      >
+        <span className={labelClassNames}>{label}</span>
+        <div aria-expanded={isOpen} className={inputContainerClassNames}>
+          <input
+            name={name}
+            role="combobox"
+            className={inputClassNames}
+            disabled={disabled}
+            onKeyPress={handleInputKeyPress}
+            aria-label={ariaLabel}
+            placeholder={placeholder ?? 'Select...'}
+            type="text"
+            readOnly
+            id={id}
+            tabIndex={tabIndex}
+            ref={ref}
+            value={valueRender ?? ''}
+            aria-haspopup="listbox"
+          />
+          {isSearchable && !disabled ? (
+            <input
+              autoComplete="off"
+              type="text"
+              onChange={handleInputChange}
+              onKeyPress={handleInputKeyPress}
+              value={search}
+              className={searchClassNames}
+            />
+          ) : null}
+          {isLoading || filteredOptions.length === 0 ? null : (
+            <OptionList
+              isMulti={isMulti}
+              isOpen={isOpen}
+              options={filteredOptions}
+              value={value}
+              focused={focused}
+              onOptionClick={(option: SelectOptionType, event: MouseEvent) => {
+                event.preventDefault()
+                event.stopPropagation()
+                isMulti
+                  ? handleClickForMulti(option)
+                  : handleClickForSingle(option)
+              }}
+            />
+          )}
+          {isLoading ? (
+            <Loader className="mx-1" size="sm" color="primary-800" />
+          ) : (
+            <ChevronDownIcon className={chevronClassNames} />
+          )}
+        </div>
+      </label>
+    )
+
+    /* <label
         className={containerClassNames}
         htmlFor={id}
         aria-disabled={disabled}
@@ -363,34 +429,9 @@ const Select = forwardRef(
             onKeyPress={handleInputKeyPress}
             value={search}
           />
-          {isLoading || filteredOptions.length === 0 ? null : (
-            <OptionList
-              isMulti={isMulti}
-              isOpen={isOpen}
-              options={filteredOptions}
-              value={value}
-              focused={focused}
-              onOptionClick={(option: SelectOptionType, event: MouseEvent) => {
-                event.preventDefault()
-                event.stopPropagation()
-                isMulti
-                  ? handleClickForMulti(option)
-                  : handleClickForSingle(option)
-              }}
-            />
-          )}
         </div>
-        {isLoading ? (
-          <Loader className="mx-1" size="sm" color="primary-800" />
-        ) : (
-          <ChevronDownIcon
-            width={12}
-            height={12}
-            className={chevronClassNames}
-          />
-        )}
-      </label>
-    )
+
+      </label> */
   }
 )
 

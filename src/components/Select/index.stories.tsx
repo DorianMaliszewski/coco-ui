@@ -6,7 +6,10 @@ import Button from 'components/Button'
 export default {
   title: 'Components/Select',
   component: Select,
-} as Meta
+  args: {
+    variant: 'inside',
+  },
+} as Meta<SelectProps>
 
 const fakeOptions = [
   { label: 'Option 1', value: 1 },
@@ -31,6 +34,10 @@ const Template: Story<SelectProps> = ({ ...props }: SelectProps) => {
       ref={ref}
     />
   )
+}
+
+Template.args = {
+  variant: 'inside',
 }
 
 export const Basic = Template.bind({})
