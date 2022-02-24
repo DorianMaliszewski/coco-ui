@@ -1,3 +1,10 @@
+### [1.25.3](https://github.com/DorianMaliszewski/coco-ui/compare/v1.25.2...v1.25.3) (2022-02-24)
+
+
+### :bug: Bug Fixes
+
+* select styles ([e7dff0c](https://github.com/DorianMaliszewski/coco-ui/commit/e7dff0cfdaa0c0e1d0d5ea656e0d5ff4721c17c5))
+
 ### [1.25.2](https://github.com/DorianMaliszewski/coco-ui/compare/v1.25.1...v1.25.2) (2021-12-29)
 
 
