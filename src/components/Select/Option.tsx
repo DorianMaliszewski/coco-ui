@@ -1,6 +1,6 @@
 import { CheckIcon } from '@heroicons/react/solid'
-import classNames from 'classnames'
-import React, { MouseEvent, useMemo } from 'react'
+import clsx from 'clsx'
+import React, { KeyboardEvent, MouseEvent, useCallback, useMemo } from 'react'
 import { SelectOptionType, ValueType } from '.'
 
 export interface RenderSelectOptionProps {
@@ -9,13 +9,20 @@ export interface RenderSelectOptionProps {
 }
 
 const optionClassNames = {
-  base:
-    'truncate py-1 px-1 cursor-pointer hover:bg-primary-300 hover:text-white',
+  base: 'truncate py-1 px-1 cursor-pointer hover:bg-primary-300 hover:text-white',
   default: 'text-foreground',
 }
 
 const selectedClassNames = 'text-primary-600'
 const focusedClassNames = 'bg-primary-600 text-white'
+
+const KEYS = {
+  ArrowDown: 'ArrowDown',
+  ArrowUp: 'ArrowUp',
+  Tab: 'Tab',
+  Escape: 'Escape',
+  Enter: 'Enter',
+}
 
 interface OptionProps {
   isMulti?: boolean
@@ -41,24 +48,17 @@ const Option = ({
   const isFocused = useMemo(() => focused === option.value, [option, focused])
 
   return (
-    <div
-      className={classNames({
-        [optionClassNames.base]: true,
-        [optionClassNames.default]: !isSelected,
-        [selectedClassNames]: isSelected && !isFocused,
-
-        [focusedClassNames]: isFocused,
-      })}
-      role="option"
-      onClick={(event) => onOptionClick(option, event)}
-    >
-      <div className="flex items-center">
-        <span className="flex-grow">{option.label}</span>
-        {isMulti && isSelected ? (
-          <CheckIcon className="fill-current h-4 w-4" />
-        ) : null}
-      </div>
-    </div>
+    <li className={isSelected ? 'bordered' : ''}>
+      <button
+        role="option"
+        className={isFocused ? 'active' : ''}
+        onClick={(event) => onOptionClick(option, event)}
+      >
+        <div className="flex items-center">
+          <span className="flex-grow">{option.label}</span>
+        </div>
+      </button>
+    </li>
   )
 }
 

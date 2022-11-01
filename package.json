@@ -15,7 +15,7 @@
   "homepage": "https://dorianmaliszewski.github.io/coco-ui",
   "dependencies": {
     "@heroicons/react": "^1.0.1",
-    "classnames": "^2.3.1",
+    "clsx": "^1.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "typescript": "^4.1.2"
@@ -71,6 +71,7 @@
     "babel-jest": "^26.6.0",
     "babel-loader": "8.1.0",
     "cz-conventional-changelog": "^3.3.0",
+    "daisyui": "^2.31.0",
     "dotenv": "8.2.0",
     "dotenv-expand": "5.1.0",
     "eslint": "^7.25.0",
@@ -104,7 +105,7 @@
     "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-postcss": "^4.0.0",
     "semantic-release": "^17.4.2",
-    "tailwindcss": "^2.2.15",
+    "tailwindcss": "^3.0.23",
     "ts-jest": "^26.5.5",
     "ts-pnp": "1.2.0",
     "url-loader": "4.1.1",

@@ -1,4 +1,4 @@
-import classNames from 'classnames'
+import clsx from 'clsx'
 import React, { AriaAttributes } from 'react'
 
 const SwitchButton = ({
@@ -8,7 +8,7 @@ const SwitchButton = ({
   ...props
 }: SwitchProps) => (
   <label
-    className={classNames(
+    className={clsx(
       'p-2 border border-gray-200 rounded hover:shadow',
       {
         ['bg-primary-700 text-white']: checked,
@@ -147,20 +147,20 @@ const SwitchButtons = ({
   ...props
 }: Partial<SwitchProps>) => (
   <label
-    className={classNames(
+    className={clsx(
       'cursor-pointer hover:shadow flex shadow-inner border-gray-200 border rounded',
       { [className ?? '']: true }
     )}
   >
     <div
-      className={classNames('p-2 rounded mr-1', {
+      className={clsx('p-2 rounded mr-1', {
         'bg-primary-700 text-white': !checked,
       })}
     >
       {offChildren}
     </div>
     <div
-      className={classNames('p-2 rounded', {
+      className={clsx('p-2 rounded', {
         'bg-primary-700 text-white': checked,
       })}
     >

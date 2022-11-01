@@ -1,4 +1,4 @@
-import classNames from 'classnames'
+import clsx from 'clsx'
 import React, { useCallback, useMemo } from 'react'
 
 type HourButtonProps = {
@@ -12,16 +12,16 @@ const HourButton = ({
   hour,
   onHourClick,
 }: HourButtonProps): JSX.Element => {
-  const isSelected = useMemo(() => selected?.getHours() === hour, [
-    selected,
-    hour,
-  ])
+  const isSelected = useMemo(
+    () => selected?.getHours() === hour,
+    [selected, hour]
+  )
 
   return (
     <button
       type="button"
       onClick={() => onHourClick?.(hour)}
-      className={classNames('py-2 w-full outline-none focus:bg-primary-200', {
+      className={clsx('py-2 w-full outline-none focus:bg-primary-200', {
         ['bg-primary-200']: isSelected,
         ['hover:bg-primary-200']: !isSelected,
       })}
@@ -42,16 +42,16 @@ const MinuteButton = ({
   minute,
   onMinuteClick,
 }: MinuteButtonProps): JSX.Element => {
-  const isSelected = useMemo(() => selected?.getMinutes() === minute, [
-    selected,
-    minute,
-  ])
+  const isSelected = useMemo(
+    () => selected?.getMinutes() === minute,
+    [selected, minute]
+  )
 
   return (
     <button
       type="button"
       onClick={() => onMinuteClick?.(minute)}
-      className={classNames('py-2 w-full outline-none', {
+      className={clsx('py-2 w-full outline-none', {
         ['bg-primary-200']: isSelected,
         ['hover:bg-primary-200']: !isSelected,
       })}

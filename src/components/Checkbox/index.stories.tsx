@@ -21,7 +21,6 @@ export const Basic: Story<CheckboxProps> = ({
 }
 
 Basic.args = {
-  children: 'Basic',
   defaultChecked: undefined,
   checked: true,
 }

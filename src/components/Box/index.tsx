@@ -1,4 +1,4 @@
-import classNames from 'classnames'
+import clsx from 'clsx'
 import React from 'react'
 
 export interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -9,7 +9,7 @@ export interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {
 const Box = ({ children, className, ...props }: BoxProps): JSX.Element => {
   return (
     <div
-      className={classNames(
+      className={clsx(
         'shadow rounded text-foreground dark:text-background',
         className
       )}

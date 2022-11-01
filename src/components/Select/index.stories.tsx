@@ -27,12 +27,15 @@ const Template: Story<SelectProps> = ({ ...props }: SelectProps) => {
   const [value, setValue] = React.useState<ValueType>()
 
   return (
-    <Select
-      {...props}
-      value={value}
-      onChange={(result) => setValue(result)}
-      ref={ref}
-    />
+    <>
+      <Select
+        {...props}
+        value={value}
+        onChange={(result) => setValue(result)}
+        ref={ref}
+      />
+      <div>Value is : {value}</div>
+    </>
   )
 }
 

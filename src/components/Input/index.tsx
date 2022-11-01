@@ -1,4 +1,4 @@
-import classNames from 'classnames'
+import clsx from 'clsx'
 import React, {
   ChangeEventHandler,
   FocusEventHandler,
@@ -129,7 +129,7 @@ const InputLabelInside = forwardRef<HTMLInputElement, InternalInputProps>(
 
     const containerClassNames = useMemo(
       () =>
-        classNames({
+        clsx({
           [classes.container.base]: true,
           [classes.container.disabled]: disabled,
           [className ?? '']: true,
@@ -139,7 +139,7 @@ const InputLabelInside = forwardRef<HTMLInputElement, InternalInputProps>(
 
     const labelClassNames = useMemo(
       () =>
-        classNames({
+        clsx({
           [classes.label.base]: true,
           [classes.label.error]: !!error,
         }),
@@ -148,7 +148,7 @@ const InputLabelInside = forwardRef<HTMLInputElement, InternalInputProps>(
 
     const inputClassNames = useMemo(
       () =>
-        classNames({
+        clsx({
           [classes.input.base]: true,
           [classes.input.default]: !error,
           [classes.input.error]: !!error,
@@ -237,7 +237,7 @@ const InputLabelOutside = forwardRef<HTMLInputElement, InternalInputProps>(
 
     const containerClassNames = useMemo(
       () =>
-        classNames({
+        clsx({
           [classes.container.base]: true,
           [classes.container.disabled]: disabled,
           [className ?? '']: true,
@@ -247,7 +247,7 @@ const InputLabelOutside = forwardRef<HTMLInputElement, InternalInputProps>(
 
     const labelClassNames = useMemo(
       () =>
-        classNames({
+        clsx({
           [classes.label.base]: true,
           [classes.label.error]: !!error,
         }),
@@ -256,7 +256,7 @@ const InputLabelOutside = forwardRef<HTMLInputElement, InternalInputProps>(
 
     const inputClassNames = useMemo(
       () =>
-        classNames({
+        clsx({
           [classes.input.base]: true,
           [classes.input.default]: !error,
           [classes.input.error]: !!error,
@@ -345,7 +345,7 @@ const InputDefault = forwardRef<HTMLInputElement, InternalInputProps>(
 
     const inputClassNames = useMemo(
       () =>
-        classNames({
+        clsx({
           [classes.input.base]: true,
           [classes.input.default]: !error && !disabled,
           [classes.input.error]: !!error && !disabled,

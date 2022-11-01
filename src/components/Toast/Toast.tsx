@@ -1,4 +1,4 @@
-import classNames from 'classnames'
+import clsx from 'clsx'
 import React, {
   ReactNode,
   SyntheticEvent,
@@ -85,14 +85,15 @@ const Toast = ({
     onCloseRef.current = onClose
   }, [onClose])
 
-  const classes = useMemo(() => variants[variant] ?? variants.default, [
-    variant,
-  ])
+  const classes = useMemo(
+    () => variants[variant] ?? variants.default,
+    [variant]
+  )
 
   return (
     <div
       onClick={handleClose}
-      className={classNames(
+      className={clsx(
         BASE_TOAST_CLASSNAMES,
         {
           'translate-x-72': mounted,
@@ -102,13 +103,9 @@ const Toast = ({
     >
       <div className="flex-grow px-2">{render}</div>
       <div
-        className={classNames(
-          BASE_PROGRESSBAR_CLASSNAMES,
-          classes.progressBar,
-          {
-            '-translate-x-full': mounted,
-          }
-        )}
+        className={clsx(BASE_PROGRESSBAR_CLASSNAMES, classes.progressBar, {
+          '-translate-x-full': mounted,
+        })}
         style={{ transitionDuration: `${Math.round(duration / 1000)}s` }}
       />
     </div>

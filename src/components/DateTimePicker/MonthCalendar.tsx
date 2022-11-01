@@ -1,4 +1,4 @@
-import classNames from 'classnames'
+import clsx from 'clsx'
 import { Fragment, useCallback, useMemo, useState } from 'react'
 import { datesAreOnSameDay, datesOfMonthAndYear, daysOfWeek } from './helpers'
 import React from 'react'
@@ -18,10 +18,11 @@ const MonthCalendarButton = ({
   const isSelected =
     selected && date ? datesAreOnSameDay(selected, date) : false
 
-  const buttonClassNames = classNames(
+  const buttonClassNames = clsx(
     'user-select-none appearance-none text-sm mb-2 h-6 w-6 rounded-full outline-none',
     {
-      ['hover:bg-primary-100 focus:bg-primary-100 hover:text-primary-700 focus:text-primary-700']: !isSelected,
+      ['hover:bg-primary-100 focus:bg-primary-100 hover:text-primary-700 focus:text-primary-700']:
+        !isSelected,
       ['bg-primary-100 text-primary-700']: isSelected,
     }
   )

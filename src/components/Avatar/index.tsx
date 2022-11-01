@@ -1,4 +1,4 @@
-import classNames from 'classnames'
+import clsx from 'clsx'
 import React from 'react'
 
 export const getStringFromAlt = (altStr: string): string => {
@@ -29,7 +29,7 @@ const Avatar = ({
     <img
       src={src}
       alt={alt}
-      className={classNames(
+      className={clsx(
         'rounded-full bg-gray-300 flex justify-center items-center',
         className
       )}
@@ -38,7 +38,7 @@ const Avatar = ({
     />
   ) : (
     <div
-      className={classNames(
+      className={clsx(
         'rounded-full bg-gray-300 flex justify-center items-center p-4',
         className
       )}

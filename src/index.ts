@@ -1,4 +1,4 @@
-export { default as ActionButton } from './components/ActionButton'
+export { default as Dropdown } from './components/Dropdown'
 export { default as Avatar } from './components/Avatar'
 export { default as Badge } from './components/Badge'
 export { default as Box } from './components/Box'

@@ -1,65 +1,61 @@
-import classNames from 'classnames'
+import clsx from 'clsx'
 import React, { useMemo } from 'react'
 
-type Variants = 'basic' | 'outline' | 'no-border'
-type Sizes = 'xs' | 'sm' | 'md' | 'xl' | '2xl'
+const classes = {
+  base: 'badge',
+  outline: 'badge-outline',
+  variants: {
+    primary: 'badge-primary',
+    secondary: 'badge-secondary',
+    accent: 'badge-accent',
+    ghost: 'badge-ghost',
+    info: 'badge-info',
+    success: 'badge-success',
+    warning: 'badge-warning',
+    error: 'badge-error',
+  },
+  sizes: {
+    xs: 'badge-xs',
+    sm: 'badge-sm',
+    md: 'badge-md',
+    lg: 'badge-lg',
+  },
+} as const
 
-const SIZE_CLASSNAMES: Record<Sizes, string> = {
-  xs: 'text-xs',
-  sm: 'text-sm',
-  md: 'text-md',
-  xl: 'text-xl',
-  '2xl': 'text-2xl',
-}
-
-const CLASSNAMES: Record<Variants, any> = {
-  basic: {
-    base: 'flex rounded items-center justify-center bg-primary-600 text-white',
-  },
-  outline: {
-    base:
-      'flex rounded items-center justify-center border border-primary-600 text-primary-600',
-  },
-  'no-border': {
-    base: 'flex rounded items-center justify-center text-primary-600',
-  },
-}
 export interface BadgeProps {
-  variant?: Variants
-  size?: Sizes
+  size?: keyof typeof classes['sizes']
   className?: string
   children?: React.ReactNode
+  variant?: keyof typeof classes['variants']
+  outline?: boolean
 }
 
 const Badge = ({
-  variant = 'basic',
   children,
   className,
   size = 'md',
+  outline,
+  variant,
   ...props
 }: BadgeProps): JSX.Element => {
   const badgeClassName = useMemo(() => {
-    const classes = CLASSNAMES[variant] ?? CLASSNAMES.basic
-    const sizeClasses = SIZE_CLASSNAMES[size] ?? SIZE_CLASSNAMES.md
+    const sizeClass = size ? classes.sizes[size] : ''
+    const variantClass = variant ? classes.variants[variant] : ''
 
-    return classNames({
-      [classes.base]: true,
-      [sizeClasses]: true,
-      [className ?? '']: true,
-    })
-  }, [variant, size, className])
+    return clsx(
+      variantClass,
+      classes.base,
+      sizeClass,
+      outline && classes.outline,
+      className
+    )
+  }, [size, variant, className])
 
   return (
     <div className={badgeClassName} {...props}>
       {children}
     </div>
   )
-}
-
-Badge.defaultProps = {
-  className: 'px-2 py-1',
-  color: 'primary',
-  variant: 'basic',
 }
 
 export default Badge

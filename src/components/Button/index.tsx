@@ -1,77 +1,94 @@
-import classNames from 'classnames'
-import Icon, { IconName } from 'components/Icon'
-import React, { useMemo } from 'react'
-import {
-  ButtonSize,
-  ButtonSizeClassNames,
-  ButtonVariant,
-  ButtonVariantClassNames,
-} from './variant'
+import React, {
+  ButtonHTMLAttributes,
+  ForwardedRef,
+  forwardRef,
+  RefObject,
+  useMemo,
+} from 'react'
+import clsx from 'clsx'
 
-type ButtonType = 'button' | 'submit' | 'reset' | undefined
-export type ButtonProps = {
-  tabIndex?: number
-  className?: string
-  variant?: ButtonVariant
-  onClick?: React.MouseEventHandler<HTMLButtonElement>
-  type?: ButtonType
-  children?: React.ReactNode
-  size?: ButtonSize
-  icon?: IconName
-  iconSize?: number
-  iconPosition?: 'left' | 'right'
-  disabled?: boolean
-  title?: string
+const baseClasses = 'btn'
+const outlineClasses = 'btn-outline'
+const squareClasses = 'btn-square'
+const roundedClasses = 'btn-circle'
+const loadingClasses = 'loading'
+const blockClasses = 'btn-block'
+
+export const BUTTON_SIZES = {
+  lg: 'btn-lg',
+  md: 'btn-md',
+  sm: 'btn-sm',
+  xs: 'btn-xs',
 }
 
-const Button = ({
-  children,
-  tabIndex,
-  className = '',
-  variant = 'primary',
-  size = 'md',
-  icon,
-  iconPosition,
-  iconSize,
-  disabled,
-  ...props
-}: ButtonProps): JSX.Element => {
-  const buttonClassNames = useMemo(() => {
-    const classes =
-      ButtonVariantClassNames[variant] ?? ButtonVariantClassNames.primary
-    const sizeClasses = ButtonSizeClassNames[size] ?? ButtonSizeClassNames.md
+export const BUTTON_VARIANTS = {
+  default: '',
+  primary: 'btn-primary',
+  secondary: 'btn-secondary',
+  accent: 'btn-accent',
+  info: 'btn-info',
+  success: 'btn-success',
+  warning: 'btn-warning',
+  error: 'btn-error',
+  ghost: 'btn-ghost',
+  link: 'btn-link',
+  glass: 'glass',
+}
 
-    return classNames({
-      [classes.base]: true,
-      [sizeClasses]: true,
-      [classes.default]: !disabled,
-      [classes.disabled]: disabled,
-      [className ?? '']: true,
-    })
-  }, [className, variant, size, disabled])
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  variant?: keyof typeof BUTTON_VARIANTS
+  size?: keyof typeof BUTTON_SIZES
+  outline?: boolean
+  rounded?: boolean
+  square?: boolean
+  loading?: boolean
+  disabled?: boolean
+  block?: boolean
+}
 
+function Button(
+  {
+    variant = 'default',
+    size = 'md',
+    outline = false,
+    rounded = false,
+    square = false,
+    loading = false,
+    block = false,
+    children,
+    className,
+    type = 'button',
+    disabled = false,
+    ...props
+  }: ButtonProps,
+  ref: ForwardedRef<HTMLButtonElement>
+): JSX.Element {
+  const computeClassName = useMemo(
+    () =>
+      clsx([
+        baseClasses,
+        BUTTON_VARIANTS[variant],
+        BUTTON_SIZES[size],
+        { [outlineClasses]: outline },
+        { [squareClasses]: square },
+        { [roundedClasses]: rounded },
+        { [loadingClasses]: loading },
+        { [blockClasses]: block },
+        className,
+      ]),
+    [variant, size, outline, rounded, square, loading, className]
+  )
   return (
     <button
+      className={computeClassName}
+      type={type ?? 'button'}
       disabled={disabled}
-      tabIndex={tabIndex}
-      className={buttonClassNames}
+      ref={ref}
       {...props}
     >
-      {icon ? (
-        <>
-          {iconPosition !== 'right' ? (
-            <Icon className="mr-1" name={icon} size={iconSize} />
-          ) : null}
-          {children}
-          {iconPosition === 'right' ? (
-            <Icon className="ml-1" name={icon} size={iconSize} />
-          ) : null}
-        </>
-      ) : (
-        children
-      )}
+      {children}
     </button>
   )
 }
 
-export default Button
+export default forwardRef(Button)

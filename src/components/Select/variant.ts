@@ -35,8 +35,7 @@ export const SelectVariantClassNames: Record<SelectVariant, any> = {
       error: 'text-error-600',
     },
     input: {
-      base:
-        'h-10 px-2 py-5 rounded border bg-transparent outline-none truncate w-full',
+      base: 'h-10 px-2 py-5 rounded border bg-transparent outline-none truncate w-full',
       open: 'border-primary-600',
       close: 'border-gray-300',
       default: 'text-gray-700',
