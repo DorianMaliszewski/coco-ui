@@ -20,7 +20,6 @@ export type DatePickerProps = {
   onBlur?: FocusEventHandler<HTMLInputElement>
   className?: string
   label?: string
-  variant?: 'inside' | 'outside'
   disabled?: boolean
   error?: boolean
   required?: boolean
@@ -34,7 +33,6 @@ const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
       onChange,
       onBlur,
       label,
-      variant,
       className,
       disabled,
       error,
@@ -94,9 +92,9 @@ const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
           'text-gray-400': !error && !open,
           'text-primary-700': !error && open,
           'text-error-600': error,
-          'bottom-3': variant && label,
+          'bottom-3': label,
         }),
-      [error, variant, label, open]
+      [error, label, open]
     )
 
     return (
@@ -104,7 +102,6 @@ const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
         <Input
           className={className}
           label={label}
-          variant={variant}
           onFocus={handleFocus}
           onBlur={onBlur}
           name={name}

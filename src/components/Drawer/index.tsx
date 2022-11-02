@@ -1,5 +1,6 @@
 import React from 'react'
 import { XIcon } from '@heroicons/react/solid'
+import clsx from 'clsx'
 const positions = {
   top: {
     container: '-top-80 left-0 w-full h-64',
@@ -19,27 +20,33 @@ const positions = {
   },
 }
 
+const classes = {
+  backdrop: `z-10 fixed left-0 top-0 bg-opacity-30 bg-base-100 w-full h-full`,
+  containerWithBackdrop: `bg-base-100 fixed p-2 shadow`,
+  containerWithoutBackgrop: `z-10 bg-base-100 fixed p-2 shadow`,
+  closeButton: `stroke-current fill-current text-foreground stroke-0 p-2 w-8 h-8 bg-base-100 shadow-xl overflow-hidden rounded-full`,
+}
+
 type DrawerPosition = 'top' | 'right' | 'bottom' | 'left'
 const animations = {
   slide: (open = false, position: DrawerPosition = 'left') => {
+    let sideClasses = ''
     switch (position) {
       case 'top':
-        return `transition-transform duration-300 transform ${
-          open ? 'translate-y-80' : '-translate-y-80'
-        }`
+        sideClasses = open ? 'translate-y-80' : '-translate-y-80'
+        break
       case 'right':
-        return `transition-transform duration-300 transform ${
-          open ? '-translate-x-80' : 'translate-x-80'
-        }`
+        sideClasses = open ? '-translate-x-80' : 'translate-x-80'
+        break
       case 'bottom':
-        return `transition-transform duration-300 transform ${
-          open ? '-translate-y-80' : 'translate-y-80'
-        }`
+        sideClasses = open ? '-translate-y-80' : 'translate-y-80'
+        break
       case 'left':
-        return `transition-transform duration-300 transform ${
-          open ? 'translate-x-80' : '-translate-x-80'
-        }`
+        sideClasses = open ? 'translate-x-80' : '-translate-x-80'
+        break
     }
+
+    return clsx('transition-transform duration-300 transform', sideClasses)
   },
 }
 
@@ -74,23 +81,24 @@ const Drawer = ({
   return hasBackdrop ? (
     <div
       onDoubleClick={onClose}
-      className={
-        isVisible
-          ? `z-100 fixed left-0 top-0 bg-opacity-50 bg-base-100 w-full h-full`
-          : `sr-only`
-      }
+      className={isVisible ? classes.backdrop : `sr-only`}
     >
       <div
         onDoubleClick={(e) => e.stopPropagation()}
-        className={`bg-background fixed ${
-          positions[position]?.container
-        } p-2 shadow ${animations.slide(open, position)}`}
+        className={clsx(
+          classes.containerWithBackdrop,
+          positions[position]?.container,
+          animations.slide(open, position)
+        )}
       >
         {isVisible ? (
           <>
             {hasCloseButton && (
               <XIcon
-                className={`${positions[position]?.closeButton} stroke-current fill-current text-foreground stroke-0 p-2 w-8 h-8 bg-background shadow-xl overflow-hidden rounded-full`}
+                className={clsx(
+                  positions[position]?.closeButton,
+                  classes.closeButton
+                )}
                 onClick={onClose}
                 role="button"
               />
@@ -102,15 +110,20 @@ const Drawer = ({
     </div>
   ) : (
     <div
-      className={`z-10 bg-background fixed ${
-        positions[position]?.container
-      } p-2 shadow ${animations.slide(open, position)}`}
+      className={clsx(
+        positions[position]?.container,
+        animations.slide(open, position),
+        classes.containerWithoutBackgrop
+      )}
     >
       {isVisible ? (
         <>
           {hasCloseButton && (
             <XIcon
-              className={`${positions[position]?.closeButton} stroke-current fill-current text-foreground stroke-0 p-2 w-8 h-8 bg-background shadow-xl overflow-hidden rounded-full`}
+              className={clsx(
+                positions[position]?.closeButton,
+                classes.closeButton
+              )}
               onClick={onClose}
               role="button"
             />
