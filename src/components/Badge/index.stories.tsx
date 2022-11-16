@@ -17,10 +17,5 @@ Basic.args = {
 export const Outline = Template.bind({})
 Outline.args = {
   children: 'outline',
-  variant: 'outline',
-}
-export const NoBorder = Template.bind({})
-NoBorder.args = {
-  children: 'no-border',
-  variant: 'no-border',
+  outline: true,
 }

@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/react'
 import { ToastProps, ToastVariant } from './Toast'
 import { ToastProvider } from '.'
 import { useToast } from './ToastProvider'
-import { Button, Grid } from 'index'
+import { Button, Grid } from '../../'
 
 export default {
   title: 'Components/Toast',

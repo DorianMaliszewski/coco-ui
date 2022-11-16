@@ -1,71 +1,75 @@
-import React from 'react'
+import clsx from 'clsx'
+import React, { ReactNode, useMemo } from 'react'
 
-export interface RadioProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
-  label?: string
-  labelPosition?: 'left' | 'right'
+const classes = {
+  base: 'radio',
+  variants: {
+    primary: 'radio-primary',
+    secondary: 'radio-secondary',
+    accent: 'radio-accent',
+    success: 'radio-success',
+    info: 'radio-info',
+    warning: 'radio-warning',
+    error: 'radio-error',
+  },
+  sizes: {
+    xs: 'radio-xs',
+    sm: 'radio-sm',
+    md: 'radio-md',
+    lg: 'radio-lg',
+  },
+  error: 'radio-error',
+} as const
+
+export type RadioProps = Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  'type'
+> & {
+  children?: ReactNode
   className?: string
+  error?: boolean
+  variant?: keyof typeof classes.variants
+  size?: keyof typeof classes.sizes
+  labelPosition?: 'left' | 'right'
 }
+
 const Radio = ({
-  name,
-  id,
-  'aria-labelledby': ariaLabelledBy,
-  'aria-label': ariaLabel,
-  value,
-  onChange,
-  checked,
-  defaultChecked,
-  label,
-  labelPosition = 'left',
-  className = '',
+  className,
+  children,
+  error,
+  variant = 'primary',
+  size,
+  labelPosition = 'right',
+  ...props
 }: RadioProps): JSX.Element => {
-  return !label ? (
-    <div className="cursor-pointer flex items-center m-1">
-      <div
-        className={`h-2 w-2 m-1 rounded-full ${
-          checked
-            ? 'bg-primary-500 ring ring-primary-500 ring-offset-2'
-            : 'bg-gray-200 ring ring-gray-200 ring-offset-2'
-        }`}
-      />
-      <input
-        className="appearance-none"
-        name={name}
-        id={id}
-        aria-label={ariaLabel}
-        aria-labelledby={ariaLabelledBy}
-        value={value}
-        type="radio"
-        onChange={onChange}
-        checked={checked}
-        defaultChecked={defaultChecked}
-      />
-    </div>
-  ) : (
-    <label className={`cursor-pointer flex items-center ${className}`}>
-      {labelPosition === 'left' && <span className="mr-1">{label}</span>}
-      <div
-        className={`h-2 w-2 m-1 rounded-full ${
-          checked
-            ? 'bg-primary-500 ring ring-primary-500 ring-offset-2'
-            : 'bg-gray-200 ring ring-gray-200 ring-offset-2'
-        }`}
-      />
-      <input
-        className="appearance-none"
-        name={name}
-        id={id}
-        aria-label={ariaLabel}
-        aria-labelledby={ariaLabelledBy}
-        value={value}
-        type="radio"
-        onChange={onChange}
-        checked={checked}
-        defaultChecked={defaultChecked}
-      />
-      {labelPosition === 'right' && <span className="ml-1">{label}</span>}
-    </label>
-  )
+  const computedClasses = useMemo(() => {
+    const variantClasses = variant ? classes.variants[variant] : ''
+    const sizeClasses = size ? classes.sizes[size] : ''
+
+    return clsx(
+      classes.base,
+      error && classes.error,
+      !error && variantClasses,
+      sizeClasses
+    )
+  }, [variant, size])
+
+  if (children)
+    return (
+      <div className={clsx('form-control', className)}>
+        <label className="label cursor-pointer gap-2">
+          {labelPosition === 'left' ? (
+            <span className="label-text">{children}</span>
+          ) : null}
+          <input {...props} type="radio" className={computedClasses} />
+          {labelPosition !== 'left' ? (
+            <span className="label-text">{children}</span>
+          ) : null}
+        </label>
+      </div>
+    )
+
+  return <input {...props} type="radio" className={computedClasses} />
 }
 
 export default Radio

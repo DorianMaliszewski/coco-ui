@@ -1,7 +1,6 @@
 import React, {
   cloneElement,
   ReactNode,
-  useCallback,
   useEffect,
   useMemo,
   useRef,
@@ -12,12 +11,18 @@ import Button from '../Button'
 
 export type ModalProps = {
   disclosure: JSX.Element
-  children: (props: { close: () => void }) => JSX.Element
+  children: ((props: { close: () => void }) => JSX.Element) | ReactNode
+  withoutPortal?: boolean
+  hideOnClickOutside?: boolean
 }
 
-function Modal({ disclosure, children }: ModalProps): JSX.Element {
+function Modal({
+  disclosure,
+  children,
+  withoutPortal,
+  hideOnClickOutside,
+}: ModalProps): JSX.Element {
   const [open, setOpen] = useState(false)
-  const portalElement = document.getElementById('modals')
   const ref = useRef<any>()
 
   useEffect(() => {
@@ -39,24 +44,24 @@ function Modal({ disclosure, children }: ModalProps): JSX.Element {
     ref,
   })
 
-  const close = useCallback(() => {
+  const close = () => {
     setOpen(false)
-  }, [])
+  }
 
   const modalContentRendered = useMemo(
     () => (
       <div
-        onDoubleClick={close}
+        onClick={hideOnClickOutside ? close : undefined}
         className={
           open ? 'modal visible opacity-100 pointer-events-auto' : 'sr-only'
         }
       >
-        <div
-          onDoubleClick={(event) => {
+        <dialog
+          open={open}
+          onClick={(event) => {
             event.stopPropagation()
           }}
-          role="dialog"
-          className="modal-box relative"
+          className="select-all modal-box relative"
         >
           <Button
             onClick={close}
@@ -66,8 +71,8 @@ function Modal({ disclosure, children }: ModalProps): JSX.Element {
           >
             ✕
           </Button>
-          {children({ close })}
-        </div>
+          {typeof children === 'function' ? children({ close }) : children}
+        </dialog>
       </div>
     ),
     [open, children, close]
@@ -76,9 +81,9 @@ function Modal({ disclosure, children }: ModalProps): JSX.Element {
   return (
     <>
       {Component}
-      {portalElement
-        ? createPortal(modalContentRendered, portalElement)
-        : modalContentRendered}
+      {withoutPortal
+        ? modalContentRendered
+        : createPortal(modalContentRendered, document.body)}
     </>
   )
 }

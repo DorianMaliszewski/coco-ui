@@ -3,52 +3,9 @@ import React, {
   ChangeEventHandler,
   FocusEventHandler,
   forwardRef,
-  InputHTMLAttributes,
   KeyboardEventHandler,
   MouseEventHandler,
-  useMemo,
 } from 'react'
-
-const VARIANTS = {
-  inside: {
-    container: {
-      base: `relative text-gray-500 focus-within:text-primary-700`,
-      disabled: `opacity-30 select-none pointer-events-none cursor-not-allowed`,
-    },
-    label: {
-      base: `absolute px-2 py-1 text-xs`,
-      error: `text-error-600`,
-    },
-    input: {
-      base: `border p-2 pt-5 rounded outline-none`,
-      default: `border focus:border-primary-600 focus:ring-2 ring-primary-200 text-black`,
-      error: `border border-error-600 text-error-600 focus:ring-1 focus:ring-error-300`,
-    },
-  },
-  outside: {
-    container: {
-      base: `flex flex-col text-gray-500 focus-within:text-primary-700`,
-      disabled: `opacity-30 select-none pointer-events-none cursor-not-allowed`,
-    },
-    label: {
-      base: `px-2 top-1 left-0 text-xs`,
-      error: `text-error-600`,
-    },
-    input: {
-      base: `border p-2 rounded outline-none`,
-      error: `border-error-600 text-error-600 focus:ring-1 focus:ring-error-300`,
-      default: `focus:border-primary-600 focus:ring-2 ring-primary-200 text-black`,
-    },
-  },
-  default: {
-    input: {
-      base: `border p-2 rounded outline-none`,
-      disabled: `opacity-30 select-none pointer-events-none cursor-not-allowed`,
-      error: `border-error-600 text-error-600 focus:ring-1 focus:ring-error-300`,
-      default: `focus:border-primary-600 text-error-600 focus:ring-2 ring-primary-200 text-black`,
-    },
-  },
-} as const
 
 const classes = {
   container: 'form-control',
@@ -110,13 +67,17 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           <span className={classes.labelText}>{label}</span>
         </label>
         <input
-          className={clsx(classes.input, error && classes.inputError)}
+          className={clsx(
+            classes.input,
+            !error && 'focus:border-primary',
+            error && classes.inputError
+          )}
           {...props}
           ref={ref}
           id={id}
         />
         {error && typeof error === 'string' ? (
-          <span className="label-text-alt">{error}</span>
+          <span className="label-text-alt text-error mt-1">{error}</span>
         ) : null}
       </div>
     ) : (
@@ -129,7 +90,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           aria-label={label}
         />
         {error && typeof error === 'string' ? (
-          <span className="label-text-alt text-error">{error}</span>
+          <span className="label-text-alt text-error mt-1">{error}</span>
         ) : null}
       </div>
     )

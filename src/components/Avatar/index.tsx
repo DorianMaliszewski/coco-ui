@@ -1,6 +1,11 @@
 import clsx from 'clsx'
 import React from 'react'
 
+const classes = {
+  base: 'rounded-full flex justify-center items-center',
+  withoutSrc: 'p-4 select-none bg-base-300',
+}
+
 export const getStringFromAlt = (altStr: string): string => {
   if (!altStr) return ''
   const array = altStr.split(' ')
@@ -29,19 +34,13 @@ const Avatar = ({
     <img
       src={src}
       alt={alt}
-      className={clsx(
-        'rounded-full bg-gray-300 flex justify-center items-center',
-        className
-      )}
+      className={clsx(classes.base, className)}
       style={{ width: size, height: size }}
       {...props}
     />
   ) : (
     <div
-      className={clsx(
-        'rounded-full bg-gray-300 flex justify-center items-center p-4',
-        className
-      )}
+      className={clsx(classes.base, classes.withoutSrc, className)}
       style={{ width: size, height: size }}
       {...props}
     >

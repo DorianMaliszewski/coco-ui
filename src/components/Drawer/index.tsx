@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { MouseEventHandler, ReactNode, ReactPortal } from 'react'
 import { XIcon } from '@heroicons/react/solid'
 import clsx from 'clsx'
+import { createPortal } from 'react-dom'
 const positions = {
   top: {
     container: '-top-80 left-0 w-full h-64',
@@ -21,9 +22,12 @@ const positions = {
 }
 
 const classes = {
-  backdrop: `z-10 fixed left-0 top-0 bg-opacity-30 bg-base-100 w-full h-full`,
+  drawerContainer: (hasPortal?: boolean) =>
+    hasPortal ? `` : `z-10 select-none`,
+  backdrop: `fixed left-0 top-0 bg-opacity-30 bg-neutral-focus w-full h-full`,
   containerWithBackdrop: `bg-base-100 fixed p-2 shadow`,
-  containerWithoutBackgrop: `z-10 bg-base-100 fixed p-2 shadow`,
+  containerWithoutBackgrop: (hasPortal?: boolean) =>
+    `${hasPortal ? '' : 'z-10'} bg-base-100 fixed p-2 shadow`,
   closeButton: `stroke-current fill-current text-foreground stroke-0 p-2 w-8 h-8 bg-base-100 shadow-xl overflow-hidden rounded-full`,
 }
 
@@ -52,11 +56,12 @@ const animations = {
 
 export interface DrawerProps {
   open: boolean
-  onClose?: (event: React.MouseEvent) => void
+  onClose?: MouseEventHandler<HTMLDivElement | SVGSVGElement>
   position: keyof typeof positions
-  children?: React.ReactNode
+  children?: ReactNode
   hasBackdrop?: boolean
   hasCloseButton?: boolean
+  withoutPortal?: boolean
 }
 
 const Drawer = ({
@@ -66,7 +71,8 @@ const Drawer = ({
   hasCloseButton,
   position,
   onClose,
-}: DrawerProps): JSX.Element => {
+  withoutPortal,
+}: DrawerProps): JSX.Element | ReactPortal => {
   const [isVisible, setIsVisible] = React.useState(open)
   React.useEffect(() => {
     const handler = setTimeout(
@@ -78,11 +84,12 @@ const Drawer = ({
     return () => clearTimeout(handler)
   }, [open])
 
-  return hasBackdrop ? (
+  const modalRendered = hasBackdrop ? (
     <div
       onDoubleClick={onClose}
-      className={isVisible ? classes.backdrop : `sr-only`}
+      className={isVisible ? classes.drawerContainer(withoutPortal) : `sr-only`}
     >
+      <div className={isVisible ? classes.backdrop : `sr-only`}></div>
       <div
         onDoubleClick={(e) => e.stopPropagation()}
         className={clsx(
@@ -93,7 +100,7 @@ const Drawer = ({
       >
         {isVisible ? (
           <>
-            {hasCloseButton && (
+            {hasCloseButton ? (
               <XIcon
                 className={clsx(
                   positions[position]?.closeButton,
@@ -102,7 +109,7 @@ const Drawer = ({
                 onClick={onClose}
                 role="button"
               />
-            )}
+            ) : null}
             {children}
           </>
         ) : null}
@@ -113,12 +120,12 @@ const Drawer = ({
       className={clsx(
         positions[position]?.container,
         animations.slide(open, position),
-        classes.containerWithoutBackgrop
+        classes.containerWithoutBackgrop(withoutPortal)
       )}
     >
       {isVisible ? (
         <>
-          {hasCloseButton && (
+          {hasCloseButton ? (
             <XIcon
               className={clsx(
                 positions[position]?.closeButton,
@@ -127,12 +134,16 @@ const Drawer = ({
               onClick={onClose}
               role="button"
             />
-          )}
+          ) : null}
           {children}
         </>
       ) : null}
     </div>
   )
+
+  return withoutPortal
+    ? modalRendered
+    : createPortal(modalRendered, document.body)
 }
 
 Drawer.defaultProps = {

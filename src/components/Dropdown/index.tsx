@@ -3,7 +3,7 @@ import Button from 'components/Button'
 import React from 'react'
 
 const dropdownContentClasses =
-  'dropdown-content menu p-2 shadow bg-base-300 rounded-box'
+  'dropdown-content menu p-2 shadow bg-base-100 rounded-box'
 
 export type DropdownProps = {
   children: React.ReactNode

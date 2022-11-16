@@ -1,0 +1,40 @@
+.loader {
+  @apply animate-spin;
+}
+
+.loader-xs {
+  @apply h-4;
+}
+.loader-sm {
+  @apply h-6;
+}
+.loader-md {
+  @apply h-8;
+}
+.loader-lg {
+  @apply h-10;
+}
+.loader-primary {
+  @apply text-primary;
+}
+.loader-secondary {
+  @apply text-secondary;
+}
+.loader-accent {
+  @apply text-accent;
+}
+.loader-success {
+  @apply text-success;
+}
+.loader-info {
+  @apply text-info;
+}
+.loader-warning {
+  @apply text-warning;
+}
+.loader-error {
+  @apply text-error;
+}
+.loader-current {
+  color: currentColor;
+}

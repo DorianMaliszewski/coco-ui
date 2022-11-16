@@ -19,7 +19,7 @@ export const BUTTON_SIZES = {
   md: 'btn-md',
   sm: 'btn-sm',
   xs: 'btn-xs',
-}
+} as const
 
 export const BUTTON_VARIANTS = {
   default: '',
@@ -33,7 +33,7 @@ export const BUTTON_VARIANTS = {
   ghost: 'btn-ghost',
   link: 'btn-link',
   glass: 'glass',
-}
+} as const
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: keyof typeof BUTTON_VARIANTS

@@ -29,6 +29,7 @@ Basic.args = {
   children: 'Basic',
   open: false,
   hasBackdrop: true,
+  withoutPortal: true,
 }
 
 export const Position: Story<DrawerProps> = () => {
@@ -36,19 +37,14 @@ export const Position: Story<DrawerProps> = () => {
 
   return (
     <>
-      <Button size="md" className="mx-1" onClick={() => setState('top')}>
-        Open top drawer
-      </Button>
-      <Button size="md" className="mx-1" onClick={() => setState('right')}>
-        Open right drawer
-      </Button>
-      <Button size="md" className="mx-1" onClick={() => setState('bottom')}>
-        Open bottom drawer
-      </Button>
-      <Button size="md" className="mx-1" onClick={() => setState('left')}>
-        Open left drawer
-      </Button>
+      <div className="flex gap-2">
+        <Button onClick={() => setState('top')}>Open top drawer</Button>
+        <Button onClick={() => setState('right')}>Open right drawer</Button>
+        <Button onClick={() => setState('bottom')}>Open bottom drawer</Button>
+        <Button onClick={() => setState('left')}>Open left drawer</Button>
+      </div>
       <Drawer
+        withoutPortal
         hasBackdrop
         position="top"
         open={state === 'top'}
@@ -57,6 +53,7 @@ export const Position: Story<DrawerProps> = () => {
         {state}
       </Drawer>
       <Drawer
+        withoutPortal
         hasBackdrop
         position="right"
         open={state === 'right'}
@@ -65,6 +62,7 @@ export const Position: Story<DrawerProps> = () => {
         {state}
       </Drawer>
       <Drawer
+        withoutPortal
         hasBackdrop
         position="bottom"
         open={state === 'bottom'}
@@ -73,6 +71,7 @@ export const Position: Story<DrawerProps> = () => {
         {state}
       </Drawer>
       <Drawer
+        withoutPortal
         hasBackdrop
         position="left"
         open={state === 'left'}

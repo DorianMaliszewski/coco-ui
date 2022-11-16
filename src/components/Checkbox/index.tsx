@@ -24,7 +24,6 @@ export interface CheckboxProps {
   'aria-labelledby'?: string
   value?: string
   onChange?: React.ChangeEventHandler<HTMLInputElement>
-  defaultChecked?: boolean
   disabled?: boolean
   name?: string
   id?: string
@@ -42,7 +41,6 @@ const Checkbox = React.forwardRef(
       'aria-labelledby': ariaLabelledBy,
       value,
       checked,
-      defaultChecked,
       onChange,
       disabled = false,
       error = false,
@@ -64,7 +62,6 @@ const Checkbox = React.forwardRef(
         type="checkbox"
         name={name}
         checked={checked}
-        defaultChecked={defaultChecked}
         value={value}
         aria-label={ariaLabel ?? `${name}-checkbox`}
         onChange={onChange}
@@ -88,7 +85,6 @@ const Checkbox = React.forwardRef(
             type="checkbox"
             name={name}
             checked={checked}
-            defaultChecked={defaultChecked}
             value={value}
             aria-labelledby={ariaLabelledBy}
             aria-label={ariaLabel}

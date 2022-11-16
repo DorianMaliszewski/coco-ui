@@ -30,6 +30,7 @@ Basic.args = {
   children: 'My awesome switch',
   id: 'test',
   value: 'on',
+  className: 'w-fit',
 }
 
 export const Position = Template.bind({})
@@ -38,22 +39,5 @@ Position.args = {
   id: 'test',
   value: 'on',
   labelPosition: 'left',
-}
-
-export const Buttons = Template.bind({})
-Buttons.args = {
-  children: 'My awesome switch',
-  id: 'test',
-  value: 'on',
-  variant: 'buttons',
-  onChildren: 'True',
-  offChildren: 'False',
-}
-
-export const Button = Template.bind({})
-Button.args = {
-  children: 'My awesome switch',
-  id: 'test',
-  value: 'on',
-  variant: 'button',
+  className: 'w-fit',
 }

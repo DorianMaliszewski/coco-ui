@@ -1,30 +1,57 @@
-import React from 'react'
+import clsx from 'clsx'
+import React, { useMemo } from 'react'
+import './index.css'
 
-const sizes = {
-  xs: 4,
-  sm: 6,
-  md: 8,
-  lg: 10,
-  xl: 14,
-  '2xl': 16,
-}
+const classes = {
+  base: 'loader',
+  variants: {
+    accent: 'loader-accent',
+    current: 'loader-current',
+    error: ' loader-error',
+    info: 'loader-info',
+    primary: 'loader-primary',
+    secondary: 'loader-secondary',
+    success: 'loader-success',
+    warning: 'loader-warning',
+  },
+  sizes: {
+    xs: 'loader-xs',
+    sm: 'loader-sm',
+    md: 'loader-md',
+    lg: 'loader-lg',
+  },
+  animated: 'loader-animated',
+} as const
 
-type LoaderSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'
 export interface LoaderProps {
-  size?: number | LoaderSize
-  color?: string
+  size?: keyof typeof classes.sizes
+  variant?: keyof typeof classes.variants
   className?: string
+  animated?: boolean
 }
+
 const Loader = ({
   size = 'md',
-  color = 'primary-800',
+  variant = 'primary',
   className = '',
+  animated,
 }: LoaderProps): JSX.Element => {
+  const computedClasses = useMemo(() => {
+    const variantClasses = variant ? classes.variants[variant] : ''
+    const sizeClasses = size ? classes.sizes[size] : ''
+
+    return clsx(
+      classes.base,
+      variantClasses,
+      sizeClasses,
+      animated && classes.animated,
+      className
+    )
+  }, [variant, size, animated, className])
+
   return (
     <svg
-      className={`animate-spin h-${sizes[size as LoaderSize] ?? size} w-${
-        sizes[size as LoaderSize] ?? size
-      } text-${color} ${className}`}
+      className={computedClasses}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
