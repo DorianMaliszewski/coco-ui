@@ -12,5 +12,5 @@ const Template: Story<TooltipProps> = (args) => <Tooltip {...args} />
 export const Basic = Template.bind({})
 Basic.args = {
   children: 'Tooltip',
-  render: 'Test',
+  text: 'Test',
 }

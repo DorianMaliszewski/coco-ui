@@ -27,7 +27,7 @@ const Template: Story<SelectProps> = ({ ...props }: SelectProps) => {
   const [value, setValue] = React.useState<ValueType>()
 
   return (
-    <>
+    <div className="flex gap-2 items-center">
       <Select
         {...props}
         value={value}
@@ -35,7 +35,7 @@ const Template: Story<SelectProps> = ({ ...props }: SelectProps) => {
         ref={ref}
       />
       <div>Value is : {value}</div>
-    </>
+    </div>
   )
 }
 

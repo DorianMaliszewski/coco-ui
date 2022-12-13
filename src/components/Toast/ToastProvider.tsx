@@ -1,4 +1,5 @@
 import React, {
+  ComponentProps,
   createContext,
   ReactNode,
   useCallback,
@@ -8,11 +9,10 @@ import React, {
   useRef,
   useState,
 } from 'react'
-import Toast, { ToastVariant } from './Toast'
-import ToastContainer from './ToastContainer'
+import Toast from './Toast'
 
 type ToastOptions = {
-  variant: ToastVariant
+  variant: ComponentProps<typeof Toast>['variant']
   callback?: () => any
   duration: number
 }
@@ -53,7 +53,7 @@ const ToastProvider = ({
       newToast.callback = info.callback
       newToast.render = render
       newToast.closed = false
-      newToast.variant = info.variant ?? 'default'
+      newToast.variant = info.variant
       newToast.duration = info.duration ?? duration
       setToasts((current) => [...current, newToast])
     },
@@ -107,18 +107,15 @@ const ToastProvider = ({
     }
   }, [toasts])
 
-  const value = useMemo(() => ({ show, error, success, info, warning }), [
-    show,
-    success,
-    info,
-    error,
-    warning,
-  ])
+  const value = useMemo(
+    () => ({ show, error, success, info, warning }),
+    [show, success, info, error, warning]
+  )
 
   return (
     <ToastContext.Provider value={value}>
       {children}
-      <ToastContainer>
+      <div className="toast">
         {toasts
           .filter(({ closed }) => !closed)
           .slice(0, maxConcurrent)
@@ -127,12 +124,13 @@ const ToastProvider = ({
               id={toast.id}
               key={toast.id}
               duration={toast.duration}
-              render={toast.render}
               variant={toast.variant}
               onClose={onCloseToast}
-            />
+            >
+              {toast.render}
+            </Toast>
           ))}
-      </ToastContainer>
+      </div>
     </ToastContext.Provider>
   )
 }

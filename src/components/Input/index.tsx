@@ -83,7 +83,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     ) : (
       <div className={classes.container}>
         <input
-          className={clsx(classes.input, error && classes.inputError)}
+          className={clsx(
+            classes.input,
+            error && classes.inputError,
+            !error && 'focus:border-primary'
+          )}
           {...props}
           ref={ref}
           id={id}
