@@ -1,3 +1,15 @@
+## [1.26.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.25.3...v1.26.0) (2022-12-13)
+
+
+### :package: Chore
+
+* update deps ([9b499e5](https://github.com/DorianMaliszewski/coco-ui/commit/9b499e51c44161f4c4e4e0f8163858545d1ce518))
+
+
+### :gear: Features
+
+* use daisy ui ([#5](https://github.com/DorianMaliszewski/coco-ui/issues/5)) ([8282f73](https://github.com/DorianMaliszewski/coco-ui/commit/8282f73b2cc1a9a3f977d5ad080b5e8e4805a20d))
+
 ### [1.25.3](https://github.com/DorianMaliszewski/coco-ui/compare/v1.25.2...v1.25.3) (2022-02-24)
 
 
