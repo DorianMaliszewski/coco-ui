@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { ComponentProps } from 'react'
 import { Story, Meta } from '@storybook/react'
-import { ToastProps, ToastVariant } from './Toast'
+import Toast, { ToastProps } from './Toast'
 import { ToastProvider } from '.'
 import { useToast } from './ToastProvider'
-import { Button, Grid } from 'index'
+import { Button } from '../../'
 
 export default {
   title: 'Components/Toast',
@@ -18,14 +18,14 @@ export default {
 } as Meta
 
 export const Basic: Story<ToastProps> = ({
-  render,
+  children,
   duration,
   variant,
 }: ToastProps) => {
   const toast = useToast()
 
   const showToast = () => {
-    toast.show(render, { duration, variant })
+    toast.show(children, { duration, variant })
   }
 
   return (
@@ -39,19 +39,20 @@ export const Basic: Story<ToastProps> = ({
 
 Basic.args = {
   duration: 3000,
-  render: 'Test message',
-  variant: 'default',
+  children: 'Test message',
+  variant: undefined,
 }
 
 export const Variants: Story<ToastProps> = () => {
   const toast = useToast()
 
-  const showToast = (variant: ToastVariant) => () => {
-    toast.show(variant, { variant })
-  }
+  const showToast =
+    (variant?: ComponentProps<typeof Toast>['variant']) => () => {
+      toast.show(variant ?? 'default', { variant })
+    }
 
   return (
-    <Grid gap={1}>
+    <div className="flex flex-col gap-1">
       <Button variant="success" size="md" onClick={showToast('success')}>
         success
       </Button>
@@ -64,9 +65,9 @@ export const Variants: Story<ToastProps> = () => {
       <Button variant="info" size="md" onClick={showToast('info')}>
         info
       </Button>
-      <Button variant="secondary" size="md" onClick={showToast('default')}>
+      <Button variant="secondary" size="md" onClick={showToast()}>
         default
       </Button>
-    </Grid>
+    </div>
   )
 }

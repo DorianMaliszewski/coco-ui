@@ -1,25 +1,33 @@
 import React from 'react'
-import { CheckIcon } from '@heroicons/react/solid'
+import clsx from 'clsx'
 
-const variants = {
-  basic: {
-    label: (checked: boolean) =>
-      `flex items-center justify-center appearance-none w-4 h-4 rounded relative ${
-        checked ? 'bg-primary-500' : 'border border-gray-300'
-      }`,
-    check: (checked: boolean) =>
-      `${checked ? 'fill-current text-background' : 'hidden'}`,
+const classes = {
+  label: 'label cursor-pointer',
+  text: 'label-text',
+  input: 'checkbox checkbox-primary',
+  inputError: 'checkbox checkbox-error',
+  inputSizes: {
+    xs: 'checkbox-xs',
+    sm: 'checkbox-sm',
+    md: 'chexbox-md',
+    lg: 'checkbox-lg',
   },
-}
+} as const
 
-type Variant = keyof typeof variants
-type LabelPosition = 'top' | 'right' | 'bottom' | 'left'
-export interface CheckboxProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface CheckboxProps {
   label?: string
-  labelPosition?: LabelPosition
-  variant?: Variant
+  labelPosition?: 'left' | 'right'
   checked: boolean
+  error?: boolean
+  size?: keyof typeof classes['inputSizes']
+  'aria-label'?: string
+  'aria-labelledby'?: string
+  value?: string
+  onChange?: React.ChangeEventHandler<HTMLInputElement>
+  disabled?: boolean
+  name?: string
+  id?: string
+  className?: string
 }
 
 const Checkbox = React.forwardRef(
@@ -29,67 +37,64 @@ const Checkbox = React.forwardRef(
       label,
       labelPosition = 'right',
       name,
-      'aria-checked': ariaChecked,
       'aria-label': ariaLabel,
       'aria-labelledby': ariaLabelledBy,
       value,
       checked,
-      defaultChecked,
       onChange,
-      variant = 'basic',
       disabled = false,
+      error = false,
+      className,
+      size,
     }: CheckboxProps,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
-    const inputRef = React.useRef<HTMLInputElement>(null)
-
-    React.useImperativeHandle(ref, () => inputRef.current as HTMLInputElement)
-
     return !label ? (
-      <label
-        aria-checked={ariaChecked || checked}
-        className={`${variants[variant]?.label(!!checked)}`}
-      >
-        <CheckIcon className={variants[variant]?.check(!!checked)} />
-        <input
-          id={id}
-          className={`appearance-none`}
-          ref={inputRef}
-          type="checkbox"
-          name={name}
-          checked={checked}
-          defaultChecked={defaultChecked}
-          value={value}
-          aria-label={ariaLabel ?? `${name}-checkbox`}
-          onChange={onChange}
-          disabled={disabled}
-        />
-      </label>
+      <input
+        id={id}
+        className={clsx(
+          !error && classes.input,
+          error && classes.inputError,
+          size && classes.inputSizes[size],
+          className
+        )}
+        ref={ref}
+        type="checkbox"
+        name={name}
+        checked={checked}
+        value={value}
+        aria-label={ariaLabel ?? `${name}-checkbox`}
+        onChange={onChange}
+        disabled={disabled}
+      />
     ) : (
-      <label
-        className="flex items-center"
-        aria-checked={ariaChecked || checked}
-      >
-        {labelPosition === 'left' && <span className="mr-1">{label}</span>}
-        <div className={variants[variant]?.label(!!checked)}>
-          <CheckIcon className={variants[variant]?.check(!!checked)} />
+      <div className={clsx('form-control', className)}>
+        <label className={classes.label}>
+          {labelPosition === 'left' ? (
+            <span className={classes.text}>{label}</span>
+          ) : null}
           <input
             disabled={disabled}
             id={id}
-            className={`appearance-none`}
-            ref={inputRef}
+            className={clsx(
+              !error && classes.input,
+              error && classes.inputError,
+              size && classes.inputSizes[size]
+            )}
+            ref={ref}
             type="checkbox"
             name={name}
             checked={checked}
-            defaultChecked={defaultChecked}
             value={value}
             aria-labelledby={ariaLabelledBy}
             aria-label={ariaLabel}
             onChange={onChange}
           />
-        </div>
-        {labelPosition === 'right' && <span className="ml-1">{label}</span>}
-      </label>
+          {labelPosition === 'right' ? (
+            <span className={classes.text}>{label}</span>
+          ) : null}
+        </label>
+      </div>
     )
   }
 )

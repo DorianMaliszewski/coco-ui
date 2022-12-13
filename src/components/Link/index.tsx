@@ -1,21 +1,52 @@
-import React from 'react'
+import clsx from 'clsx'
+import React, { useMemo } from 'react'
+
+const classes = {
+  base: 'link',
+  hover: 'link-hover',
+  variants: {
+    primary: 'link-primary',
+    neutral: 'link-neutral',
+    secondary: 'link-secondary',
+    accent: 'link-accent',
+    success: 'link-success',
+    info: 'link-info',
+    warning: 'link-warning',
+    error: 'link-error',
+  },
+} as const
 
 export interface LinkProps {
   as?: string
   className: string
   children: React.ReactNode
   to: string
+  variant: keyof typeof classes.variants
+  type?: 'hover' | 'normal'
 }
 
-const Link = ({ className, children, ...props }: LinkProps): JSX.Element => {
+const Link = ({
+  className,
+  children,
+  variant = 'primary',
+  type = 'normal',
+  ...props
+}: LinkProps): JSX.Element => {
+  const computedClasses = useMemo(() => {
+    const variantClasses = variant ? classes.variants[variant] : ''
+
+    return clsx(
+      classes.base,
+      variantClasses,
+      type === 'hover' && classes.hover,
+      className
+    )
+  }, [type, variant, className])
+
   return (
-    <button
-      role="link"
-      className={'text-primary-600 font-bold underline ' + className}
-      {...props}
-    >
+    <a className={computedClasses} {...props}>
       {children}
-    </button>
+    </a>
   )
 }
 

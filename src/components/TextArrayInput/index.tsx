@@ -21,7 +21,7 @@ export type TextArrayInputProps = AriaAttributes & {
 
 const defaultRender = ({ array, onDelete }: RenderSelectedProps) =>
   array?.map((string, index) => (
-    <Badge key={index} variant="outline" className="mr-1 px-1">
+    <Badge key={index} outline variant="primary">
       <span>{string}</span>
       <XIcon onClick={onDelete(index)} className="w-4 cursor-pointer" />
     </Badge>
@@ -81,11 +81,11 @@ const TextArrayInput = ({
   }, [value])
   return (
     <div
-      className={`flex w-full border focus-within:border-primary-600 p-2 rounded outline-none focus-within:ring-2 ring-primary-200 text-black ${
+      className={`flex w-full border focus-within:border-primary-600 gap-2 p-2 rounded outline-none focus-within:ring-2 ring-primary-200 text-black ${
         disabled ? 'opacity-50 pointer-event-none' : ''
       }`}
     >
-      <div className="flex">
+      <div className="flex gap-1">
         {renderSelected({ array, onDelete: handleDelete })}
       </div>
       <input

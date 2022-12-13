@@ -1,4 +1,3 @@
-import Root from '../src/Root'
 import '../src/index.css'
 
 export const parameters = {
@@ -16,6 +15,17 @@ export const parameters = {
       locales: '',
     },
   },
+  backgrounds: {
+    disable: true,
+  },
+}
+
+const Root = ({ children }) => {
+  const firstHtml = document.querySelector('html')
+
+  if (firstHtml) firstHtml.setAttribute('data-theme', 'light')
+
+  return children
 }
 
 export const decorators = [

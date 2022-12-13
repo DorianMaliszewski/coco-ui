@@ -1,72 +1,63 @@
-import animations from 'helpers/animations'
-import makeUUID from 'helpers/makeUUID'
-import useDebounce from 'hooks/useDebounce'
-import React from 'react'
+import clsx from 'clsx'
+import React, { useMemo } from 'react'
 
-type TooltipPosition = 'top' | 'right' | 'bottom' | 'left'
+const classes = {
+  base: 'tooltip',
+  open: 'tooltip-open',
+  variants: {
+    primary: 'tooltip-primary',
+    secondary: 'tooltip-secondary',
+    accent: 'tooltip-accent',
+    info: 'tooltip-info',
+    error: 'tooltip-error',
+    warning: 'tooltip-warning',
+    success: 'tooltip-success',
+  },
+  positions: {
+    top: 'tooltip-top',
+    bottom: 'tooltip-bottom',
+    left: 'tooltip-left',
+    right: 'tooltip-right',
+  },
+} as const
+
 export interface TooltipProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   text?: string
-  render?: React.ReactNode
   children?: React.ReactNode
-  toolptipId?: string
-  position?: TooltipPosition
+  position?: keyof typeof classes.positions
+  forceOpen?: boolean
+  variant: keyof typeof classes.variants
 }
 
 const Tooltip = ({
-  render,
+  text,
   children,
-  toolptipId,
   position = 'top',
+  forceOpen,
+  className,
+  variant,
 }: TooltipProps): JSX.Element => {
-  const [isOpen, setIsOpen] = React.useState(false)
-  const visible = useDebounce(isOpen, 200)
-  const id = React.useMemo(() => toolptipId ?? makeUUID(), [toolptipId])
-  const handlerRef = React.useRef<NodeJS.Timeout>()
-  const handleOpen = () => {
-    if (handlerRef.current) clearTimeout(handlerRef.current)
+  const computedClassNames = useMemo(() => {
+    const variantClasses = variant
+      ? classes.variants[variant] ?? undefined
+      : undefined
+    const positionClasses = position
+      ? classes.positions[position] ?? undefined
+      : undefined
 
-    if (!isOpen) {
-      setIsOpen(true)
-    }
-  }
-
-  const handleClose = () => {
-    setIsOpen(false)
-  }
-
-  const positionClassNames = React.useMemo(() => {
-    switch (position) {
-      case 'right':
-        return 'left-full ml-1'
-      case 'left':
-        return 'right-full mr-1'
-      case 'bottom':
-        return 'top-full mt-1'
-      case 'top':
-      default:
-        return 'bottom-full mb-1'
-    }
-  }, [position])
+    return clsx(
+      classes.base,
+      forceOpen ? classes.open : undefined,
+      variantClasses,
+      positionClasses,
+      className
+    )
+  }, [forceOpen, variant, position, className])
 
   return (
-    <div
-      aria-describedby={id}
-      className="relative flex"
-      onMouseEnter={handleOpen}
-      onMouseLeave={handleClose}
-    >
-      <div className="flex">{children}</div>
-      <div
-        id={id}
-        role="tooltip"
-        className={`absolute bg-white shadow-xl p-2 border border-gray-200 rounded ${positionClassNames} ${animations.fadeIn(
-          isOpen
-        )} ${!visible && !isOpen && 'sr-only'}
-        }`}
-      >
-        {render}
-      </div>
+    <div className={computedClassNames} data-tip={text}>
+      {children}
     </div>
   )
 }

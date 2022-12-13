@@ -7,7 +7,7 @@ export default {
   component: Radio,
 } as Meta
 
-export const Basic: Story<RadioProps> = ({ label, ...props }: RadioProps) => {
+export const Basic: Story<RadioProps> = ({ ...props }: RadioProps) => {
   const [isChecked, setChecked] = React.useState('1')
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,19 +19,19 @@ export const Basic: Story<RadioProps> = ({ label, ...props }: RadioProps) => {
       <Radio
         {...props}
         value={1}
-        label={label && `${label}-1`}
         checked={isChecked === '1'}
         onChange={onChange}
-        labelPosition="right"
-      />
+      >
+        Radio 1
+      </Radio>
       <Radio
         {...props}
         value={2}
-        label={label && `${label}-2`}
         checked={isChecked === '2'}
         onChange={onChange}
-        labelPosition="right"
-      />
+      >
+        Radio 2
+      </Radio>
     </div>
   )
 }
@@ -40,5 +40,5 @@ Basic.args = {
   children: 'Basic',
   value: 'test',
   name: 'test',
-  label: 'test',
+  className: 'w-fit',
 }

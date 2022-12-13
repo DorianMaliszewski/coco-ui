@@ -1,4 +1,4 @@
-import classNames from 'classnames'
+import clsx from 'clsx'
 import React, {
   ChangeEventHandler,
   FocusEventHandler,
@@ -101,7 +101,7 @@ const TextAreaLabelInside = forwardRef<
     const classes = VARIANTS.inside
     const containerClassNames = useMemo(
       () =>
-        classNames({
+        clsx({
           [classes.container.base]: true,
           [classes.container.disabled]: disabled,
           [className ?? '']: true,
@@ -111,7 +111,7 @@ const TextAreaLabelInside = forwardRef<
 
     const labelClassNames = useMemo(
       () =>
-        classNames({
+        clsx({
           [classes.label.base]: true,
           [classes.label.error]: !!error,
         }),
@@ -120,7 +120,7 @@ const TextAreaLabelInside = forwardRef<
 
     const inputClassNames = useMemo(
       () =>
-        classNames({
+        clsx({
           [classes.input.base]: true,
           [classes.input.default]: !error,
           [classes.input.error]: !!error,
@@ -190,7 +190,7 @@ const TextAreaLabelOutside = forwardRef<
 
     const containerClassNames = useMemo(
       () =>
-        classNames({
+        clsx({
           [classes.container.base]: true,
           [classes.container.disabled]: disabled,
           [className ?? '']: true,
@@ -200,7 +200,7 @@ const TextAreaLabelOutside = forwardRef<
 
     const labelClassNames = useMemo(
       () =>
-        classNames({
+        clsx({
           [classes.label.base]: true,
           [classes.label.error]: !!error,
         }),
@@ -209,7 +209,7 @@ const TextAreaLabelOutside = forwardRef<
 
     const inputClassNames = useMemo(
       () =>
-        classNames({
+        clsx({
           [classes.input.base]: true,
           [classes.input.default]: !error,
           [classes.input.error]: !!error,
@@ -276,7 +276,7 @@ const TextAreaDefault = forwardRef<HTMLTextAreaElement, InternalTextAreaProps>(
 
     const inputClassNames = useMemo(
       () =>
-        classNames({
+        clsx({
           [classes.input.base]: true,
           [classes.input.default]: !error && !disabled,
           [classes.input.error]: !!error && !disabled,

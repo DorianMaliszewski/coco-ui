@@ -1,9 +1,9 @@
-import classNames from 'classnames'
 import { Fragment, useCallback, useMemo, useState } from 'react'
 import { datesAreOnSameDay, datesOfMonthAndYear, daysOfWeek } from './helpers'
 import React from 'react'
 import Icon from '../Icon'
 import Button from '../Button'
+import clsx from 'clsx'
 
 type MonthCalendarButtonProps = {
   date?: Date
@@ -18,11 +18,11 @@ const MonthCalendarButton = ({
   const isSelected =
     selected && date ? datesAreOnSameDay(selected, date) : false
 
-  const buttonClassNames = classNames(
+  const buttonClassNames = clsx(
     'user-select-none appearance-none text-sm mb-2 h-6 w-6 rounded-full',
     {
-      ['hover:bg-primary-100 hover:text-primary-700']: !isSelected,
-      ['bg-primary-100 text-primary-700']: isSelected,
+      ['hover:bg-primary hover:text-primary-content']: !isSelected,
+      ['bg-primary text-primary-content']: isSelected,
     }
   )
 
@@ -78,11 +78,11 @@ const MonthCalendar = ({
   return (
     <div className="w-60">
       <div className="flex flex-col">
-        <div className="p-2 bg-primary-700 text-white flex items-center justify-between">
+        <div className="gap-2 bg-primary text-primary-content flex items-center justify-between">
           <Button
             aria-label="Previous"
             type="button"
-            variant="secondary"
+            variant="ghost"
             onClick={goPrevious}
           >
             <Icon name="arrow-left" size={10} />
@@ -98,7 +98,7 @@ const MonthCalendar = ({
           <Button
             aria-label="Next"
             type="button"
-            variant="secondary"
+            variant="ghost"
             onClick={goNext}
           >
             <Icon name="arrow-right" size={10} />

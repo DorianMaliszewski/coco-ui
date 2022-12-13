@@ -1,83 +1,97 @@
-import { XIcon } from '@heroicons/react/outline'
-import React from 'react'
-import useModalTransition from './useModalTransition'
-import {
-  getModalClassNames,
-  ModalAnimation,
-  ModalPosition,
-  ModalSize,
-} from './helpers'
+import React, {
+  cloneElement,
+  ReactNode,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
+import { createPortal } from 'react-dom'
+import Button from '../Button'
 
-export interface ModalProps extends React.DialogHTMLAttributes<HTMLDivElement> {
-  open?: boolean
-  onClose: () => void
-  children?: React.ReactNode
-  closeOnOverlayDoubleClick?: boolean
-  size?: ModalSize
-  position?: ModalPosition
-  animation?: ModalAnimation
-  alwaysRender?: boolean
+export type ModalProps = {
+  disclosure: JSX.Element
+  children: ((props: { close: () => void }) => JSX.Element) | ReactNode
+  withoutPortal?: boolean
+  hideOnClickOutside?: boolean
 }
-const Modal = ({
-  animation = 'fade',
-  open,
-  onClose,
+
+function Modal({
+  disclosure,
   children,
-  size = 'md',
-  position = 'center',
-  closeOnOverlayDoubleClick = true,
-  'aria-labelledby': ariaLabelledBy,
-  'aria-label': ariaLabel,
-  alwaysRender = false,
-}: ModalProps): JSX.Element => {
-  const modalState = useModalTransition({
-    defaultOpen: open,
-    onOpenDuration: 300,
-    onCloseDuration: 300,
-    callbacks: {
-      closed: onClose,
-    },
+  withoutPortal,
+  hideOnClickOutside,
+}: ModalProps): JSX.Element {
+  const [open, setOpen] = useState(false)
+  const ref = useRef<any>()
+
+  useEffect(() => {
+    const handleClick = () => {
+      setOpen(true)
+    }
+    if (ref.current) {
+      ;(ref.current as HTMLElement).addEventListener('click', handleClick)
+    }
+
+    return () => {
+      if (ref.current) {
+        ;(ref.current as HTMLElement).removeEventListener('click', handleClick)
+      }
+    }
+  }, [ref])
+
+  const Component = cloneElement(disclosure, {
+    ref,
   })
-  const onClickOutside = (event: React.MouseEvent) => {
-    event.stopPropagation()
-    if (closeOnOverlayDoubleClick) modalState.close()
+
+  const close = () => {
+    setOpen(false)
   }
 
-  const classes = React.useMemo(
-    () => getModalClassNames(animation, modalState.state, position, size),
-    [modalState.state, position, size, animation]
+  const modalContentRendered = useMemo(
+    () => (
+      <div
+        onClick={hideOnClickOutside ? close : undefined}
+        className={
+          open ? 'modal visible opacity-100 pointer-events-auto' : 'sr-only'
+        }
+      >
+        <dialog
+          open={open}
+          onClick={(event) => {
+            event.stopPropagation()
+          }}
+          className="select-all modal-box relative"
+        >
+          <Button
+            onClick={close}
+            variant="ghost"
+            size="sm"
+            className="absolute right-2 top-2"
+          >
+            ✕
+          </Button>
+          {typeof children === 'function' ? children({ close }) : children}
+        </dialog>
+      </div>
+    ),
+    [open, children, close]
   )
 
-  return open || alwaysRender ? (
-    <div
-      className={`${classes.container}`}
-      aria-labelledby={ariaLabelledBy}
-      role="dialog"
-      aria-label={ariaLabel ?? 'modal'}
-      aria-modal="true"
-    >
-      <div
-        onDoubleClick={onClickOutside}
-        className={`${classes.background}`}
-        aria-hidden="true"
-      ></div>
-      <div className={`${classes.modalContainer}`}>
-        <div
-          onDoubleClick={(event) => event.stopPropagation()}
-          className={`${classes.modal}`}
-        >
-          <XIcon
-            role="button"
-            className={classes.closeButton}
-            onClick={modalState.close}
-          />
-          {children}
-        </div>
-      </div>
-    </div>
-  ) : (
-    <></>
+  return (
+    <>
+      {Component}
+      {withoutPortal
+        ? modalContentRendered
+        : createPortal(modalContentRendered, document.body)}
+    </>
   )
 }
+
+function ModalActions({ children }: { children: ReactNode }) {
+  return <div className="modal-action">{children}</div>
+}
+
+Modal.Actions = ModalActions
 
 export default Modal

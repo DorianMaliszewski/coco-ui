@@ -1,11 +1,10 @@
-import classNames from 'classnames'
+import clsx from 'clsx'
 import React from 'react'
 import { SelectOptionType, ValueType } from '.'
 import Option from './Option'
 
-const optionListClassNames =
-  'z-100 absolute top-full left-0 border shadow bg-white mt-1 max-h-40 w-full overflow-y-scroll'
-
+const listContainerClasses =
+  'menu dropdown-content shadow bg-base-300 rounded-box w-52'
 type OptionListProps = {
   focused: string | number
   isOpen?: boolean
@@ -23,11 +22,8 @@ const OptionList = ({
   value,
   isMulti,
 }: OptionListProps): JSX.Element => (
-  <div
-    className={classNames({
-      [optionListClassNames]: true,
-      'sr-only': !isOpen,
-    })}
+  <ul
+    className={clsx(listContainerClasses, { 'sr-only': !isOpen })}
     role="listbox"
   >
     {options.map((option: SelectOptionType) => (
@@ -40,7 +36,7 @@ const OptionList = ({
         value={value}
       />
     ))}
-  </div>
+  </ul>
 )
 
 OptionList.displayName = 'OptionList'

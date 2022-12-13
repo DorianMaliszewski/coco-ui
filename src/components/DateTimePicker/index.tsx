@@ -9,7 +9,7 @@ import React, {
   useRef,
   useState,
 } from 'react'
-import classNames from 'classnames'
+import clsx from 'clsx'
 import Icon from '../Icon'
 import useClickOutsideHandler from '../../hooks/useClickOutsideHandler'
 import MonthCalendar from './MonthCalendar'
@@ -111,8 +111,9 @@ const DateTimePicker = forwardRef<HTMLInputElement, DateTimePickerProps>(
 
     const containerClassNames = useMemo(
       () =>
-        classNames({
-          ['absolute top-full shadow rounded overflow-hidden z-100 bg-background']: true,
+        clsx({
+          ['absolute top-full shadow rounded overflow-hidden z-100 bg-background']:
+            true,
           ['sr-only']: !open,
         }),
       [open]
@@ -120,7 +121,7 @@ const DateTimePicker = forwardRef<HTMLInputElement, DateTimePickerProps>(
 
     const iconClassNames = useMemo(
       () =>
-        classNames('absolute right-2 bottom-3', {
+        clsx('absolute right-2 bottom-3', {
           'text-gray-400': !error && !open,
           'text-primary-700': !error && open,
           'text-error-600': error,
