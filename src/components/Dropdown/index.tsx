@@ -47,6 +47,11 @@ const ButtonItem = (props: ButtonItemProps) => (
   </li>
 )
 
+ButtonItem.displayName = 'Dropdown.ButtonItem'
+Content.displayName = 'Dropdown.Content'
+LinkItem.displayName = 'Dropdown.LinkItem'
+Button.displayName = 'Dropdown.Button'
+
 Dropdown.Content = Content
 Dropdown.Button = Button
 Dropdown.LinkItem = LinkItem
