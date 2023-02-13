@@ -10,10 +10,12 @@ import { createPortal } from 'react-dom'
 import Button from '../Button'
 
 export type ModalProps = {
-  disclosure: JSX.Element
+  disclosure?: JSX.Element
   children: ((props: { close: () => void }) => JSX.Element) | ReactNode
   withoutPortal?: boolean
   hideOnClickOutside?: boolean
+  open?: boolean
+  onClose?: () => void
 }
 
 function Modal({
@@ -21,31 +23,49 @@ function Modal({
   children,
   withoutPortal,
   hideOnClickOutside,
+  open: openProp,
+  onClose,
 }: ModalProps): JSX.Element {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(openProp && onClose ? openProp : false)
   const ref = useRef<any>()
 
   useEffect(() => {
-    const handleClick = () => {
-      setOpen(true)
-    }
-    if (ref.current) {
-      ;(ref.current as HTMLElement).addEventListener('click', handleClick)
-    }
-
-    return () => {
+    if (!openProp && !onClose) {
+      const handleClick = () => {
+        setOpen(true)
+      }
       if (ref.current) {
-        ;(ref.current as HTMLElement).removeEventListener('click', handleClick)
+        ;(ref.current as HTMLElement).addEventListener('click', handleClick)
+      }
+
+      return () => {
+        if (ref.current) {
+          ;(ref.current as HTMLElement).removeEventListener(
+            'click',
+            handleClick
+          )
+        }
       }
     }
-  }, [ref])
 
-  const Component = cloneElement(disclosure, {
-    ref,
-  })
+    console.log(open, openProp)
+    if (onClose && openProp !== open) {
+      setOpen(!!openProp)
+    }
+  }, [ref, openProp, onClose])
+
+  const Component = disclosure
+    ? cloneElement(disclosure, {
+        ref,
+      })
+    : undefined
 
   const close = () => {
-    setOpen(false)
+    if (onClose) {
+      onClose()
+    } else {
+      setOpen(false)
+    }
   }
 
   const modalContentRendered = useMemo(
@@ -80,7 +100,7 @@ function Modal({
 
   return (
     <>
-      {Component}
+      {Component ? Component : null}
       {withoutPortal
         ? modalContentRendered
         : createPortal(modalContentRendered, document.body)}
