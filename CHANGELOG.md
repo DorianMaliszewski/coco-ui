@@ -1,3 +1,10 @@
+### [1.27.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.27.0...v1.27.1) (2023-02-13)
+
+
+### :bug: Bug Fixes
+
+* className drill ([65d4e41](https://github.com/DorianMaliszewski/coco-ui/commit/65d4e41420acac43074f87af4ebeadb089f7265e))
+
 ## [1.27.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.26.0...v1.27.0) (2023-02-13)
 
 
