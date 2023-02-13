@@ -226,11 +226,10 @@ function Select(
     }
   }, [])
 
-  const inputClassName = clsx(
-    inputClasses,
-    { [errorClasses]: error, [disabledClasses]: disabled },
-    className
-  )
+  const inputClassName = clsx(inputClasses, {
+    [errorClasses]: error,
+    [disabledClasses]: disabled,
+  })
 
   const valueRender = useMemo(
     () =>
@@ -247,7 +246,7 @@ function Select(
     <div
       onFocus={() => setOpen(true)}
       onBlur={() => setOpen(false)}
-      className="dropdown"
+      className={clsx('dropdown', className)}
       aria-expanded={isOpen}
       aria-disabled={disabled}
     >

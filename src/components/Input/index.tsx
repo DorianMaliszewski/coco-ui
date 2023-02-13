@@ -81,7 +81,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         ) : null}
       </div>
     ) : (
-      <div className={classes.container}>
+      <div className={clsx(classes.container, className)}>
         <input
           className={clsx(
             classes.input,
