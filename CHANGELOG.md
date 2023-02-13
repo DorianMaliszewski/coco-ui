@@ -1,3 +1,15 @@
+## [1.27.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.26.0...v1.27.0) (2023-02-13)
+
+
+### :gear: Features
+
+* handle controlled modals ([3ac8268](https://github.com/DorianMaliszewski/coco-ui/commit/3ac826837ec17799163800f8e480a08d3b31dee0))
+
+
+### :package: Chore
+
+* upgrade packages ([6bb37b5](https://github.com/DorianMaliszewski/coco-ui/commit/6bb37b5863d464dd6878942fcb2a6eac4a244a47))
+
 ## [1.26.0](https://github.com/DorianMaliszewski/coco-ui/compare/v1.25.3...v1.26.0) (2022-12-13)
 
 
