@@ -1,27 +1,9 @@
-import { CheckIcon } from '@heroicons/react/solid'
-import clsx from 'clsx'
-import React, { KeyboardEvent, MouseEvent, useCallback, useMemo } from 'react'
+import React, { MouseEvent, useMemo } from 'react'
 import { SelectOptionType, ValueType } from '.'
 
 export interface RenderSelectOptionProps {
   option: SelectOptionType
   isSelected?: boolean
-}
-
-const optionClassNames = {
-  base: 'truncate py-1 px-1 cursor-pointer hover:bg-primary-300 hover:text-white',
-  default: 'text-foreground',
-}
-
-const selectedClassNames = 'text-primary-600'
-const focusedClassNames = 'bg-primary-600 text-white'
-
-const KEYS = {
-  ArrowDown: 'ArrowDown',
-  ArrowUp: 'ArrowUp',
-  Tab: 'Tab',
-  Escape: 'Escape',
-  Enter: 'Enter',
 }
 
 interface OptionProps {
@@ -51,6 +33,7 @@ const Option = ({
     <li className={isSelected ? 'bordered' : ''}>
       <button
         role="option"
+        tabIndex={-1}
         className={isFocused ? 'active' : ''}
         onClick={(event) => onOptionClick(option, event)}
       >

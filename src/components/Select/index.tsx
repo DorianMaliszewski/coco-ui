@@ -4,20 +4,15 @@ import React, {
   ForwardedRef,
   forwardRef,
   MouseEvent,
-  useEffect,
   useMemo,
   useState,
   useRef,
   useCallback,
 } from 'react'
-import { ChevronDownIcon } from '@heroicons/react/solid'
 import OptionList from './OptionList'
-import Loader from 'components/Loader'
 import useClickOutsideHandler from 'hooks/useClickOutsideHandler'
-import { SelectVariant, SelectVariantClassNames } from './variant'
 import clsx from 'clsx'
 
-const baseClasses = 'select select-bordered'
 const errorClasses = 'select-error'
 const disabledClasses = 'select-disabled'
 const inputClasses = 'select select-bordered'
@@ -36,13 +31,11 @@ export type SelectProps = {
   options: SelectOptionType[]
   placeholder?: string
   label?: string
-  variant?: SelectVariant
   onChange?: (result: ValueType) => unknown
   value: ValueType
   disabled?: boolean
   readOnly?: boolean
   tabIndex?: number
-  isLoading?: boolean
   isSearchable?: boolean
   isMulti?: boolean
   error?: boolean | string
@@ -82,9 +75,7 @@ function Select(
     value = isMulti ? [] : undefined,
     disabled,
     label,
-    variant = 'outside',
     tabIndex,
-    isLoading,
     isSearchable,
     error,
     required,

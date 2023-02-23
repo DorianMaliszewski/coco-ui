@@ -39,9 +39,7 @@ const Template: Story<SelectProps> = ({ ...props }: SelectProps) => {
   )
 }
 
-Template.args = {
-  variant: 'inside',
-}
+Template.args = {}
 
 export const Basic = Template.bind({})
 Basic.decorators = [
@@ -74,7 +72,6 @@ export const Labeled = Template.bind({})
 Labeled.args = {
   label: 'My awesome label',
   options: fakeOptions,
-  variant: 'outside',
 }
 
 export const Multi = Template.bind({})
