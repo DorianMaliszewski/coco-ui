@@ -1,3 +1,15 @@
+### [1.27.2](https://github.com/DorianMaliszewski/coco-ui/compare/v1.27.1...v1.27.2) (2023-02-23)
+
+
+### :zap: Refactor
+
+* display name dropdown ([ac246ae](https://github.com/DorianMaliszewski/coco-ui/commit/ac246aea8d2dbd98b191a53b11a6940036bb57c3))
+
+
+### :bug: Bug Fixes
+
+* tabindex option ([cc862f1](https://github.com/DorianMaliszewski/coco-ui/commit/cc862f18a3d66db5a064e9f793f1ba00c06d71c8))
+
 ### [1.27.1](https://github.com/DorianMaliszewski/coco-ui/compare/v1.27.0...v1.27.1) (2023-02-13)
 
 
